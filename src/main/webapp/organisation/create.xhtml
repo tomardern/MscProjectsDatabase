@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"	
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{organisationBean.id}"/>
+		<f:event type="preRenderView" listener="#{organisationBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Organisation"/>
+
+	<ui:define name="header">
+		Organisation
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty organisationBean.id}">
+				Edit existing Organisation
+			</c:when>
+			<c:otherwise>
+				Create a new Organisation
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="organisationBeanOrganisationName" value="Name:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationName" required="true" value="#{organisationBean.organisation.name}"/>
+					<h:message for="organisationBeanOrganisationName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationUsername" required="true" value="#{organisationBean.organisation.username}"/>
+					<h:message for="organisationBeanOrganisationUsername" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}"/>
+					<h:message for="organisationBeanOrganisationPassword" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="organisationBeanOrganisationEmail" value="Email:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationEmail" required="true" value="#{organisationBean.organisation.email}"/>
+					<h:message for="organisationBeanOrganisationEmail" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="organisationBeanOrganisationTelephone" value="Telephone:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationTelephone" required="true" value="#{organisationBean.organisation.telephone}"/>
+					<h:message for="organisationBeanOrganisationTelephone" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="organisationBeanOrganisationFax" value="Fax:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationFax" value="#{organisationBean.organisation.fax}"/>
+					<h:message for="organisationBeanOrganisationFax" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="organisationBeanOrganisationOrgname" value="Orgname:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationOrgname" required="true" value="#{organisationBean.organisation.orgname}"/>
+					<h:message for="organisationBeanOrganisationOrgname" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="organisationBeanOrganisationDrescription" value="Drescription:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationDrescription" value="#{organisationBean.organisation.drescription}"/>
+					<h:message for="organisationBeanOrganisationDrescription" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="organisationBeanOrganisationAddress" value="Address:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationAddress" value="#{organisationBean.organisation.address}"/>
+					<h:message for="organisationBeanOrganisationAddress" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="organisationBeanOrganisationWebsite" value="Website:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationWebsite" value="#{organisationBean.organisation.website}"/>
+					<h:message for="organisationBeanOrganisationWebsite" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="organisationBeanOrganisationVerified" value="Verified:"/>
+				<h:panelGroup>
+					<h:selectBooleanCheckbox id="organisationBeanOrganisationVerified" value="#{organisationBean.organisation.verified}"/>
+					<h:message for="organisationBeanOrganisationVerified" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="organisationBeanOrganisationAdded" value="Added:"/>
+				<h:panelGroup>
+					<h:inputText id="organisationBeanOrganisationAdded" value="#{organisationBean.organisation.added}">
+						<f:convertDateTime type="date"/>
+					</h:inputText>
+					<h:message for="organisationBeanOrganisationAdded" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="organisationBeanOrganisationProjects" value="Projects:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{organisationBean.organisation.projects}"/>
+					<h:dataTable id="organisationBeanOrganisationProjects" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name"/>
+							</f:facet>
+							<h:link outcome="/project/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemName" value="#{_item.name}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="projectBeanAddName" value="#{projectBean.add.name}"/>
+								<h:message for="projectBeanAddName" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Question"/>
+							</f:facet>
+							<h:link outcome="/project/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemQuestion" value="#{_item.question}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="projectBeanAddQuestion" value="#{projectBean.add.question}"/>
+								<h:message for="projectBeanAddQuestion" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Description"/>
+							</f:facet>
+							<h:link outcome="/project/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemDescription" value="#{_item.description}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="projectBeanAddDescription" value="#{projectBean.add.description}"/>
+								<h:message for="projectBeanAddDescription" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Deadline"/>
+							</f:facet>
+							<h:link outcome="/project/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemDeadline" value="#{_item.deadline}">
+									<f:convertDateTime type="date"/>
+								</h:outputText>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="projectBeanAddDeadline" value="#{projectBean.add.deadline}">
+									<f:convertDateTime type="date"/>
+								</h:inputText>
+								<h:message for="projectBeanAddDeadline" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column footerClass="remove-column" headerClass="remove-column">
+							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<f:facet name="footer">
+								<h:commandLink action="#{_collection.add(projectBean.added)}" id="organisationBeanOrganisationProjectsAdd" styleClass="add-button">
+									<f:setPropertyActionListener target="#{projectBean.add.organisation}" value="#{organisationBean.organisation}"/>
+								</h:commandLink>
+							</f:facet>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{organisationBean.update}" styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test="#{!empty organisationBean.id}">
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value="#{organisationBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{organisationBean.delete}" styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
