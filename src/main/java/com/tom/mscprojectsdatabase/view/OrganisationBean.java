@@ -122,7 +122,7 @@ public class OrganisationBean implements Serializable
          if (this.id == null)
          {
             this.entityManager.persist(this.organisation);
-            return "search?faces-redirect=true";
+            return "created";
          }
          else
          {

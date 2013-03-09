@@ -61,7 +61,7 @@ public class ProjectBean implements Serializable
       this.id = id;
    }
 
-   private Project project;
+    private Project project = new Project();
 
    public Project getProject()
    {
@@ -81,6 +81,18 @@ public class ProjectBean implements Serializable
       return "create?faces-redirect=true";
    }
 
+   
+   public void startCreate(){
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
+
+      this.project = this.example; 
+       
+   }
+   
+   
    public void retrieve()
    {
 
@@ -110,20 +122,42 @@ public class ProjectBean implements Serializable
       return this.entityManager.find(Project.class, id);
    }
 
+      /*
+    * Support updating and deleting Project entities
+    */
+
+   public String createProject()
+   {
+      //this.conversation.end();
+
+      try
+      {
+            this.entityManager.persist(this.project);
+            return "created";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
+   
+   
    /*
     * Support updating and deleting Project entities
     */
 
    public String update()
    {
-      this.conversation.end();
+      //this.conversation.end();
 
       try
       {
          if (this.id == null)
          {
+           
             this.entityManager.persist(this.project);
-            return "search?faces-redirect=true";
+            return "deliverables?faces-redirect=true&id=" + this.project.getId();
          }
          else
          {

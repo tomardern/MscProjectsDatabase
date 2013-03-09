@@ -105,98 +105,21 @@
 				<h:outputText/>
 				<h:outputLabel for="organisationBeanOrganisationAdded" value="Added:"/>
 				<h:panelGroup>
-					<h:inputText id="organisationBeanOrganisationAdded" value="#{organisationBean.organisation.added}">
+					<h:inputText styleClass="date" id="organisationBeanOrganisationAdded" value="#{organisationBean.organisation.added}">
 						<f:convertDateTime type="date"/>
 					</h:inputText>
 					<h:message for="organisationBeanOrganisationAdded" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="organisationBeanOrganisationProjects" value="Projects:"/>
-				<h:panelGroup>
-					<ui:param name="_collection" value="#{organisationBean.organisation.projects}"/>
-					<h:dataTable id="organisationBeanOrganisationProjects" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Name"/>
-							</f:facet>
-							<h:link outcome="/project/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemName" value="#{_item.name}"/>
-							</h:link>
-							<f:facet name="footer">
-								<h:inputText id="projectBeanAddName" value="#{projectBean.add.name}"/>
-								<h:message for="projectBeanAddName" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Question"/>
-							</f:facet>
-							<h:link outcome="/project/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemQuestion" value="#{_item.question}"/>
-							</h:link>
-							<f:facet name="footer">
-								<h:inputText id="projectBeanAddQuestion" value="#{projectBean.add.question}"/>
-								<h:message for="projectBeanAddQuestion" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Description"/>
-							</f:facet>
-							<h:link outcome="/project/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemDescription" value="#{_item.description}"/>
-							</h:link>
-							<f:facet name="footer">
-								<h:inputText id="projectBeanAddDescription" value="#{projectBean.add.description}"/>
-								<h:message for="projectBeanAddDescription" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Deadline"/>
-							</f:facet>
-							<h:link outcome="/project/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemDeadline" value="#{_item.deadline}">
-									<f:convertDateTime type="date"/>
-								</h:outputText>
-							</h:link>
-							<f:facet name="footer">
-								<h:inputText id="projectBeanAddDeadline" value="#{projectBean.add.deadline}">
-									<f:convertDateTime type="date"/>
-								</h:inputText>
-								<h:message for="projectBeanAddDeadline" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
-							<f:facet name="footer">
-								<h:commandLink action="#{_collection.add(projectBean.added)}" id="organisationBeanOrganisationProjectsAdd" styleClass="add-button">
-									<f:setPropertyActionListener target="#{projectBean.add.organisation}" value="#{organisationBean.organisation}"/>
-								</h:commandLink>
-							</f:facet>
-						</h:column>
-					</h:dataTable>
-				</h:panelGroup>
-				<h:outputText/>
+
 			</h:panelGrid>
 
 			<div class="buttons">
-				<h:commandLink value="Save" action="#{organisationBean.update}" styleClass="btn btn-primary"/>
-				<c:choose>
-					<c:when test="#{!empty organisationBean.id}">
-						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
-							<f:param name="id" value="#{organisationBean.id}"/>
-						</h:link>
-						<h:commandLink value="Delete" action="#{organisationBean.delete}" styleClass="btn btn-primary"/>
-					</c:when>
-					<c:otherwise>
-						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
-					</c:otherwise>
-				</c:choose>
+	                               
+                                 <h:commandLink value="Save" action="#{organisationBean.update}"  styleClass="btn btn-primary">
+                                        <f:setPropertyActionListener target="#{projectBean.project.organisation}" value="#{organisationBean.organisation}"/>
+                                </h:commandLink>
+                            
 			</div>
 		</h:form>
 	</ui:define>

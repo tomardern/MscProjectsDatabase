@@ -44,7 +44,7 @@
 				<h:outputText value="*"/>
 				<h:outputLabel for="deliverableBeanDeliverableDeadline" value="Deadline:"/>
 				<h:panelGroup>
-					<h:inputText id="deliverableBeanDeliverableDeadline" required="true" value="#{deliverableBean.deliverable.deadline}">
+                                    <h:inputText styleClass="date" id="deliverableBeanDeliverableDeadline" required="true" value="#{deliverableBean.deliverable.deadline}">
 						<f:convertDateTime type="date"/>
 					</h:inputText>
 					<h:message for="deliverableBeanDeliverableDeadline" styleClass="error"/>
