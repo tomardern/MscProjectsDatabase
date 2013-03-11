@@ -30,394 +30,315 @@ import com.tom.mscprojectsdatabase.model.Project_;
 import javax.ejb.EJB;
 
 /**
- * Backing bean for Project entities.
- * <p>
- * This class provides CRUD functionality for all Project entities. It focuses
- * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
- * state management, <tt>PersistenceContext</tt> for persistence,
- * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
- * custom base class.
+ * Backing bean for Project entities. <p> This class provides CRUD functionality
+ * for all Project entities. It focuses purely on Java EE 6 standards (e.g.
+ * <tt>&#64;ConversationScoped</tt> for state management,
+ * <tt>PersistenceContext</tt> for persistence, <tt>CriteriaBuilder</tt> for
+ * searches) rather than introducing a CRUD framework or custom base class.
  */
-
 @Named
 @Stateful
 @ConversationScoped
-public class ProjectBean implements Serializable
-{
+public class ProjectBean implements Serializable {
+
     @EJB
     private OrganisationBean organisationBean;
+    private static final long serialVersionUID = 1L;
 
-   private static final long serialVersionUID = 1L;
+    /*
+     * Support creating and retrieving Project entities
+     */
+    private Long orgid;
+    private Long id;
 
-   /*
-    * Support creating and retrieving Project entities
-    */
+    public Long getId() {
+        return this.id;
+    }
 
-   private Long orgid;
-  
-   
-   
-   
-   private Long id;
-
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
-
+    public void setId(Long id) {
+        this.id = id;
+    }
     private Project project = new Project();
 
-   public Project getProject()
-   {
-      return this.project;
-   }
+    public Project getProject() {
+        return this.project;
+    }
+    @Inject
+    private Conversation conversation;
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
 
-   @Inject
-   private Conversation conversation;
+    public String create() {
 
-   @PersistenceContext(type = PersistenceContextType.EXTENDED)
-   private EntityManager entityManager;
+        this.conversation.begin();
+        return "create?faces-redirect=true";
+    }
 
-   public String create()
-   {
+    public void startCreate() {
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+        }
 
-      this.conversation.begin();
-      return "create?faces-redirect=true";
-   }
+        this.project = this.example;
 
-   
-   public void startCreate(){
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-      }
+    }
 
-      this.project = this.example; 
-       
-   }
-   
-   public String finish(){
-        
-       return "/organisation/panel?faces-redirect=true&registration=complete&id=" + this.project.getOrganisation().getId();
-       
-   }
-   
-   
-   public void retrieve()
-   {
+    public String finish() {
 
-      if (FacesContext.getCurrentInstance().isPostback())
-      {
+        return "/organisation/panel?faces-redirect=true&registration=complete&id=" + this.project.getOrganisation().getId();
+
+    }
+
+    public void retrieve() {
+
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
+
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+        }
+
+        if (this.id == null) {
+            this.project = this.example;
+        } else {
+            this.project = findById(getId());
+        }
+    }
+
+    public void retrieveDelierable() {
+
+        /* Remove conversations to allow for proper deletion :) 
+         * if (FacesContext.getCurrentInstance().isPostback())
+         {
          return;
-      }
+         } */
 
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-      }
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+        }
 
-      if (this.id == null)
-      {
-         this.project = this.example;
-      }
-      else
-      {
-         this.project = findById(getId());
-      }
-   }
-   
-   
-      public void retrieveDelierable()
-   {
+        if (this.id == null) {
+            this.project = this.example;
+        } else {
+            this.project = findById(getId());
+        }
 
-      /* Remove conversations to allow for proper deletion :) 
-       * if (FacesContext.getCurrentInstance().isPostback())
-      {
-         return;
-      } */
+        update();
 
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-      }
+    }
 
-      if (this.id == null)
-      {
-         this.project = this.example;
-      }
-      else
-      {
-         this.project = findById(getId());
-      }
-      
-      update();
-      
-   }
+    public Project findById(Long id) {
 
-   public Project findById(Long id)
-   {
+        return this.entityManager.find(Project.class, id);
+    }
 
-      return this.entityManager.find(Project.class, id);
-   }
+    /*
+     * Support updating and deleting Project entities
+     */
+    public String createProject() {
+        //this.conversation.end();
 
-      /*
-    * Support updating and deleting Project entities
-    */
-
-   public String createProject()
-   {
-      //this.conversation.end();
-
-      try
-      {
+        try {
             this.entityManager.persist(this.project);
             return "created";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
-   
-   
-   /*
-    * Support updating and deleting Project entities
-    */
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   public String update()
-   {
-      //this.conversation.end();
+    /*
+     * Support updating and deleting Project entities
+     */
+    public String update() {
+        //this.conversation.end();
 
-      try
-      {
-         if (this.id == null)
-         {
-           
-                                   
-            if (this.getOrgid() != null){
-                this.project.setOrganisation(organisationBean.findById(this.getOrgid()));
-            }         
-                        
-            this.entityManager.persist(this.project);
-            return "deliverables?faces-redirect=true&id=" + this.project.getId();
-         }
-         else
-         {
-            this.entityManager.merge(this.project);
-            return "deliverables?faces-redirect=true&id=" + this.project.getId();
-         }
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+        try {
+            if (this.id == null) {
+                
+                if (this.getOrgid() != null) {
+                    this.project.setOrganisation(organisationBean.findById(this.getOrgid()));
+                }
 
-   public String delete()
-   {
-      this.conversation.end();
+                this.entityManager.persist(this.project);
+                return "deliverables?faces-redirect=true&id=" + this.project.getId();
+            } else {
+                this.entityManager.merge(this.project);
+                if (this.getOrgid() == null) {
+                    return "deliverables?faces-redirect=true&id=" + this.project.getId();
+                } else {
+                   return "/organisation/panel?faces-redirect=true&result=projupdated&id=" + this.getOrgid();           
+                }
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-      try
-      {
-         this.entityManager.remove(findById(getId()));
-         this.entityManager.flush();
-         return "search?faces-redirect=true";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public String delete() {
+        this.conversation.end();
 
-   /*
-    * Support searching Project entities with pagination
-    */
+        try {
+            this.entityManager.remove(findById(getId()));
+            this.entityManager.flush();
+            return "search?faces-redirect=true";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   private int page;
-   private long count;
-   private List<Project> pageItems;
+    /*
+     * Support searching Project entities with pagination
+     */
+    private int page;
+    private long count;
+    private List<Project> pageItems;
+    private Project example = new Project();
 
-   private Project example = new Project();
+    public int getPage() {
+        return this.page;
+    }
 
-   public int getPage()
-   {
-      return this.page;
-   }
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+    public int getPageSize() {
+        return 1000; //TODO: Maybe make this set on a per page basis
+    }
 
-   public int getPageSize()
-   {
-      return 1000; //TODO: Maybe make this set on a per page basis
-   }
+    public Project getExample() {
+        return this.example;
+    }
 
-   public Project getExample()
-   {
-      return this.example;
-   }
+    public void setExample(Project example) {
+        this.example = example;
+    }
 
-   public void setExample(Project example)
-   {
-      this.example = example;
-   }
+    public void search() {
+        this.page = 0;
+    }
 
-   public void search()
-   {
-      this.page = 0;
-   }
+    public void paginate() {
 
-   public void paginate()
-   {
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        // Populate this.count
 
-      // Populate this.count
+        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+        Root<Project> root = countCriteria.from(Project.class);
+        countCriteria = countCriteria.select(builder.count(root)).where(
+                getSearchPredicates(root));
+        this.count = this.entityManager.createQuery(countCriteria)
+                .getSingleResult();
 
-      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<Project> root = countCriteria.from(Project.class);
-      countCriteria = countCriteria.select(builder.count(root)).where(
-            getSearchPredicates(root));
-      this.count = this.entityManager.createQuery(countCriteria)
-            .getSingleResult();
+        // Populate this.pageItems
 
-      // Populate this.pageItems
+        CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
+        root = criteria.from(Project.class);
+        TypedQuery<Project> query = this.entityManager.createQuery(
+                criteria.select(root).where(getSearchPredicates(root)).orderBy(builder.desc(root.get(Project_.id))));
 
-      CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
-      root = criteria.from(Project.class);
-      TypedQuery<Project> query = this.entityManager.createQuery(
-              criteria.select(root).where(getSearchPredicates(root)).orderBy(builder.desc(root.get(Project_.id))) 
-              );   
-      
-    query.setFirstResult(this.page * getPageSize()).setMaxResults(
-    getPageSize());
+        query.setFirstResult(this.page * getPageSize()).setMaxResults(
+                getPageSize());
 
-      
-      
-      this.pageItems = query.getResultList();
-   }
 
-   private Predicate[] getSearchPredicates(Root<Project> root)
-   {       
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      String name = this.example.getName();
-      if (name != null && !"".equals(name))
-      {
-         predicatesList.add(builder.like(root.<String> get("name"), '%' + name + '%'));
-      }
-      String question = this.example.getQuestion();
-      if (question != null && !"".equals(question))
-      {
-         predicatesList.add(builder.like(root.<String> get("question"), '%' + question + '%'));
-      }
-      String description = this.example.getDescription();
-      if (description != null && !"".equals(description))
-      {
-         predicatesList.add(builder.like(root.<String> get("description"), '%' + description + '%'));
-      }
-      String notes = this.example.getNotes();
-      if (notes != null && !"".equals(notes))
-      {
-         predicatesList.add(builder.like(root.<String> get("notes"), '%' + notes + '%'));
-      }
-      Organisation organisation = this.example.getOrganisation();
-      if (organisation != null)
-      {
-         predicatesList.add(builder.equal(root.get("organisation"), organisation));
-      }
+        this.pageItems = query.getResultList();
+    }
 
-      return predicatesList.toArray(new Predicate[predicatesList.size()]);
-   }
+    private Predicate[] getSearchPredicates(Root<Project> root) {
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-   
-   
-   public List<Project> getPageItems()
-   {
-      return this.pageItems;
-   }
+        String name = this.example.getName();
+        if (name != null && !"".equals(name)) {
+            predicatesList.add(builder.like(root.<String>get("name"), '%' + name + '%'));
+        }
+        String question = this.example.getQuestion();
+        if (question != null && !"".equals(question)) {
+            predicatesList.add(builder.like(root.<String>get("question"), '%' + question + '%'));
+        }
+        String description = this.example.getDescription();
+        if (description != null && !"".equals(description)) {
+            predicatesList.add(builder.like(root.<String>get("description"), '%' + description + '%'));
+        }
+        String notes = this.example.getNotes();
+        if (notes != null && !"".equals(notes)) {
+            predicatesList.add(builder.like(root.<String>get("notes"), '%' + notes + '%'));
+        }
+        Organisation organisation = this.example.getOrganisation();
+        if (organisation != null) {
+            predicatesList.add(builder.equal(root.get("organisation"), organisation));
+        }
 
-   public long getCount()
-   {
-      return this.count;
-   }
+        return predicatesList.toArray(new Predicate[predicatesList.size()]);
+    }
 
-   /*
-    * Support listing and POSTing back Project entities (e.g. from inside an
-    * HtmlSelectOneMenu)
-    */
+    public List<Project> getPageItems() {
+        return this.pageItems;
+    }
 
-   public List<Project> getAll()
-   {
+    public long getCount() {
+        return this.count;
+    }
 
-      CriteriaQuery<Project> criteria = this.entityManager
-            .getCriteriaBuilder().createQuery(Project.class);
-      return this.entityManager.createQuery(
-            criteria.select(criteria.from(Project.class))).getResultList();
-   }
+    /*
+     * Support listing and POSTing back Project entities (e.g. from inside an
+     * HtmlSelectOneMenu)
+     */
+    public List<Project> getAll() {
 
-   @Resource
-   private SessionContext sessionContext;
+        CriteriaQuery<Project> criteria = this.entityManager
+                .getCriteriaBuilder().createQuery(Project.class);
+        return this.entityManager.createQuery(
+                criteria.select(criteria.from(Project.class))).getResultList();
+    }
+    @Resource
+    private SessionContext sessionContext;
 
-   public Converter getConverter()
-   {
+    public Converter getConverter() {
 
-      final ProjectBean ejbProxy = this.sessionContext.getBusinessObject(ProjectBean.class);
+        final ProjectBean ejbProxy = this.sessionContext.getBusinessObject(ProjectBean.class);
 
-      return new Converter()
-      {
+        return new Converter() {
+            @Override
+            public Object getAsObject(FacesContext context,
+                    UIComponent component, String value) {
 
-         @Override
-         public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
-         {
-
-            return ejbProxy.findById(Long.valueOf(value));
-         }
-
-         @Override
-         public String getAsString(FacesContext context,
-               UIComponent component, Object value)
-         {
-
-            if (value == null)
-            {
-               return "";
+                return ejbProxy.findById(Long.valueOf(value));
             }
 
-            return String.valueOf(((Project) value).getId());
-         }
-      };
-   }
+            @Override
+            public String getAsString(FacesContext context,
+                    UIComponent component, Object value) {
 
-   /*
-    * Support adding children to bidirectional, one-to-many tables
-    */
+                if (value == null) {
+                    return "";
+                }
 
-   private Project add = new Project();
+                return String.valueOf(((Project) value).getId());
+            }
+        };
+    }
 
-   public Project getAdd()
-   {
-      return this.add;
-   }
+    /*
+     * Support adding children to bidirectional, one-to-many tables
+     */
+    private Project add = new Project();
 
-   public Project getAdded()
-   {
-      Project added = this.add;
-      this.add = new Project();
-      return added;
-   }
+    public Project getAdd() {
+        return this.add;
+    }
+
+    public Project getAdded() {
+        Project added = this.add;
+        this.add = new Project();
+        return added;
+    }
 
     /**
      * @return the orgid

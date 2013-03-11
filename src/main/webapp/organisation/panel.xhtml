@@ -17,8 +17,8 @@
 
     <ui:define name="breadcrumb" >
         <h:outputText styleClass="message good" value="Project has been added and is awaiting verification"  rendered="#{param.registration == 'complete'}" /> 
-        <h:outputText styleClass="message good" value="Profile has been updated"  rendered="#{param.result == 'updated'}" />        
-        
+        <h:outputText styleClass="message good" value="Profile has been updated"  rendered="#{param.result == 'updated'}" />  
+         <h:outputText styleClass="message good" value="Project has been updated"  rendered="#{param.result == 'projupdated'}" />         
     </ui:define>  
 
  
@@ -96,12 +96,15 @@
                 <f:facet name="header"> </f:facet>
                 <h:link value="View" styleClass="button view" outcome="/project/view">
                     <f:param name="id" value="#{_item.id}"/>
+                    <f:param name="org_id" value="#{organisationBean.organisation.id}"/>
                 </h:link>
                 <h:link value="Edit" styleClass="button edit" outcome="/project/update">
                     <f:param name="id" value="#{_item.id}"/>
+                    <f:param name="org_id" value="#{organisationBean.organisation.id}"/>                    
                 </h:link>     
                 <h:link value="Delete" styleClass="button delete" outcome="/project/delete">
                     <f:param name="id" value="#{_item.id}"/>
+                    <f:param name="org_id" value="#{organisationBean.organisation.id}"/>                    
                 </h:link>                     
             </h:column>
         </h:dataTable>

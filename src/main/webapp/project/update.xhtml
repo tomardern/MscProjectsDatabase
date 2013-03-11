@@ -10,140 +10,92 @@
 
 	<f:metadata>
 		<f:viewParam name="id" value="#{projectBean.id}"/>
-				<f:event type="preRenderView" listener="#{projectBean.retrieveDelierable}"/>
+                <f:viewParam name="org_id" value="#{projectBean.orgid}"/>  
+		<f:event type="preRenderView" listener="#{projectBean.retrieveDelierable}"/>
 	</f:metadata>
 
-	<ui:param name="pageTitle" value="Create Project"/>
+	<ui:param name="pageTitle" value="Update Project"/>
 
-	<ui:define name="header">
-		Update Project
-	</ui:define>
-
-	<ui:define name="subheader">
-		<c:choose>
-			<c:when test="#{!empty projectBean.id}">
-				Edit existing Project
-			</c:when>
-			<c:otherwise>
-				Create a new Project
-			</c:otherwise>
-		</c:choose>
-	</ui:define>
-
-	<ui:define name="footer"/>
+	<ui:define name="header">Update Project</ui:define>
 
 	<ui:define name="main">
 		<h:form id="create">
 			<h:messages globalOnly="true" styleClass="error"/>
+                        
+                    <h3 class="i-project">Project Details</h3>
+	            <h:panelGrid columnClasses="label,component,messages" columns="3">  
+                            <h:outputLabel for="projectBeanProjectName" value="Name:"/>
+                            <h:inputText id="projectBeanProjectName" required="true" value="#{projectBean.project.name}" requiredMessage="Name is required" />
+                            <h:message for="projectBeanProjectName" styleClass="error"/>
 
-			<h:panelGrid columnClasses="label,component,required" columns="3">
-				<h:outputLabel for="projectBeanProjectName" value="Name:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectName" required="true" value="#{projectBean.project.name}"/>
-					<h:message for="projectBeanProjectName" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectQuestion" value="Question:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectQuestion" required="true" value="#{projectBean.project.question}"/>
-					<h:message for="projectBeanProjectQuestion" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectDescription" value="Description:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectDescription" required="true" value="#{projectBean.project.description}"/>
-					<h:message for="projectBeanProjectDescription" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="projectBeanProjectDeadline" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectAdded" value="Added:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectAdded" value="#{projectBean.project.added}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="projectBeanProjectAdded" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectApproved" value="Approved:"/>
-				<h:panelGroup>
-					<h:selectBooleanCheckbox id="projectBeanProjectApproved" value="#{projectBean.project.approved}"/>
-					<h:message for="projectBeanProjectApproved" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectNotes" value="Notes:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectNotes" value="#{projectBean.project.notes}"/>
-					<h:message for="projectBeanProjectNotes" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectDeliverables" value="Deliverables:"/>
-				<h:panelGroup>
+                            <h:outputLabel for="projectBeanProjectQuestion" value="Question:"/>
+                            <h:inputText id="projectBeanProjectQuestion" required="true" value="#{projectBean.project.question}"  requiredMessage="Quesiton is required" />
+                            <h:message for="projectBeanProjectQuestion" styleClass="error"/>
+
+                            <h:outputLabel for="projectBeanProjectDescription" value="Description:" />
+                            <h:inputTextarea id="projectBeanProjectDescription" required="true" value="#{projectBean.project.description}" requiredMessage="Description is required"/>
+                            <h:message for="projectBeanProjectDescription" styleClass="error"/>
+
+                            <h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
+                            <h:inputText styleClass="date" id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}" requiredMessage="Deadline is required">
+                                <f:convertDateTime type="date"/>
+                            </h:inputText>
+                            <h:message for="projectBeanProjectDeadline" styleClass="error"/>
+                            </h:panelGrid>
+				
+                    <h3 class="i-deliverable">Deadlines &amp; Deliverables</h3>
+				
 					<ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
-					<h:dataTable id="projectBeanProjectDeliverables" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Name"/>
-							</f:facet>
-							<h:link outcome="/deliverable/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemName" value="#{_item.name}"/>
-							</h:link>
-							<f:facet name="footer">
-								<h:inputText id="deliverableBeanAddName" value="#{deliverableBean.add.name}"/>
-								<h:message for="deliverableBeanAddName" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Deadline"/>
-							</f:facet>
-							<h:link outcome="/deliverable/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemDeadline" value="#{_item.deadline}">
-									<f:convertDateTime type="date"/>
-								</h:outputText>
-							</h:link>
-							<f:facet name="footer">
-                                                            <h:inputText styleClass="date" id="deliverableBeanAddDeadline" value="#{deliverableBean.add.deadline}">
-									<f:convertDateTime type="date"/>
-								</h:inputText>
-								<h:message for="deliverableBeanAddDeadline" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
-							<f:facet name="footer">
-								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" styleClass="add-button">
-									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
-								</h:commandLink>
-							</f:facet>
-						</h:column>
-					</h:dataTable>
-				</h:panelGroup>
-				<h:outputText/>
-			</h:panelGrid>
+				            <h:dataTable id="projectBeanProjectDeliverables" columnClasses="details,deadlines,actions" styleClass="data-table deliverables" value="#{forgeview:asList(_collection)}" var="_item">
+                <h:column footerClass="input-details">
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText id="itemName" value="#{_item.name}"/>
+                    <f:facet name="footer">
+                        <h:inputText id="deliverableBeanAddName" value="#{deliverableBean.add.name}"/>
+                        <h:message for="deliverableBeanAddName" styleClass="error"/>
+                    </f:facet>
+                </h:column>
 
-			<div class="buttons">
-				<h:commandLink value="Save" action="#{projectBean.update}" styleClass="btn btn-primary"/>
-				<c:choose>
-					<c:when test="#{!empty projectBean.id}">
-						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
-							<f:param name="id" value="#{projectBean.id}"/>
-						</h:link>
-						<h:commandLink value="Delete" action="#{projectBean.delete}" styleClass="btn btn-primary"/>
-					</c:when>
-					<c:otherwise>
-						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
-					</c:otherwise>
-				</c:choose>
-			</div>
+                <h:column footerClass="inputs">
+                    <f:facet name="header">
+                        <h:outputText value="Deadline"/>
+                    </f:facet>
+                    <h:outputText id="itemDeadline" value="#{_item.deadline}">
+                        <f:convertDateTime type="date"/>
+                    </h:outputText>
+                    <f:facet name="footer">
+                        <h:inputText styleClass="date" id="deliverableBeanAddDeadline" value="#{deliverableBean.add.deadline}">
+                            <f:convertDateTime type="date"/>
+                        </h:inputText>
+                    </f:facet>
+                </h:column>
+
+                <h:column footerClass="remove-column">
+                    <h:commandLink   value="&times;"  action="#{_collection.remove(_item)}" styleClass="button delete" >
+                        <f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
+                        <f:param name="id" value="#{projectBean.project.id}"/> 
+                    </h:commandLink>    
+
+                    <f:facet name="footer">
+                        <h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" value="&#43;"  styleClass="button save">
+                            <f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
+                            <f:param name="id" value="#{projectBean.project.id}"/> 
+                        </h:commandLink>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+				
+				
+			
+
+                    
+                        <div class="buttons">
+				<h:commandLink value="Update Project &raquo;" action="#{projectBean.update}" styleClass="button save" />
+                        </div>
+                                
+                                
 		</h:form>
 	</ui:define>
 
