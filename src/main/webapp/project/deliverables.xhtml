@@ -16,7 +16,7 @@
 	<ui:param name="pageTitle" value="Create Project"/>
 
 	<ui:define name="header">
-		Deliverables
+		Project
 	</ui:define>
 
 	<ui:define name="subheader">
@@ -43,9 +43,46 @@
 					<h:message for="projectBeanProjectName" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
-
-                                
-		
+				<h:outputLabel for="projectBeanProjectQuestion" value="Question:"/>
+				<h:panelGroup>
+					<h:inputText id="projectBeanProjectQuestion" required="true" value="#{projectBean.project.question}"/>
+					<h:message for="projectBeanProjectQuestion" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="projectBeanProjectDescription" value="Description:"/>
+				<h:panelGroup>
+					<h:inputText id="projectBeanProjectDescription" required="true" value="#{projectBean.project.description}"/>
+					<h:message for="projectBeanProjectDescription" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
+				<h:panelGroup>
+					<h:inputText id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}">
+						<f:convertDateTime type="date"/>
+					</h:inputText>
+					<h:message for="projectBeanProjectDeadline" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="projectBeanProjectAdded" value="Added:"/>
+				<h:panelGroup>
+					<h:inputText id="projectBeanProjectAdded" value="#{projectBean.project.added}">
+						<f:convertDateTime type="date"/>
+					</h:inputText>
+					<h:message for="projectBeanProjectAdded" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="projectBeanProjectApproved" value="Approved:"/>
+				<h:panelGroup>
+					<h:selectBooleanCheckbox id="projectBeanProjectApproved" value="#{projectBean.project.approved}"/>
+					<h:message for="projectBeanProjectApproved" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="projectBeanProjectNotes" value="Notes:"/>
+				<h:panelGroup>
+					<h:inputText id="projectBeanProjectNotes" value="#{projectBean.project.notes}"/>
+					<h:message for="projectBeanProjectNotes" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
 				<h:outputLabel for="projectBeanProjectDeliverables" value="Deliverables:"/>
 				<h:panelGroup>
 					<ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
@@ -81,11 +118,13 @@
 							</f:facet>
 						</h:column>
 						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<h:commandLink  action="#{_collection.remove(_item)}" styleClass="remove-button" >
+       									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>                                                     
+                                                        </h:commandLink>    
+                                                            
 							<f:facet name="footer">
 								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" styleClass="add-button">
 									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
-                                                                        <f:param name="id" value="#{projectBean.project.id}"/>
 								</h:commandLink>
 							</f:facet>
 						</h:column>

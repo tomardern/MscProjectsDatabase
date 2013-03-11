@@ -9,7 +9,7 @@
 	template="/resources/scaffold/pageTemplate.xhtml">
 
   	<f:metadata>
-		<f:viewParam name="organisation_id" value="#{projectBean.project.organisation.id}"/>
+		<f:viewParam name="id" value="#{projectBean.id}"/>
 		<f:event type="preRenderView" listener="#{projectBean.retrieve}"/>
 	</f:metadata>
     
@@ -97,7 +97,7 @@
 			<div class="buttons">
                            
 				<h:commandLink value="Create" action="#{projectBean.update}" styleClass="btn btn-primary">
-                                 <f:param name="id" value="#{projectBean.project.id}"/>
+                                    <f:param name="id" value="#{projectBean.project.id}"/>
                                 </h:commandLink >
 
 			</div>

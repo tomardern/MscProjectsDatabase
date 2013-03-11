@@ -156,13 +156,15 @@ public class ProjectBean implements Serializable
          if (this.id == null)
          {
            
+                    
+                        
             this.entityManager.persist(this.project);
             return "deliverables?faces-redirect=true&id=" + this.project.getId();
          }
          else
          {
             this.entityManager.merge(this.project);
-            return "view?faces-redirect=true&id=" + this.project.getId();
+            return "deliverables?faces-redirect=true&id=" + this.project.getId();
          }
       }
       catch (Exception e)

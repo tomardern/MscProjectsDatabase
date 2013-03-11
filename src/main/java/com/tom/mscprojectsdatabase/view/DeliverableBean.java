@@ -123,7 +123,7 @@ public class DeliverableBean implements Serializable
          if (this.id == null)
          {
             this.entityManager.persist(this.deliverable);
-            return "search?faces-redirect=true";
+            return "search?faces-redirect=true&";
          }
          else
          {
