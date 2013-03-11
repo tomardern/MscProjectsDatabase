@@ -16,6 +16,14 @@
 
 	<ui:param name="pageTitle" value="Create Project"/>
 
+       <ui:define name="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="current">1. Organisation Registration</li>
+            <li class="current">2. Project Idea</li>
+            <li class="current">3. Deliverables &amp; Deadlines</li>
+        </ul>
+    </ui:define>
+        
 	<ui:define name="header">
 		Project
 	</ui:define>
@@ -73,13 +81,13 @@
 							</f:facet>
 						</h:column>
 						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink  action="#{_collection.remove(_item)}" styleClass="remove-button" >
+							<h:commandLink   value="Remove"  action="#{_collection.remove(_item)}" styleClass="remove-button" >
        								<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
                                                                 <f:param name="id" value="#{projectBean.project.id}"/> 
                                                         </h:commandLink>    
                                                             
 							<f:facet name="footer">
-								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" styleClass="add-button">
+								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" value="Add" styleClass="add-button">
 									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
                                                                         <f:param name="id" value="#{projectBean.project.id}"/> 
 								</h:commandLink>

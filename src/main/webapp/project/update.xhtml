@@ -10,7 +10,7 @@
 
 	<f:metadata>
 		<f:viewParam name="id" value="#{projectBean.id}"/>
-		<f:event type="preRenderView" listener="#{projectBean.retrieve}"/>
+				<f:event type="preRenderView" listener="#{projectBean.retrieveDelierable}"/>
 	</f:metadata>
 
 	<ui:param name="pageTitle" value="Create Project"/>
@@ -126,15 +126,6 @@
 							</f:facet>
 						</h:column>
 					</h:dataTable>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectOrganisation" value="Organisation:"/>
-				<h:panelGroup>
-					<h:selectOneMenu converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}">
-						<f:selectItem/>
-						<f:selectItems value="#{organisationBean.all}"/>
-					</h:selectOneMenu>
-					<h:message for="projectBeanProjectOrganisation" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 			</h:panelGrid>
