@@ -136,6 +136,10 @@ public class OrganisationBean implements Serializable
          return null;
       }
    }
+   
+   public String newProject(){
+       return "/project/create";
+   }
 
    public String delete()
    {

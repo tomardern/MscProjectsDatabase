@@ -125,7 +125,14 @@ Buttons
 .button.delete:hover {
     background: #CA1D1D;
 }
+.button.edit {
+    background: #F3A500;
+    border-color: #DA951A;
+}
 
+.button.edit:hover {
+    background: #DB9500;
+}
 
 
 
@@ -205,9 +212,9 @@ Main
 /* ----------------------------
 Form Styling
 ----------------------------*/
-.content form h3 {
+.content h3 {
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #DADADA;
 }
 
@@ -512,6 +519,38 @@ Deadlines & Deliverables
     font-size: 16px;
 }
 
+/* --------------------------------------------------
+Organisation Panel
+-----------------------------------------------------*/
+
+/* ----------------------------
+Projects List
+----------------------------*/
+.projects .actions .button {
+    display: inline-block;
+    text-align: center;
+    color: #FFF !important;
+    font-size: 11px;
+    margin-left: 5px;
+}
+.projects .actions {
+    text-align: right;
+}
+
+/* ----------------------------
+Box Details
+----------------------------*/
+.box-details {
+    width: 100%;
+    border: 1px solid #CECECE;
+    background: #F3F3F3;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.box-details tr {}
+.box-details tr td {padding: 5px;}
+.box-details .label {font-weight:bold; width: 100px;}
+.box-details .detail {}
 
 
 

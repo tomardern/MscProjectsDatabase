@@ -1,118 +1,118 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:forgeview="http://jboss.org/forge/view"
-	template="/resources/scaffold/pageTemplate.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:forgeview="http://jboss.org/forge/view"
+                template="/resources/scaffold/pageTemplate.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="id" value="#{organisationBean.id}"/>
-		<f:event type="preRenderView" listener="#{organisationBean.retrieve}"/>
-	</f:metadata>
+    <f:metadata>
+        <f:viewParam name="id" value="#{organisationBean.id}"/>
+        <f:event type="preRenderView" listener="#{organisationBean.retrieve}"/>
+        <f:event type="preRenderView" listener="#{projectBean.paginate}"/>
+    </f:metadata>
 
-	<ui:param name="pageTitle" value="View Organisation"/>
+    <ui:param name="pageTitle" value="View Organisation"/>
 
-	<ui:define name="header">
-		Hello <h:outputText id="organisationBeanOrganisationName" value="#{organisationBean.organisation.name}"/>
-	</ui:define>
+    <ui:define name="breadcrumb" rendered="#{param.registration == 'complete'}">
+        <h:outputText styleClass="message good" value="Project has been added and is awaiting verification"  rendered="#{param.registration == 'complete'}" /> 
+    </ui:define>  
+    
+    
+    <ui:define name="header">
+        Hello <h:outputText id="aasd" value="#{organisationBean.organisation.name}"/>
+                <!-- TODO: Should it really be a h:link? TODO: Bug here -->
+        <h:form id="create">
+            <h:commandLink value="New Project Idea &raquo;" action="#{organisationBean.newProject}" styleClass="button save" actionListener="#{projectBean.retrieve}">
+                <f:setPropertyActionListener target="#{projectBean.add.organisation}" value="#{organisationBean.organisation}"/>
+            </h:commandLink>
+        </h:form>
+    </ui:define>
 
-	<ui:define name="subheader">
-		View existing Organisation
-	</ui:define>
+    <ui:define name="subheader">
+        View existing Organisation
+    </ui:define>
 
-	<ui:define name="footer"/>
+    <ui:define name="footer"/>
 
-	<ui:define name="main">
-		<h:panelGrid columnClasses="label,component,required" columns="3">
-			<h:outputLabel for="organisationBeanOrganisationName" value="Name:"/>
-			<h:outputText id="organisationBeanOrganisationName" value="#{organisationBean.organisation.name}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
-			<h:outputText id="organisationBeanOrganisationUsername" value="#{organisationBean.organisation.username}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"/>
-			<h:outputText id="organisationBeanOrganisationPassword" value="#{organisationBean.organisation.password}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationEmail" value="Email:"/>
-			<h:outputText id="organisationBeanOrganisationEmail" value="#{organisationBean.organisation.email}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationTelephone" value="Telephone:"/>
-			<h:outputText id="organisationBeanOrganisationTelephone" value="#{organisationBean.organisation.telephone}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationFax" value="Fax:"/>
-			<h:outputText id="organisationBeanOrganisationFax" value="#{organisationBean.organisation.fax}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationOrgname" value="Orgname:"/>
-			<h:outputText id="organisationBeanOrganisationOrgname" value="#{organisationBean.organisation.orgname}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationDrescription" value="Drescription:"/>
-			<h:outputText id="organisationBeanOrganisationDrescription" value="#{organisationBean.organisation.drescription}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationAddress" value="Address:"/>
-			<h:outputText id="organisationBeanOrganisationAddress" value="#{organisationBean.organisation.address}"/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationWebsite" value="Website:"/>
-			<h:outputText id="organisationBeanOrganisationWebsite" value="#{organisationBean.organisation.website}"/>
-			<h:outputText/>
-			<h:outputLabel value="Verified:"/>
-			<h:outputText styleClass="#{organisationBean.organisation.verified ? 'boolean-true' : 'boolean-false'}" value=""/>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationAdded" value="Added:"/>
-			<h:outputText id="organisationBeanOrganisationAdded" value="#{organisationBean.organisation.added}">
-				<f:convertDateTime type="date"/>
-			</h:outputText>
-			<h:outputText/>
-			<h:outputLabel for="organisationBeanOrganisationProjects" value="Projects:"/>
-			<h:dataTable id="organisationBeanOrganisationProjects" styleClass="data-table" value="#{forgeview:asList(organisationBean.organisation.projects)}" var="_item">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Name"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemName" value="#{_item.name}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Question"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemQuestion" value="#{_item.question}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Description"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemDescription" value="#{_item.description}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Deadline"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemDeadline" value="#{_item.deadline}">
-							<f:convertDateTime type="date"/>
-						</h:outputText>
-					</h:link>
-				</h:column>
-			</h:dataTable>
-			<h:outputText/>
-		</h:panelGrid>
+    <ui:define name="main">
+        <h:panelGrid styleClass="box-details" columnClasses="label,detail,label,detail" columns="4">
+            <h:outputLabel for="organisationBeanOrganisationName" value="Name:"/>
+            <h:outputText id="organisationBeanOrganisationName" value="#{organisationBean.organisation.name}"/>
+            
+          
+            <h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
+            <h:outputText id="organisationBeanOrganisationUsername" value="#{organisationBean.organisation.username}"/>
+          
+            
+            <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"/>
+            <h:outputText id="organisationBeanOrganisationPassword" value="#{organisationBean.organisation.password}"/>
+            
+            
+            <h:outputLabel for="organisationBeanOrganisationEmail" value="Email:"/>
+            <h:outputText id="organisationBeanOrganisationEmail" value="#{organisationBean.organisation.email}"/>
+           
+            
+            <h:outputLabel for="organisationBeanOrganisationTelephone" value="Telephone:"/>
+            <h:outputText id="organisationBeanOrganisationTelephone" value="#{organisationBean.organisation.telephone}"/>
+            
+            
+            <h:outputLabel for="organisationBeanOrganisationFax" value="Fax:"/>
+            <h:outputText id="organisationBeanOrganisationFax" value="#{organisationBean.organisation.fax}"/>
+           
+            
+            <h:outputLabel for="organisationBeanOrganisationOrgname" value="Orgname:"/>
+            <h:outputText id="organisationBeanOrganisationOrgname" value="#{organisationBean.organisation.orgname}"/>
+                        
+            <h:outputLabel for="organisationBeanOrganisationAddress" value="Address:"/>
+            <h:outputText id="organisationBeanOrganisationAddress" value="#{organisationBean.organisation.address}"/>
+           
+            
+            <h:outputLabel for="organisationBeanOrganisationWebsite" value="Website:"/>
+            <h:outputText id="organisationBeanOrganisationWebsite" value="#{organisationBean.organisation.website}"/>
+           
+            
+            <h:outputLabel value="Verified:"/>
+            <h:outputText styleClass="#{organisationBean.organisation.verified ? 'boolean-true' : 'boolean-false'}" value=""/>
+         
+            
 
-		<div class="buttons">
-			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
-			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
-			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
-		</div>
-	</ui:define>
+        </h:panelGrid>
+
+
+        <h3>Your Projects</h3>
+           <h:dataTable id="projectBeanPageItems" columnClasses="details,actions" styleClass="data-table projects" value="#{forgeview:asList(organisationBean.organisation.projects)}" var="_item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText id="itemName" value="#{_item.name}"/>
+                    <h:outputText id="itemDeadline" value="#{_item.deadline}">
+                        <f:convertDateTime type="date"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header"> </f:facet>
+                    <h:link value="View" styleClass="button view" outcome="/project/view">
+                        <f:param name="id" value="#{_item.id}"/>
+                    </h:link>
+                    <h:link value="Edit" styleClass="button edit" outcome="/project/update">
+                        <f:param name="id" value="#{_item.id}"/>
+                    </h:link>     
+                    <h:link value="Delete" styleClass="button delete" outcome="/project/delete">
+                        <f:param name="id" value="#{_item.id}"/>
+                    </h:link>                     
+                </h:column>
+            </h:dataTable>
+
+
+
+        <div class="buttons">
+            <h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+            <h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+            <h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+        </div>
+    </ui:define>
 
 </ui:composition>

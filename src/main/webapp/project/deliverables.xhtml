@@ -1,108 +1,104 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:forgeview="http://jboss.org/forge/view"	
-	template="/resources/scaffold/pageTemplate.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:forgeview="http://jboss.org/forge/view"	
+                template="/resources/scaffold/pageTemplate.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="id" value="#{projectBean.id}"/>
-		<f:event type="preRenderView" listener="#{projectBean.retrieveDelierable}"/>
-                
-	</f:metadata>
+    <f:metadata>
+        <f:viewParam name="id" value="#{projectBean.id}"/>
+        <f:event type="preRenderView" listener="#{projectBean.retrieveDelierable}"/>
 
-	<ui:param name="pageTitle" value="Create Project"/>
+    </f:metadata>
 
-       <ui:define name="breadcrumb">
+    <ui:param name="pageTitle" value="Create Project"/>
+
+    <ui:define name="breadcrumb">
         <ul class="breadcrumb">
             <li class="current">1. Organisation Registration</li>
             <li class="current">2. Project Idea</li>
             <li class="current active">3. Deliverables &amp; Deadlines</li>
         </ul>
     </ui:define>
-        
-	<ui:define name="header">
-		Deliverables
-	</ui:define>
 
-	<ui:define name="subheader">
-		<c:choose>
-			<c:when test="#{!empty projectBean.id}">
-				Edit existing Project
-			</c:when>
-			<c:otherwise>
-				Create a new Project
-			</c:otherwise>
-		</c:choose>
-	</ui:define>
+    <ui:define name="header">
+        Deliverables
+    </ui:define>
 
-	<ui:define name="footer"/>
+    <ui:define name="subheader">
+        <c:choose>
+            <c:when test="#{!empty projectBean.id}">
+                Edit existing Project
+            </c:when>
+            <c:otherwise>
+                Create a new Project
+            </c:otherwise>
+        </c:choose>
+    </ui:define>
 
-	<ui:define name="main">
-            <h:form styleClass="auto" id="create">
-			<h:messages globalOnly="true" styleClass="error"/>
+    <ui:define name="footer"/>
 
-                        <h3>Deliverables and Deadlines</h3>
+    <ui:define name="main">
+        <h:form styleClass="auto" id="create">
+            <h:messages globalOnly="true" styleClass="error"/>
 
-				
-					<ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
-                                        <h:dataTable id="projectBeanProjectDeliverables" columnClasses="details,deadlines,actions" styleClass="data-table deliverables" value="#{forgeview:asList(_collection)}" var="_item">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Name"/>
-							</f:facet>
-							<h:link outcome="/deliverable/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemName" value="#{_item.name}"/>
-							</h:link>
-							<f:facet name="footer">
-								<h:inputText id="deliverableBeanAddName" value="#{deliverableBean.add.name}"/>
-								<h:message for="deliverableBeanAddName" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Deadline"/>
-							</f:facet>
-							<h:link outcome="/deliverable/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemDeadline" value="#{_item.deadline}">
-									<f:convertDateTime type="date"/>
-								</h:outputText>
-							</h:link>
-							<f:facet name="footer">
-                                                            <h:inputText styleClass="date" id="deliverableBeanAddDeadline" value="#{deliverableBean.add.deadline}">
-									<f:convertDateTime type="date"/>
-								</h:inputText>
-								<h:message for="deliverableBeanAddDeadline" styleClass="error"/>
-							</f:facet>
-						</h:column>
-						<h:column footerClass="remove-column">
-							<h:commandLink   value="&times;"  action="#{_collection.remove(_item)}" styleClass="button delete" >
-       								<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
-                                                                <f:param name="id" value="#{projectBean.project.id}"/> 
-                                                        </h:commandLink>    
-                                                            
-							<f:facet name="footer">
-								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" value="&#43;"  styleClass="button save">
-									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
-                                                                        <f:param name="id" value="#{projectBean.project.id}"/> 
-								</h:commandLink>
-							</f:facet>
-						</h:column>
-					</h:dataTable>
-			
+            <h3>Deliverables and Deadlines</h3>
 
-			<div class="buttons">
-				<h:commandLink value="Finish &raquo;" action="#{projectBean.finish}" styleClass="button save">
-                                    <f:param name="id" value="#{projectBean.project.id}"/>
-                                </h:commandLink >
-                            
-			</div>
-		</h:form>
-	</ui:define>
+
+            <ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
+            <h:dataTable id="projectBeanProjectDeliverables" columnClasses="details,deadlines,actions" styleClass="data-table deliverables" value="#{forgeview:asList(_collection)}" var="_item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <f:param name="id" value="#{_item.id}"/>
+                    <h:outputText id="itemName" value="#{_item.name}"/>
+                    <f:facet name="footer">
+                        <h:inputText id="deliverableBeanAddName" value="#{deliverableBean.add.name}"/>
+                        <h:message for="deliverableBeanAddName" styleClass="error"/>
+                    </f:facet>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Deadline"/>
+                    </f:facet>
+                    <h:outputText id="itemDeadline" value="#{_item.deadline}">
+                        <f:convertDateTime type="date"/>
+                    </h:outputText>
+                    <f:facet name="footer">
+                        <h:inputText styleClass="date" id="deliverableBeanAddDeadline" value="#{deliverableBean.add.deadline}">
+                            <f:convertDateTime type="date"/>
+                        </h:inputText>
+                    </f:facet>
+                </h:column>
+                
+                <h:column footerClass="remove-column">
+                    <h:commandLink   value="&times;"  action="#{_collection.remove(_item)}" styleClass="button delete" >
+                        <f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
+                        <f:param name="id" value="#{projectBean.project.id}"/> 
+                    </h:commandLink>    
+
+                    <f:facet name="footer">
+                        <h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" value="&#43;"  styleClass="button save">
+                            <f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
+                            <f:param name="id" value="#{projectBean.project.id}"/> 
+                        </h:commandLink>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+
+
+            <div class="buttons">
+                <h:commandLink value="Finish &raquo;" action="#{projectBean.finish}" styleClass="button save">
+                    <f:param name="id" value="#{projectBean.project.id}"/>
+                </h:commandLink >
+
+            </div>
+        </h:form>
+    </ui:define>
 
 </ui:composition>

@@ -95,7 +95,7 @@ public class ProjectBean implements Serializable
    
    public String finish(){
         
-       return "/organisation/panel?faces-redirect=true&id=" + this.project.getOrganisation().getId();
+       return "/organisation/panel?faces-redirect=true&registration=complete&id=" + this.project.getOrganisation().getId();
        
    }
    
@@ -248,7 +248,7 @@ public class ProjectBean implements Serializable
 
    public int getPageSize()
    {
-      return 10;
+      return 1000; //TODO: Maybe make this set on a per page basis
    }
 
    public Project getExample()
@@ -297,8 +297,7 @@ public class ProjectBean implements Serializable
    }
 
    private Predicate[] getSearchPredicates(Root<Project> root)
-   {
-
+   {       
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
@@ -331,6 +330,8 @@ public class ProjectBean implements Serializable
       return predicatesList.toArray(new Predicate[predicatesList.size()]);
    }
 
+   
+   
    public List<Project> getPageItems()
    {
       return this.pageItems;
