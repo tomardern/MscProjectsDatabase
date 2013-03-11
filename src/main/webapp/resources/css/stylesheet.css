@@ -227,7 +227,9 @@ Main
     font-size: 13px;
     padding: 3px 10px;
 }
-
+.content h3 form {
+    float: right;
+}
 
 /* ----------------------------
 Form Styling

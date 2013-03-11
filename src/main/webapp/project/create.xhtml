@@ -9,7 +9,9 @@
                 template="/resources/scaffold/pageTemplate.xhtml">
 
     <f:metadata>
+
         <f:viewParam name="id" value="#{projectBean.id}"/>
+        <f:viewParam name="org_id" value="#{projectBean.orgid}"/>        
         <f:event type="preRenderView" listener="#{projectBean.retrieve}"/>
     </f:metadata>
 
@@ -63,8 +65,17 @@
                 </h:inputText>
                 <h:message for="projectBeanProjectDeadline" styleClass="error"/>
 
-                <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
-                <h:message for="projectBeanProjectOrganisation" styleClass="error"/>
+           
+                    <c:choose>
+                        <c:when test="#{param.org_id == null}">
+                            <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
+                            <h:message for="projectBeanProjectOrganisation" styleClass="error"/>
+                        </c:when>
+                        <c:otherwise>
+
+                        </c:otherwise>
+                    </c:choose>
+
 
             </h:panelGrid>
 

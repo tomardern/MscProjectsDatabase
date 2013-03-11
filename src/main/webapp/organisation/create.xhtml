@@ -111,10 +111,19 @@
 
 
             <div class="buttons">
+                <c:choose>
+                    <c:when test="#{empty organisationBean.id}">
+                        <h:commandLink value="Create Project &raquo;" action="#{organisationBean.update}"  styleClass="button save">
+                            <f:setPropertyActionListener target="#{projectBean.project.organisation}" value="#{organisationBean.organisation}"/>
+                        </h:commandLink>
+                    </c:when>
+                    <c:otherwise>
+                        <h:commandLink value="Update Profile &raquo;" action="#{organisationBean.update}"  styleClass="button save">
+                            <f:setPropertyActionListener target="#{projectBean.project.organisation}" value="#{organisationBean.organisation}"/>
+                        </h:commandLink>
+                    </c:otherwise>
+                </c:choose>
 
-                <h:commandLink value="Create Project &raquo;" action="#{organisationBean.update}"  styleClass="button save">
-                    <f:setPropertyActionListener target="#{projectBean.project.organisation}" value="#{organisationBean.organisation}"/>
-                </h:commandLink>
 
             </div>
         </h:form>

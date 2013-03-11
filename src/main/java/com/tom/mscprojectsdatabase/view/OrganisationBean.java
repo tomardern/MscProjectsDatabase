@@ -127,7 +127,7 @@ public class OrganisationBean implements Serializable
          else
          {
             this.entityManager.merge(this.organisation);
-            return "panel?faces-redirect=true&id=" + this.organisation.getId();
+            return "panel?faces-redirect=true&id=" + this.organisation.getId()+"&result=updated";
          }
       }
       catch (Exception e)

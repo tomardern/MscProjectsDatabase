@@ -27,6 +27,7 @@ import javax.persistence.criteria.Root;
 import com.tom.mscprojectsdatabase.model.Project;
 import com.tom.mscprojectsdatabase.model.Organisation;
 import com.tom.mscprojectsdatabase.model.Project_;
+import javax.ejb.EJB;
 
 /**
  * Backing bean for Project entities.
@@ -43,6 +44,8 @@ import com.tom.mscprojectsdatabase.model.Project_;
 @ConversationScoped
 public class ProjectBean implements Serializable
 {
+    @EJB
+    private OrganisationBean organisationBean;
 
    private static final long serialVersionUID = 1L;
 
@@ -50,6 +53,11 @@ public class ProjectBean implements Serializable
     * Support creating and retrieving Project entities
     */
 
+   private Long orgid;
+  
+   
+   
+   
    private Long id;
 
    public Long getId()
@@ -191,7 +199,10 @@ public class ProjectBean implements Serializable
          if (this.id == null)
          {
            
-                    
+                                   
+            if (this.getOrgid() != null){
+                this.project.setOrganisation(organisationBean.findById(this.getOrgid()));
+            }         
                         
             this.entityManager.persist(this.project);
             return "deliverables?faces-redirect=true&id=" + this.project.getId();
@@ -407,4 +418,18 @@ public class ProjectBean implements Serializable
       this.add = new Project();
       return added;
    }
+
+    /**
+     * @return the orgid
+     */
+    public Long getOrgid() {
+        return orgid;
+    }
+
+    /**
+     * @param orgid the orgid to set
+     */
+    public void setOrgid(Long orgid) {
+        this.orgid = orgid;
+    }
 }
