@@ -1,30 +1,78 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/scaffold/pageTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
 
-	<ui:param name="pageTitle" value="Welcome to Forge" />
 
-	<ui:define name="header">
-		Welcome to Forge
-	</ui:define>
+    <f:metadata>
+        <f:viewParam name="page" value="#{projectBean.page}"/>
+        <f:event type="preRenderView" listener="#{projectBean.paginate}"/>
+    </f:metadata>
 
-	<ui:define name="main">
-		<h2 class="success">
-			Your application is running.
-		</h2>
-		<p>
-			<a target="_blank"
-				href="http://forge.jboss.org/docs/index.html">Documentation</a>
-			| <a target="_blank"
-				href="http://twitter.com/intent/tweet?text=I+just+built+and+deployed+a+webapp+using+%23Forge,+from+%23JBoss+-+Super+easy!+(+http://jboss.org/forge+)">Get
-				Excited!</a><br /> <a target="_blank" href="http://jboss.org/forge"><br />
-				Forge Project</a> | <a target="_blank"
-				href="https://community.jboss.org/en/forge">User
-				Forums</a> | <a target="_blank"
-				href="https://issues.jboss.org/browse/FORGE">Report an issue</a>
-		</p>
-	</ui:define>
+    <ui:param name="pageTitle" value="Msc Projects DB" />
+
+
+
+    <ui:define name="main">
+
+        <div class="home">
+            <h2>We have students ready to take on cool and interesting projects </h2>
+
+            <div class="projects">
+                <h3><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects <h:link outcome="/project/search" value="Advanced Search" /> </h3>
+
+                <h:dataTable id="projectBeanPageItems" styleClass="data-table"  rowClasses="even, odd" columnClasses="deadline, title"  value="#{projectBean.pageItems}" var="_item">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Title"/>
+                        </f:facet>
+                        <h:link outcome="/project/view">
+                            <f:param name="id" value="#{_item.id}"/>
+                            <h:outputText styleClass="projectname" id="itemDeadline" value="#{_item.name}" />
+                            <h:outputText styleClass="orgname" id="itemOrganisation" value="#{_item.organisation.orgname}" />
+                        </h:link>
+                    </h:column>
+                    <h:column class="posted">
+                        <f:facet name="header" class="posted-header">
+                            <h:outputText value="Added"/>
+                        </f:facet>
+                        <h:outputText styleClass="posted" id="itemDeadline" value="#{_item.deadline}">
+                            <f:convertDateTime type="date"/>
+                        </h:outputText>
+                    </h:column>
+                </h:dataTable>
+                <ui:include src="/resources/scaffold/paginator.xhtml">
+                    <ui:param name="paginatorBean" value="#{projectBean}"/>
+                </ui:include>
+
+
+
+            </div>
+
+            <div class="organisations">
+                <h3>Have a cool idea you need developed?</h3>
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec lectus a orci ornare viverra. Maecenas sed nunc vitae neque lacinia gravida a a est. Donec porttitor suscipit lacus, eu tincidunt augue vehicula ac. Cras egestas dui vitae purus rhoncus pellentesque. Sed accumsan pretium mi eu ornare.</p>
+
+
+                <h4>Some of our happy clients:</h4>
+                <img src="#" width="100" height="50" />
+                <img src="#" width="100" height="50" />
+                <img class="last" src="#" width="100" height="50" />
+
+                <h:link class="button submit-idea" outcome="/organisation/create.xhtml" value="Submit a cool idea &raquo;"/>     
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+    </ui:define>
 
 </ui:composition>

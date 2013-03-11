@@ -26,6 +26,7 @@ import javax.persistence.criteria.Root;
 
 import com.tom.mscprojectsdatabase.model.Project;
 import com.tom.mscprojectsdatabase.model.Organisation;
+import com.tom.mscprojectsdatabase.model.Project_;
 
 /**
  * Backing bean for Project entities.
@@ -283,10 +284,15 @@ public class ProjectBean implements Serializable
 
       CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
       root = criteria.from(Project.class);
-      TypedQuery<Project> query = this.entityManager.createQuery(criteria
-            .select(root).where(getSearchPredicates(root)));
-      query.setFirstResult(this.page * getPageSize()).setMaxResults(
-            getPageSize());
+      TypedQuery<Project> query = this.entityManager.createQuery(
+              criteria.select(root).where(getSearchPredicates(root)).orderBy(builder.desc(root.get(Project_.id))) 
+              );   
+      
+    query.setFirstResult(this.page * getPageSize()).setMaxResults(
+    getPageSize());
+
+      
+      
       this.pageItems = query.getResultList();
    }
 

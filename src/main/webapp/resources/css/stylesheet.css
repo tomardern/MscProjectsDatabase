@@ -114,6 +114,8 @@ Buttons
 
 .buttons .button.save {
     float: right;
+    width: 240px;
+    text-align: center;
 }
 
 /* --------------------------------------------------
@@ -193,7 +195,7 @@ Form Styling
 .content form h3 {
     padding-bottom: 5px;
     margin-bottom: 5px;
-    border-bottom: 1px solid #F2F2F2;
+    border-bottom: 1px solid #DADADA;
 }
 
 .content form label {

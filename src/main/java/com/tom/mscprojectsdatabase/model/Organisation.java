@@ -250,29 +250,7 @@ public class Organisation implements Serializable
    @Override
    public String toString()
    {
-      String result = getClass().getSimpleName() + " ";
-      if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
-      if (username != null && !username.trim().isEmpty())
-         result += ", username: " + username;
-      if (password != null && !password.trim().isEmpty())
-         result += ", password: " + password;
-      if (email != null && !email.trim().isEmpty())
-         result += ", email: " + email;
-      if (telephone != null && !telephone.trim().isEmpty())
-         result += ", telephone: " + telephone;
-      if (fax != null && !fax.trim().isEmpty())
-         result += ", fax: " + fax;
-      if (orgname != null && !orgname.trim().isEmpty())
-         result += ", orgname: " + orgname;
-      if (drescription != null && !drescription.trim().isEmpty())
-         result += ", drescription: " + drescription;
-      if (address != null && !address.trim().isEmpty())
-         result += ", address: " + address;
-      if (website != null && !website.trim().isEmpty())
-         result += ", website: " + website;
-      result += ", verified: " + verified;
-      return result;
+      return orgname;
    }
 
    public Set<Project> getProjects()

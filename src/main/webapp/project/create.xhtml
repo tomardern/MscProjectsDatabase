@@ -45,7 +45,8 @@
 		<h:form  styleClass="auto" id="create">
 			<h:messages globalOnly="true" styleClass="error"/>
 
-			<h:panelGrid columnClasses="label,component,required" columns="3">
+			            <h3>Project Details</h3>
+            <h:panelGrid columnClasses="label,component,messages" columns="3">  
 				<h:outputLabel for="projectBeanProjectName" value="Name:"/>
 				<h:panelGroup>
 					<h:inputText id="projectBeanProjectName" required="true" value="#{projectBean.project.name}"/>
@@ -84,7 +85,7 @@
 
 			<div class="buttons">
                            
-				<h:commandLink value="Create" action="#{projectBean.update}" styleClass="btn btn-primary">
+				<h:commandLink value="Set Deadlines &amp; Deliverables &raquo;" action="#{projectBean.update}" styleClass="button save">
                                     <f:param name="id" value="#{projectBean.project.id}"/>
                                 </h:commandLink >
 

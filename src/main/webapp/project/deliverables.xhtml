@@ -25,7 +25,7 @@
     </ui:define>
         
 	<ui:define name="header">
-		Project
+		Deliverables
 	</ui:define>
 
 	<ui:define name="subheader">
@@ -45,8 +45,10 @@
             <h:form styleClass="auto" id="create">
 			<h:messages globalOnly="true" styleClass="error"/>
 
-			<h:panelGrid columnClasses="label,component,required" columns="3">
-				<h:outputLabel for="projectBeanProjectDeliverables" value="Deliverables:"/>
+                        <h3>Deliverables and Deadlines</h3>
+                        
+                        
+			<h:panelGrid columnClasses="label,component,required" columns="1">
 				<h:panelGroup>
 					<ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
 					<h:dataTable id="projectBeanProjectDeliverables" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
@@ -95,11 +97,10 @@
 						</h:column>
 					</h:dataTable>
 				</h:panelGroup>
-				<h:outputText/>
 			</h:panelGrid>
 
 			<div class="buttons">
-				<h:commandLink value="Finish" action="#{projectBean.finish}" styleClass="btn btn-primary">
+				<h:commandLink value="Finish &raquo;" action="#{projectBean.finish}" styleClass="button save">
                                     <f:param name="id" value="#{projectBean.project.id}"/>
                                 </h:commandLink >
                             
