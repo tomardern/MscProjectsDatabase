@@ -33,7 +33,7 @@
 	<ui:define name="footer"/>
 
 	<ui:define name="main">
-		<h:form id="create">
+            <h:form styleClass="auto" id="create">
 			<h:messages globalOnly="true" styleClass="error"/>
 
 			<h:panelGrid columnClasses="label,component,required" columns="3">
@@ -119,12 +119,14 @@
 						</h:column>
 						<h:column footerClass="remove-column" headerClass="remove-column">
 							<h:commandLink  action="#{_collection.remove(_item)}" styleClass="remove-button" >
-       									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>                                                     
+       								<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
+                                                                <f:param name="id" value="#{projectBean.project.id}"/> 
                                                         </h:commandLink>    
                                                             
 							<f:facet name="footer">
 								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" styleClass="add-button">
 									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
+                                                                        <f:param name="id" value="#{projectBean.project.id}"/> 
 								</h:commandLink>
 							</f:facet>
 						</h:column>

@@ -10,7 +10,7 @@ $(document).ready(function(){
     randText += alpha[num];
    }
  
-   $("input[type='text'], textarea").each(function(){
+   $(".auto input[type='text'], textarea").each(function(){
        if ($(this).val().length < 1){
            $(this).val(randText);
        }
