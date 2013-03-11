@@ -22,7 +22,7 @@
             <h2>We have students ready to take on cool and interesting projects </h2>
 
             <div class="projects">
-                <h3><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects <h:link outcome="/project/search" value="Advanced Search" /> </h3>
+                <h3 class="i-project"><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects <h:link outcome="/project/search" value="Advanced Search" /> </h3>
 
                 <h:dataTable id="projectBeanPageItems" styleClass="data-table"  rowClasses="even, odd" columnClasses="deadline, title"  value="#{projectBean.pageItems}" var="_item">
                     <h:column>
@@ -44,16 +44,13 @@
                         </h:outputText>
                     </h:column>
                 </h:dataTable>
-                <ui:include src="/resources/scaffold/paginator.xhtml">
-                    <ui:param name="paginatorBean" value="#{projectBean}"/>
-                </ui:include>
 
 
 
             </div>
 
             <div class="organisations">
-                <h3>Have a cool idea you need developed?</h3>
+                <h3 class="i-organisation">Have a cool idea you need developed?</h3>
                 <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec lectus a orci ornare viverra. Maecenas sed nunc vitae neque lacinia gravida a a est. Donec porttitor suscipit lacus, eu tincidunt augue vehicula ac. Cras egestas dui vitae purus rhoncus pellentesque. Sed accumsan pretium mi eu ornare.</p>
 
 

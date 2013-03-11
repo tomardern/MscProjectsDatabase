@@ -1,120 +1,71 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/scaffold/pageTemplate.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="page" value="#{projectBean.page}"/>
-		<f:event type="preRenderView" listener="#{projectBean.paginate}"/>
-	</f:metadata>
+    <f:metadata>
+        <f:viewParam name="page" value="#{projectBean.page}"/>
+        <f:event type="preRenderView" listener="#{projectBean.paginate}"/>
+    </f:metadata>
 
-	<ui:param name="pageTitle" value="Search Project entities"/>
+    <ui:param name="pageTitle" value="Search Project entities"/>
 
-	<ui:define name="header">
-		Project
-	</ui:define>
+    <ui:define name="header">Advanced Project Search</ui:define>
 
-	<ui:define name="subheader">
-		Search Project entities
-	</ui:define>
 
-	<ui:define name="footer"/>
+    <ui:define name="main">
 
-	<ui:define name="main">
-		<h:form id="search">
-			<f:validateBean disabled="true">
-				<h:panelGroup styleClass="search">
+        <h:form id="search">
 
-					<h:panelGrid columnClasses="label,component,required" columns="3">
-						<h:outputLabel for="projectBeanExampleName" value="Name:"/>
-						<h:panelGroup>
-							<h:inputText id="projectBeanExampleName" value="#{projectBean.example.name}"/>
-							<h:message for="projectBeanExampleName" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
-						<h:outputLabel for="projectBeanExampleQuestion" value="Question:"/>
-						<h:panelGroup>
-							<h:inputText id="projectBeanExampleQuestion" value="#{projectBean.example.question}"/>
-							<h:message for="projectBeanExampleQuestion" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
-						<h:outputLabel for="projectBeanExampleDescription" value="Description:"/>
-						<h:panelGroup>
-							<h:inputText id="projectBeanExampleDescription" value="#{projectBean.example.description}"/>
-							<h:message for="projectBeanExampleDescription" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
-						<h:outputLabel for="projectBeanExampleNotes" value="Notes:"/>
-						<h:panelGroup>
-							<h:inputText id="projectBeanExampleNotes" value="#{projectBean.example.notes}"/>
-							<h:message for="projectBeanExampleNotes" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
-						<h:outputLabel for="projectBeanExampleOrganisation" value="Organisation:"/>
-						<h:panelGroup>
-							<h:selectOneMenu converter="#{organisationBean.converter}" id="projectBeanExampleOrganisation" value="#{projectBean.example.organisation}">
-								<f:selectItem/>
-								<f:selectItems value="#{organisationBean.all}"/>
-							</h:selectOneMenu>
-							<h:message for="projectBeanExampleOrganisation" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
-					</h:panelGrid>
-					<h:panelGroup styleClass="buttons">
-						<h:commandLink value="Search" action="#{projectBean.search}" styleClass="btn btn-primary"/>
-						<h:commandLink value="Create New" action="#{projectBean.create}" styleClass="btn btn-primary"/>
-					</h:panelGroup>
-				</h:panelGroup>
-			</f:validateBean>
-			
-			<h:dataTable id="projectBeanPageItems" styleClass="data-table" value="#{projectBean.pageItems}" var="_item">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Name"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemName" value="#{_item.name}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Question"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemQuestion" value="#{_item.question}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Description"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemDescription" value="#{_item.description}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Deadline"/>
-					</f:facet>
-					<h:link outcome="/project/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemDeadline" value="#{_item.deadline}">
-							<f:convertDateTime type="date"/>
-						</h:outputText>
-					</h:link>
-				</h:column>
-			</h:dataTable>
-			<ui:include src="/resources/scaffold/paginator.xhtml">
-				<ui:param name="paginatorBean" value="#{projectBean}"/>
-			</ui:include>
-		</h:form>
-			
-	</ui:define>
+            <f:validateBean disabled="true">
+                <div class="search">
+
+                    <h3 class="i-search">Search Filters</h3>
+                    <h:outputLabel for="projectBeanExampleName" value="Name:"/>
+                    <h:inputText id="projectBeanExampleName" value="#{projectBean.example.name}"/>
+
+                    <h:outputLabel for="projectBeanExampleQuestion" value="Question:"/>
+                    <h:inputText id="projectBeanExampleQuestion" value="#{projectBean.example.question}"/>
+
+                    <h:outputLabel for="projectBeanExampleDescription" value="Description:"/>
+                    <h:inputText id="projectBeanExampleDescription" value="#{projectBean.example.description}"/>
+
+                    <h:outputLabel for="projectBeanExampleOrganisation" value="Organisation:"/>
+                    <h:selectOneMenu converter="#{organisationBean.converter}" id="projectBeanExampleOrganisation" value="#{projectBean.example.organisation}">
+                        <f:selectItem/>
+                        <f:selectItems value="#{organisationBean.all}"/>
+                    </h:selectOneMenu>
+
+
+                    <h:commandLink value="Search" action="#{projectBean.search}" styleClass="button"/>
+                </div>
+            </f:validateBean>
+
+            <h:dataTable id="projectBeanPageItems" rowClasses="even, odd" columnClasses="deadline, title"  styleClass="data-table results" value="#{projectBean.pageItems}" var="_item">
+                <h:column>
+                    <h:link outcome="/project/view">
+                        <f:param name="id" value="#{_item.id}"/>
+                        <h4><h:outputText  id="itemName" value="#{_item.name}"/></h4>
+                        <span><h:outputText id="itemOrganisation" value="#{_item.organisation.name}" /></span>
+                        
+                    </h:link>
+                </h:column>
+                
+                    <h:column class="posted">
+                        <h:outputText styleClass="posted" id="itemDeadline" value="#{_item.deadline}">
+                            <f:convertDateTime type="date"/>
+                        </h:outputText>
+                    </h:column>
+            </h:dataTable>
+            
+            
+            
+
+        </h:form>
+
+    </ui:define>
 
 </ui:composition>

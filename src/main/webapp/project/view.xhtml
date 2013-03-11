@@ -38,17 +38,18 @@
         <div class="project-details">
             <h2><h:outputText id="projectBeanProjectQuestion" value="#{projectBean.project.question}"/></h2>
 
-            <h3>
+            <div class="deadline">
                 <strong>Deadline: </strong>
                 <span>
                     <h:outputText id="projectBeanProjectDeadline" value="#{projectBean.project.deadline}">
                         <f:convertDateTime type="date"/>
                     </h:outputText>
                 </span>
+            </div>
 
              <!--    <strong>Keywords:</strong>
                 <span><h:outputText id="projectBeanProjectKeywords" value="#projectBean.project.keywords}"/></span> -->
-            </h3>
+         
 
 
 
@@ -73,7 +74,7 @@
         </div>
 
         <div class="project-deadlines">
-            <h3>Deadlines &amp; Deliverables</h3>
+            <h3 class="i-deliverable">Deadlines &amp; Deliverables</h3>
 
 
             <h:dataTable id="projectBeanProjectDeliverables" styleClass="data-table"  rowClasses="odd , even" columnClasses="details, posted" value="#{forgeview:asList(projectBean.project.deliverables)}" var="_item">

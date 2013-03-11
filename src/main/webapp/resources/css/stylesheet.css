@@ -170,6 +170,7 @@ h3.i-contact {background-position: 0px -29px;}
 h3.i-organisation {background-position: 0px -59px;}
 h3.i-project {background-position: 0px -89px;}
 h3.i-deliverable {background-position: 0px -117px;}
+h3.i-search {background-position: 0px -148px;}
 
 /* Login Boxs ---- */
 .header .login {
@@ -221,6 +222,7 @@ Main
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 1px solid #DADADA;
+    clear:both;
 }
 .content h3 .button {
     float: right;
@@ -415,7 +417,7 @@ Organisations Side
 ----------------------------*/
 .home h3 {
     margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
@@ -482,8 +484,7 @@ Project Details side
     margin-bottom: 5px;
 }
 .project-details h3 {
-    margin-bottom: 25px;
-    font-size: 14px;
+
     clear:both;
 }
 .project-details h3 span {
@@ -495,7 +496,9 @@ Project Details side
     line-height: 22px;
     margin-bottom: 30px;
 }
-
+.project-details .deadline {
+    margin-bottom: 20px;
+}
 
 
 /* ----------------------------
@@ -524,13 +527,13 @@ Organisation Info Side
 /* ----------------------------
 Deadlines & Deliverables
 ----------------------------*/
-.project-deadlines {
+.project-details .deadline {
     clear:both;
 }
-.project-deadlines h3 {
+.project-details .deadline h3 {
     margin-bottom: 20px;
-    font-size: 25px;
 }
+
 
 .data-table.deliverables .details {
     width: 85px;
@@ -576,6 +579,63 @@ Box Details
 .box-details tr td {padding: 5px;}
 .box-details .label {font-weight:bold; width: 100px;}
 .box-details .detail {}
+
+
+
+
+/* --------------------------------------------------
+Search Projects
+-----------------------------------------------------*/
+
+/* ----------------------------
+Search Area
+----------------------------*/
+.search {
+    float: left;
+    width: 200px;
+    padding-right: 10px;
+    border-right: 1px solid #D1D1D1;
+    margin-right: 10px;
+}
+
+.search label {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+#search .search select,
+#search .search input {
+    width: 180px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.search a {
+    display: block;
+    text-align: center;
+}
+
+
+
+
+/* ----------------------------
+Search Results
+----------------------------*/
+.results {
+    float: left;
+    width: 599px;
+ }
+ 
+.results span span {
+    font-size: 12px;
+}
+
+.results .posted {line-height: 40px;
+font-size: 11px;
+text-align: right;}
+
+.results td a {
+    cursor: pointer;
+}
 
 
 
