@@ -15,7 +15,7 @@
 	<ui:param name="pageTitle" value="View Organisation"/>
 
 	<ui:define name="header">
-		Organisation
+		Hello <h:outputText id="organisationBeanOrganisationName" value="#{organisationBean.organisation.name}"/>
 	</ui:define>
 
 	<ui:define name="subheader">
