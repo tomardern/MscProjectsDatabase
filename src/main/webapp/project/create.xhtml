@@ -63,32 +63,11 @@
 					<h:message for="projectBeanProjectDeadline" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectAdded" value="Added:"/>
-				<h:panelGroup>
-					<h:inputText styleClass="date" id="projectBeanProjectAdded" value="#{projectBean.project.added}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="projectBeanProjectAdded" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectApproved" value="Approved:"/>
-				<h:panelGroup>
-					<h:selectBooleanCheckbox id="projectBeanProjectApproved" value="#{projectBean.project.approved}"/>
-					<h:message for="projectBeanProjectApproved" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectNotes" value="Notes:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectNotes" value="#{projectBean.project.notes}"/>
-					<h:message for="projectBeanProjectNotes" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
+
 				<h:outputLabel for="projectBeanProjectOrganisation" value="Organisation:"/>
 				<h:panelGroup>
-					<h:selectOneMenu converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}">
-						<f:selectItem/>
-						<f:selectItems value="#{organisationBean.all}"/>
-					</h:selectOneMenu>
+                                    <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
+		
 					<h:message for="projectBeanProjectOrganisation" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>

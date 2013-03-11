@@ -10,7 +10,8 @@
 
 	<f:metadata>
 		<f:viewParam name="id" value="#{projectBean.id}"/>
-		<f:event type="preRenderView" listener="#{projectBean.retrieve}"/>
+		<f:event type="preRenderView" listener="#{projectBean.retrieveDelierable}"/>
+                
 	</f:metadata>
 
 	<ui:param name="pageTitle" value="Create Project"/>
@@ -37,52 +38,6 @@
 			<h:messages globalOnly="true" styleClass="error"/>
 
 			<h:panelGrid columnClasses="label,component,required" columns="3">
-				<h:outputLabel for="projectBeanProjectName" value="Name:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectName" required="true" value="#{projectBean.project.name}"/>
-					<h:message for="projectBeanProjectName" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectQuestion" value="Question:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectQuestion" required="true" value="#{projectBean.project.question}"/>
-					<h:message for="projectBeanProjectQuestion" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectDescription" value="Description:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectDescription" required="true" value="#{projectBean.project.description}"/>
-					<h:message for="projectBeanProjectDescription" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="projectBeanProjectDeadline" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectAdded" value="Added:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectAdded" value="#{projectBean.project.added}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="projectBeanProjectAdded" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectApproved" value="Approved:"/>
-				<h:panelGroup>
-					<h:selectBooleanCheckbox id="projectBeanProjectApproved" value="#{projectBean.project.approved}"/>
-					<h:message for="projectBeanProjectApproved" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="projectBeanProjectNotes" value="Notes:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectNotes" value="#{projectBean.project.notes}"/>
-					<h:message for="projectBeanProjectNotes" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
 				<h:outputLabel for="projectBeanProjectDeliverables" value="Deliverables:"/>
 				<h:panelGroup>
 					<ui:param name="_collection" value="#{projectBean.project.deliverables}"/>

@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"	
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
@@ -42,6 +42,7 @@
 					<h:message for="deliverableBeanDeliverableName" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
+
 				<h:outputLabel for="deliverableBeanDeliverableDeadline" value="Deadline:"/>
 				<h:panelGroup>
                                     <h:inputText styleClass="date" id="deliverableBeanDeliverableDeadline" required="true" value="#{deliverableBean.deliverable.deadline}">
@@ -50,6 +51,7 @@
 					<h:message for="deliverableBeanDeliverableDeadline" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
+
 				<h:outputLabel for="deliverableBeanDeliverableProject" value="Project:"/>
 				<h:panelGroup>
 					<h:selectOneMenu converter="#{projectBean.converter}" id="deliverableBeanDeliverableProject" value="#{deliverableBean.deliverable.project}">

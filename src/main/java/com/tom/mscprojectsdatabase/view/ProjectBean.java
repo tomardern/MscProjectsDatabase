@@ -115,6 +115,34 @@ public class ProjectBean implements Serializable
          this.project = findById(getId());
       }
    }
+   
+   
+      public void retrieveDelierable()
+   {
+
+      /* Remove conversations to allow for proper deletion :) 
+       * if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      } */
+
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
+
+      if (this.id == null)
+      {
+         this.project = this.example;
+      }
+      else
+      {
+         this.project = findById(getId());
+      }
+      
+      update();
+      
+   }
 
    public Project findById(Long id)
    {

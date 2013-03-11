@@ -97,20 +97,6 @@
 					<h:message for="organisationBeanOrganisationWebsite" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="organisationBeanOrganisationVerified" value="Verified:"/>
-				<h:panelGroup>
-					<h:selectBooleanCheckbox id="organisationBeanOrganisationVerified" value="#{organisationBean.organisation.verified}"/>
-					<h:message for="organisationBeanOrganisationVerified" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="organisationBeanOrganisationAdded" value="Added:"/>
-				<h:panelGroup>
-					<h:inputText styleClass="date" id="organisationBeanOrganisationAdded" value="#{organisationBean.organisation.added}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="organisationBeanOrganisationAdded" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
 
 			</h:panelGrid>
 
