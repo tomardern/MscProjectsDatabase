@@ -92,6 +92,12 @@ public class ProjectBean implements Serializable
        
    }
    
+   public String finish(){
+        
+       return "/organisation/panel?faces-redirect=true&id=" + this.project.getOrganisation().getId();
+       
+   }
+   
    
    public void retrieve()
    {

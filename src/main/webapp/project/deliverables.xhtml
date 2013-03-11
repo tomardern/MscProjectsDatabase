@@ -91,18 +91,10 @@
 			</h:panelGrid>
 
 			<div class="buttons">
-				<h:commandLink value="Save" action="#{projectBean.update}" styleClass="btn btn-primary"/>
-				<c:choose>
-					<c:when test="#{!empty projectBean.id}">
-						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
-							<f:param name="id" value="#{projectBean.id}"/>
-						</h:link>
-						<h:commandLink value="Delete" action="#{projectBean.delete}" styleClass="btn btn-primary"/>
-					</c:when>
-					<c:otherwise>
-						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
-					</c:otherwise>
-				</c:choose>
+				<h:commandLink value="Finish" action="#{projectBean.finish}" styleClass="btn btn-primary">
+                                    <f:param name="id" value="#{projectBean.project.id}"/>
+                                </h:commandLink >
+                            
 			</div>
 		</h:form>
 	</ui:define>
