@@ -20,7 +20,7 @@
         <ul class="breadcrumb">
             <li class="current">1. Organisation Registration</li>
             <li class="current">2. Project Idea</li>
-            <li class="current">3. Deliverables &amp; Deadlines</li>
+            <li class="current active">3. Deliverables &amp; Deadlines</li>
         </ul>
     </ui:define>
         
@@ -46,12 +46,10 @@
 			<h:messages globalOnly="true" styleClass="error"/>
 
                         <h3>Deliverables and Deadlines</h3>
-                        
-                        
-			<h:panelGrid columnClasses="label,component,required" columns="1">
-				<h:panelGroup>
+
+				
 					<ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
-					<h:dataTable id="projectBeanProjectDeliverables" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+                                        <h:dataTable id="projectBeanProjectDeliverables" columnClasses="details,deadlines,actions" styleClass="data-table deliverables" value="#{forgeview:asList(_collection)}" var="_item">
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Name"/>
@@ -82,22 +80,21 @@
 								<h:message for="deliverableBeanAddDeadline" styleClass="error"/>
 							</f:facet>
 						</h:column>
-						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink   value="Remove"  action="#{_collection.remove(_item)}" styleClass="remove-button" >
+						<h:column footerClass="remove-column">
+							<h:commandLink   value="&times;"  action="#{_collection.remove(_item)}" styleClass="button delete" >
        								<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
                                                                 <f:param name="id" value="#{projectBean.project.id}"/> 
                                                         </h:commandLink>    
                                                             
 							<f:facet name="footer">
-								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" value="Add" styleClass="add-button">
+								<h:commandLink action="#{_collection.add(deliverableBean.added)}" id="projectBeanProjectDeliverablesAdd" value="&#43;"  styleClass="button save">
 									<f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>
                                                                         <f:param name="id" value="#{projectBean.project.id}"/> 
 								</h:commandLink>
 							</f:facet>
 						</h:column>
 					</h:dataTable>
-				</h:panelGroup>
-			</h:panelGrid>
+			
 
 			<div class="buttons">
 				<h:commandLink value="Finish &raquo;" action="#{projectBean.finish}" styleClass="button save">

@@ -118,6 +118,17 @@ Buttons
     text-align: center;
 }
 
+.button.delete {
+   background: #F52D2D;
+   border-color: #BE0D0D;
+}
+.button.delete:hover {
+    background: #CA1D1D;
+}
+
+
+
+
 /* --------------------------------------------------
 Header
 -----------------------------------------------------*/
@@ -167,12 +178,14 @@ Breadcrumb
 }
 
 /* Current/Active (.current)s ---- */
-.breadcrumb .current {
+.breadcrumb .active {
     background: #FFF;
     border-color: #A8A8A8;
     color: #2E2E2E;
 }
-
+.breadcrumb .current {
+    background: #F0F0F0 !important;
+}
 
 /* --------------------------------------------------
 Main
@@ -299,8 +312,15 @@ Create Deliverables
     font-size: 12px;
 }
 .deliverables .deadline input {
-    width: 620px;
+    width: 20px;
 }
+.deliverables .actions .button {
+    display: block;
+    width: 10px;
+    text-align: center;
+    color: #FFF !important;
+}
+
 
 
 /* --------------------------------------------------
