@@ -13,114 +13,100 @@
         <f:event type="preRenderView" listener="#{organisationBean.retrieve}"/>
     </f:metadata>
 
-    <ui:param name="pageTitle" value="Create Organisation"/>
+    <ui:param name="pageTitle" value="Register Organisation"/>
 
-    <ui:define name="breadcrumb">
-        <ul class="breadcrumb">
-            <li class="current active">1. Organisation Registration</li>
-            <li>2. Project Idea</li>
-            <li>3. Deliverables &amp; Deadlines</li>
-        </ul>
+    <ui:define name="breadcrumb" rendered="#{param.mode == 'registration'}">
+        <c:choose>
+            <c:when test="#{empty organisationBean.id}">
+                <ul class="breadcrumb">
+                    <li class="current active">1. Organisation Registration</li>
+                    <li>2. Project Idea</li>
+                    <li>3. Deliverables &amp; Deadlines</li>
+                </ul>
+            </c:when>
+            <c:otherwise></c:otherwise>
+        </c:choose>
     </ui:define>    
 
 
     <ui:define name="header">
-        Organisation
-    </ui:define>
-
-    <ui:define name="subheader">
         <c:choose>
-            <c:when test="#{!empty organisationBean.id}">
-                Edit existing Organisation
-            </c:when>
-            <c:otherwise>
-                Create a new Organisation
-            </c:otherwise>
+            <c:when test="#{!empty organisationBean.id}">Edit Profile</c:when>
+            <c:otherwise>Register Organisation</c:otherwise>
         </c:choose>
     </ui:define>
 
-    <ui:define name="footer"/>
 
     <ui:define name="main">
         <h:form styleClass="auto" id="create">
             <h:messages globalOnly="true" styleClass="error"/>
 
-            <h3>User Details</h3>
+            <h3 class="i-user">User Details</h3>
             <h:panelGrid columnClasses="label,component,messages" columns="3">
+
                 <h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationUsername" required="true" value="#{organisationBean.organisation.username}"/>
-                    <h:message for="organisationBeanOrganisationUsername" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText value="*"/>
-                <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}"/>
-                    <h:message for="organisationBeanOrganisationPassword" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText value="*"/>     
+                <h:inputText id="organisationBeanOrganisationUsername" required="true" value="#{organisationBean.organisation.username}"  requiredMessage="Organisation Name Required" />
+                <h:message for="organisationBeanOrganisationUsername" styleClass="error" />
+
+
+                <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"  />
+                <h:inputSecret  id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}" requiredMessage="Password Required" />
+                <h:message for="organisationBeanOrganisationPassword" styleClass="error"/>
+
+
             </h:panelGrid>  
 
 
-            <h3>Contact Details</h3>
+            <h3 class="i-contact">Contact Details</h3>
             <h:panelGrid columnClasses="label,component,messages" columns="3">
 
-                <h:outputLabel for="organisationBeanOrganisationName" value="Name:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationName" required="true" value="#{organisationBean.organisation.name}"/>
-                    <h:message for="organisationBeanOrganisationName" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText value="*"/>
-
+                <h:outputLabel for="organisationBeanOrganisationName" value="Name:"  />
+                <h:inputText id="organisationBeanOrganisationName" required="true" value="#{organisationBean.organisation.name}" requiredMessage="Name Required" />
+                <h:message for="organisationBeanOrganisationName" styleClass="error"/>
 
                 <h:outputLabel for="organisationBeanOrganisationEmail" value="Email:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationEmail" required="true" value="#{organisationBean.organisation.email}"/>
-                    <h:message for="organisationBeanOrganisationEmail" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText value="*"/>
+                <h:inputText id="organisationBeanOrganisationEmail" required="true" value="#{organisationBean.organisation.email}"  requiredMessage="Email Required" />
+                <h:message for="organisationBeanOrganisationEmail" styleClass="error"/>
+
                 <h:outputLabel for="organisationBeanOrganisationTelephone" value="Telephone:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationTelephone" required="true" value="#{organisationBean.organisation.telephone}"/>
-                    <h:message for="organisationBeanOrganisationTelephone" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText value="*"/>
+                <h:inputText id="organisationBeanOrganisationTelephone" required="true" value="#{organisationBean.organisation.telephone}" requiredMessage="Telephone Required" />
+                <h:message for="organisationBeanOrganisationTelephone" styleClass="error"/>
+
+
                 <h:outputLabel for="organisationBeanOrganisationFax" value="Fax:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationFax" value="#{organisationBean.organisation.fax}"/>
-                    <h:message for="organisationBeanOrganisationFax" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText/>
+                <h:inputText id="organisationBeanOrganisationFax" value="#{organisationBean.organisation.fax}" requiredMessage="Fax Required" />
+                <h:message for="organisationBeanOrganisationFax" styleClass="error"/>
+
+
 
             </h:panelGrid>
 
-            <h3>Organisation Details</h3>
+            <h3 class="i-organisation">Organisation Details</h3>
             <h:panelGrid columnClasses="label,component,messages" columns="3">
 
                 <h:outputLabel for="organisationBeanOrganisationOrgname" value="Orgname:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationOrgname" required="true" value="#{organisationBean.organisation.orgname}"/>
-                    <h:message for="organisationBeanOrganisationOrgname" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText value="*"/>
+                <h:inputText id="organisationBeanOrganisationOrgname" required="true" value="#{organisationBean.organisation.orgname}" requiredMessage="Name Required" />
+                <h:message for="organisationBeanOrganisationOrgname" styleClass="error"/>
+
+
                 <h:outputLabel for="organisationBeanOrganisationDrescription" value="Drescription:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationDrescription" value="#{organisationBean.organisation.drescription}"/>
-                    <h:message for="organisationBeanOrganisationDrescription" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText/>
+
+                <h:inputText id="organisationBeanOrganisationDrescription" value="#{organisationBean.organisation.drescription}"/>
+                <h:message for="organisationBeanOrganisationDrescription" styleClass="error"/>
+
+
                 <h:outputLabel for="organisationBeanOrganisationAddress" value="Address:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationAddress" value="#{organisationBean.organisation.address}"/>
-                    <h:message for="organisationBeanOrganisationAddress" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText/>
+
+                <h:inputText id="organisationBeanOrganisationAddress" value="#{organisationBean.organisation.address}"/>
+                <h:message for="organisationBeanOrganisationAddress" styleClass="error"/>
+
+
                 <h:outputLabel for="organisationBeanOrganisationWebsite" value="Website:"/>
-                <h:panelGroup>
-                    <h:inputText id="organisationBeanOrganisationWebsite" value="#{organisationBean.organisation.website}"/>
-                    <h:message for="organisationBeanOrganisationWebsite" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText/>
+
+                <h:inputText id="organisationBeanOrganisationWebsite" value="#{organisationBean.organisation.website}"/>
+                <h:message for="organisationBeanOrganisationWebsite" styleClass="error"/>
+
+
             </h:panelGrid>
 
 

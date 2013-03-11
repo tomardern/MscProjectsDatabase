@@ -162,6 +162,15 @@ Header
     padding-left: 40px;
 }
 
+/* Icons on Secondary Headings ---- */
+.content h3 {background: url("../img/icon_sprite.png") no-repeat 0px 0px; padding-left: 32px;}
+
+h3.i-user {background-position: 0px 3px;}
+h3.i-contact {background-position: 0px -29px;}
+h3.i-organisation {background-position: 0px -59px;}
+h3.i-project {background-position: 0px -89px;}
+h3.i-deliverable {background-position: 0px -117px;}
+
 /* Login Boxs ---- */
 .header .login {
    width: 410px;
@@ -208,16 +217,21 @@ Main
 .content h1 .button {
     margin-top: 12px;
 }
-
-/* ----------------------------
-Form Styling
-----------------------------*/
 .content h3 {
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 1px solid #DADADA;
 }
+.content h3 .button {
+    float: right;
+    font-size: 13px;
+    padding: 3px 10px;
+}
 
+
+/* ----------------------------
+Form Styling
+----------------------------*/
 .content form label {
     width: 214px;
     display: block;
@@ -327,6 +341,15 @@ Create Deliverables
     text-align: center;
     color: #FFF !important;
 }
+.deliverables .deadlines,
+.deliverables .input input,
+.deliverables .input {
+   width: 100px;
+}
+.deliverables .inputs input { width: 135px;}
+.deliverables .input-details input {width: 580px;}
+                               
+
 
 
 
@@ -510,7 +533,7 @@ Deadlines & Deliverables
 .data-table.deliverables .details {
     width: 85px;
 }
-.data-table.deliverables .details span {
+.data-table.deliverables .deadlines span {
     line-height: 16px;
     font-size: 12px;
 }
@@ -545,7 +568,7 @@ Box Details
     border: 1px solid #CECECE;
     background: #F3F3F3;
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .box-details tr {}
 .box-details tr td {padding: 5px;}

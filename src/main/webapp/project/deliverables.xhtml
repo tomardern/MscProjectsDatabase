@@ -43,26 +43,24 @@
 
     <ui:define name="main">
         <h:form styleClass="auto" id="create">
-            <h:messages globalOnly="true" styleClass="error"/>
+            <h:message styleClass="error"/>
 
-            <h3>Deliverables and Deadlines</h3>
-
+            <h3 class="i-deliverable">Deliverables and Deadlines</h3>
 
             <ui:param name="_collection" value="#{projectBean.project.deliverables}"/>
             <h:dataTable id="projectBeanProjectDeliverables" columnClasses="details,deadlines,actions" styleClass="data-table deliverables" value="#{forgeview:asList(_collection)}" var="_item">
-                <h:column>
+                <h:column footerClass="input-details">
                     <f:facet name="header">
                         <h:outputText value="Name"/>
                     </f:facet>
-                    <f:param name="id" value="#{_item.id}"/>
                     <h:outputText id="itemName" value="#{_item.name}"/>
                     <f:facet name="footer">
                         <h:inputText id="deliverableBeanAddName" value="#{deliverableBean.add.name}"/>
                         <h:message for="deliverableBeanAddName" styleClass="error"/>
                     </f:facet>
                 </h:column>
-                
-                <h:column>
+
+                <h:column footerClass="inputs">
                     <f:facet name="header">
                         <h:outputText value="Deadline"/>
                     </f:facet>
@@ -75,7 +73,7 @@
                         </h:inputText>
                     </f:facet>
                 </h:column>
-                
+
                 <h:column footerClass="remove-column">
                     <h:commandLink   value="&times;"  action="#{_collection.remove(_item)}" styleClass="button delete" >
                         <f:setPropertyActionListener target="#{deliverableBean.add.project}" value="#{projectBean.project}"/>   
@@ -90,6 +88,7 @@
                     </f:facet>
                 </h:column>
             </h:dataTable>
+
 
 
             <div class="buttons">

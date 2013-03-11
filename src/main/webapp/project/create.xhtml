@@ -1,96 +1,81 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:forgeview="http://jboss.org/forge/view"	
-	template="/resources/scaffold/pageTemplate.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:forgeview="http://jboss.org/forge/view"	
+                template="/resources/scaffold/pageTemplate.xhtml">
 
-  	<f:metadata>
-		<f:viewParam name="id" value="#{projectBean.id}"/>
-		<f:event type="preRenderView" listener="#{projectBean.retrieve}"/>
-	</f:metadata>
-    
-	<ui:param name="pageTitle" value="Create Project"/>
+    <f:metadata>
+        <f:viewParam name="id" value="#{projectBean.id}"/>
+        <f:event type="preRenderView" listener="#{projectBean.retrieve}"/>
+    </f:metadata>
 
-        
-         <ui:define name="breadcrumb">
+    <ui:param name="pageTitle" value="New Project"/>
+
+
+    <ui:define name="breadcrumb">
         <ul class="breadcrumb">
             <li class="current">1. Organisation Registration</li>
             <li class="current active">2. Project Idea</li>
             <li>3. Deliverables &amp; Deadlines</li>
         </ul>
     </ui:define> 
-        
-	<ui:define name="header">
-		New Project
-	</ui:define>
 
-	<ui:define name="subheader">
-		<c:choose>
-			<c:when test="#{!empty projectBean.id}">
-				Edit existing Project
-			</c:when>
-			<c:otherwise>
-				Create a new Project
-			</c:otherwise>
-		</c:choose>
-	</ui:define>
+    <ui:define name="header">New Project</ui:define>
 
-	<ui:define name="footer"/>
+    <ui:define name="subheader">
+        <c:choose>
+            <c:when test="#{!empty projectBean.id}">
+                Edit existing Project
+            </c:when>
+            <c:otherwise>
+                Create a new Project
+            </c:otherwise>
+        </c:choose>
+    </ui:define>
 
-	<ui:define name="main">
-		<h:form  styleClass="auto" id="create">
-			<h:messages globalOnly="true" styleClass="error"/>
+    <ui:define name="footer"/>
 
-			            <h3>Project Details</h3>
+    <ui:define name="main">
+        <h:form  styleClass="auto" id="create">
+            <h:messages globalOnly="true" styleClass="error"/>
+
+            <h3 class="i-project">Project Details</h3>
             <h:panelGrid columnClasses="label,component,messages" columns="3">  
-				<h:outputLabel for="projectBeanProjectName" value="Name:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectName" required="true" value="#{projectBean.project.name}"/>
-					<h:message for="projectBeanProjectName" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectQuestion" value="Question:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectQuestion" required="true" value="#{projectBean.project.question}"/>
-					<h:message for="projectBeanProjectQuestion" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectDescription" value="Description:"/>
-				<h:panelGroup>
-					<h:inputText id="projectBeanProjectDescription" required="true" value="#{projectBean.project.description}"/>
-					<h:message for="projectBeanProjectDescription" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
-				<h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
-				<h:panelGroup>
-                                    <h:inputText styleClass="date" id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}">
-						<f:convertDateTime type="date"/>
-					</h:inputText>
-					<h:message for="projectBeanProjectDeadline" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText value="*"/>
+                <h:outputLabel for="projectBeanProjectName" value="Name:"/>
+                <h:inputText id="projectBeanProjectName" required="true" value="#{projectBean.project.name}" requiredMessage="Name is required" />
+                <h:message for="projectBeanProjectName" styleClass="error"/>
 
-				<h:outputText/>
-				<h:panelGroup>
-                                    <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
-		
-					<h:message for="projectBeanProjectOrganisation" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-			</h:panelGrid>
+                <h:outputLabel for="projectBeanProjectQuestion" value="Question:"/>
+                <h:inputText id="projectBeanProjectQuestion" required="true" value="#{projectBean.project.question}"  requiredMessage="Quesiton is required" />
+                <h:message for="projectBeanProjectQuestion" styleClass="error"/>
 
-			<div class="buttons">
-                           
-				<h:commandLink value="Set Deadlines &amp; Deliverables &raquo;" action="#{projectBean.update}" styleClass="button save">
-                                    <f:param name="id" value="#{projectBean.project.id}"/>
-                                </h:commandLink >
+                <h:outputLabel for="projectBeanProjectDescription" value="Description:" />
+                <h:inputTextarea id="projectBeanProjectDescription" required="true" value="#{projectBean.project.description}" requiredMessage="Description is required"/>
+                <h:message for="projectBeanProjectDescription" styleClass="error"/>
 
-			</div>
-		</h:form>
-	</ui:define>
+                <h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
+                <h:inputText styleClass="date" id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}" requiredMessage="Deadline is required">
+                    <f:convertDateTime type="date"/>
+                </h:inputText>
+                <h:message for="projectBeanProjectDeadline" styleClass="error"/>
+
+                <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
+                <h:message for="projectBeanProjectOrganisation" styleClass="error"/>
+
+            </h:panelGrid>
+
+            <div class="buttons">
+
+                <h:commandLink value="Set Deadlines &amp; Deliverables &raquo;" action="#{projectBean.update}" styleClass="button save">
+                    <f:param name="id" value="#{projectBean.project.id}"/>
+                </h:commandLink >
+
+            </div>
+        </h:form>
+    </ui:define>
 
 </ui:composition>
