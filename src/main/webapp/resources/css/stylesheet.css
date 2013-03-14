@@ -171,6 +171,7 @@ h3.i-organisation {background-position: 0px -59px;}
 h3.i-project {background-position: 0px -89px;}
 h3.i-deliverable {background-position: 0px -117px;}
 h3.i-search {background-position: 0px -148px;}
+h3.i-idea {background-position: 0px -178px;}
 
 /* Login Boxs ---- */
 .header .login {
@@ -430,7 +431,7 @@ Organisations Side
 }
 .home .organisations h4 {
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 .home .organisations .button {
     width: 220px;
