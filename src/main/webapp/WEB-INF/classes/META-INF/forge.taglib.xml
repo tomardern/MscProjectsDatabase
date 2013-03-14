@@ -5,7 +5,7 @@
 
 	<function>
 		<function-name>asList</function-name>
-		<function-class>com.tom.mscprojectsdatabase.view.ViewUtils</function-class>
+		<function-class>com.tom.mscprojectsdatabase.controllers.ViewUtils</function-class>
 		<function-signature>
 			java.util.List asList(java.util.Collection)
 		</function-signature>

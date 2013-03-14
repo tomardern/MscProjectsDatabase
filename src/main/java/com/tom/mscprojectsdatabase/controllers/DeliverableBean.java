@@ -1,4 +1,4 @@
-package com.tom.mscprojectsdatabase.view;
+package com.tom.mscprojectsdatabase.controllers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
