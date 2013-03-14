@@ -684,8 +684,38 @@ text-align: right;}
 
 
 
+/* --------------------------------------------------
+Login Choices
+-----------------------------------------------------*/
+.login-choice .login-form {
+    width: 400px;
+    margin-right: 20px;
+    float: left;
+}
+.login-choice .register-form {
+    width: 400px;
+    float: left;
+}
 
+.login-choice .login-form label {
+    width: 100px
+}
+.login-choice .login-form input {
+    width: 265px
+}
 
+.login-choice .login-form a {
+    float: right;
+    margin-right: 10px;
+}
+
+.login-choice .register-form p {
+    margin: 10px 10px 60px;
+}
+.login-choice .register-form a {
+    float: right;
+    margin-right: 10px;
+}
 
 
 .container {

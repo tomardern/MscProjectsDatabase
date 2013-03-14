@@ -13,119 +13,40 @@
         <f:event type="preRenderView" listener="#{organisationBean.retrieve}"/>
     </f:metadata>
 
-    <ui:param name="pageTitle" value="Register Organisation"/>
+    <ui:param name="pageTitle" value="Login"/>
 
-    <ui:define name="breadcrumb" rendered="#{param.mode == 'registration'}">
-        <c:choose>
-            <c:when test="#{empty organisationBean.id}">
-                <ul class="breadcrumb">
-                    <li class="current active">1. Organisation Registration</li>
-                    <li>2. Project Idea</li>
-                    <li>3. Deliverables &amp; Deadlines</li>
-                </ul>
-            </c:when>
-            <c:otherwise></c:otherwise>
-        </c:choose>
-    </ui:define>    
-
-
-    <ui:define name="header">
-        <c:choose>
-            <c:when test="#{!empty organisationBean.id}">Edit Profile</c:when>
-            <c:otherwise>Register Organisation</c:otherwise>
-        </c:choose>
-    </ui:define>
+    <ui:define name="header">Login</ui:define>
 
 
     <ui:define name="main">
-        <h:form styleClass="auto" id="create">
+        <h:form styleClass="auto login-choice" id="create">
             <h:messages globalOnly="true" styleClass="error"/>
 
-            <h3 class="i-user">User Details</h3>
-            <h:panelGrid columnClasses="label,component,messages" columns="3">
+            <div class="login-form">
+                <h3 class="i-user">Registered Organisation</h3>
+                <h:panelGrid columnClasses="label,component,messages" columns="3">
 
-                <h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
-                <h:inputText id="organisationBeanOrganisationUsername" required="true" value="#{organisationBean.organisation.username}"  requiredMessage="Organisation Name Required" />
-                <h:message for="organisationBeanOrganisationUsername" styleClass="error" />
-
-
-                <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"  />
-                <h:inputSecret  id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}" requiredMessage="Password Required" />
-                <h:message for="organisationBeanOrganisationPassword" styleClass="error"/>
+                    <h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
+                    <h:inputText id="organisationBeanOrganisationUsername" required="true" value="#{organisationBean.organisation.username}"  requiredMessage="Organisation Name Required" />
+                    <h:message for="organisationBeanOrganisationUsername" styleClass="error" />
 
 
-            </h:panelGrid>  
-
-
-            <h3 class="i-contact">Contact Details</h3>
-            <h:panelGrid columnClasses="label,component,messages" columns="3">
-
-                <h:outputLabel for="organisationBeanOrganisationName" value="Name:"  />
-                <h:inputText id="organisationBeanOrganisationName" required="true" value="#{organisationBean.organisation.name}" requiredMessage="Name Required" />
-                <h:message for="organisationBeanOrganisationName" styleClass="error"/>
-
-                <h:outputLabel for="organisationBeanOrganisationEmail" value="Email:"/>
-                <h:inputText id="organisationBeanOrganisationEmail" required="true" value="#{organisationBean.organisation.email}"  requiredMessage="Email Required" />
-                <h:message for="organisationBeanOrganisationEmail" styleClass="error"/>
-
-                <h:outputLabel for="organisationBeanOrganisationTelephone" value="Telephone:"/>
-                <h:inputText id="organisationBeanOrganisationTelephone" required="true" value="#{organisationBean.organisation.telephone}" requiredMessage="Telephone Required" />
-                <h:message for="organisationBeanOrganisationTelephone" styleClass="error"/>
-
-
-                <h:outputLabel for="organisationBeanOrganisationFax" value="Fax:"/>
-                <h:inputText id="organisationBeanOrganisationFax" value="#{organisationBean.organisation.fax}" requiredMessage="Fax Required" />
-                <h:message for="organisationBeanOrganisationFax" styleClass="error"/>
-
-
-
-            </h:panelGrid>
-
-            <h3 class="i-organisation">Organisation Details</h3>
-            <h:panelGrid columnClasses="label,component,messages" columns="3">
-
-                <h:outputLabel for="organisationBeanOrganisationOrgname" value="Orgname:"/>
-                <h:inputText id="organisationBeanOrganisationOrgname" required="true" value="#{organisationBean.organisation.orgname}" requiredMessage="Name Required" />
-                <h:message for="organisationBeanOrganisationOrgname" styleClass="error"/>
-
-
-                <h:outputLabel for="organisationBeanOrganisationDrescription" value="Drescription:"/>
-
-                <h:inputText id="organisationBeanOrganisationDrescription" value="#{organisationBean.organisation.drescription}"/>
-                <h:message for="organisationBeanOrganisationDrescription" styleClass="error"/>
-
-
-                <h:outputLabel for="organisationBeanOrganisationAddress" value="Address:"/>
-
-                <h:inputTextarea id="organisationBeanOrganisationAddress" value="#{organisationBean.organisation.address}"/>
-                <h:message for="organisationBeanOrganisationAddress" styleClass="error"/>
-
-
-                <h:outputLabel for="organisationBeanOrganisationWebsite" value="Website:"/>
-
-                <h:inputText id="organisationBeanOrganisationWebsite" value="#{organisationBean.organisation.website}"/>
-                <h:message for="organisationBeanOrganisationWebsite" styleClass="error"/>
-
-
-            </h:panelGrid>
-
-
-            <div class="buttons">
-                <c:choose>
-                    <c:when test="#{empty organisationBean.id}">
-                        <h:commandLink value="Create Project &raquo;" action="#{organisationBean.update}"  styleClass="button save">
-                            <f:setPropertyActionListener target="#{projectBean.project.organisation}" value="#{organisationBean.organisation}"/>
-                        </h:commandLink>
-                    </c:when>
-                    <c:otherwise>
-                        <h:commandLink value="Update Profile &raquo;" action="#{organisationBean.update}"  styleClass="button save">
-                            <f:setPropertyActionListener target="#{projectBean.project.organisation}" value="#{organisationBean.organisation}"/>
-                        </h:commandLink>
-                    </c:otherwise>
-                </c:choose>
-
-
+                    <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"  />
+                    <h:inputSecret  id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}" requiredMessage="Password Required" />
+                    <h:message for="organisationBeanOrganisationPassword" styleClass="error"/>
+                </h:panelGrid>
+                <h:link class="button submit-idea" outcome="/organisation/login?mode=registration" value="Login &raquo;"/>    
             </div>
+
+              <div class="register-form">
+                <h3 class="i-user">New Organisation</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec lectus a orci ornare viverra.</p>
+                    <h:link class="button submit-idea" outcome="/organisation/create" value="Create Organisation &raquo;"/>     
+            </div>          
+            
+            
+            
+            
         </h:form>
     </ui:define>
 
