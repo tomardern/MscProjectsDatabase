@@ -8,7 +8,7 @@
 
     <f:metadata>
         <f:viewParam name="page" value="#{projectBean.page}"/>
-        <f:event type="preRenderView" listener="#{projectBean.paginate}"/>
+        <f:event type="preRenderView" listener="#{projectBean.paginate(10000)}"/>
     </f:metadata>
 
     <ui:param name="pageTitle" value="Search Project entities"/>

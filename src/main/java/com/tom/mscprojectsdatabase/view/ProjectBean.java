@@ -216,7 +216,7 @@ public class ProjectBean implements Serializable {
         this.page = 0;
     }
 
-    public void paginate() {
+    public void paginate(int resultSize) {
 
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
@@ -236,9 +236,8 @@ public class ProjectBean implements Serializable {
         TypedQuery<Project> query = this.entityManager.createQuery(
                 criteria.select(root).where(getSearchPredicates(root)).orderBy(builder.desc(root.get(Project_.id))));
 
-        query.setFirstResult(this.page * getPageSize()).setMaxResults(
-                getPageSize());
-
+        query.setFirstResult(this.page * resultSize).setMaxResults(resultSize);
+        
 
 
         this.pageItems = query.getResultList();

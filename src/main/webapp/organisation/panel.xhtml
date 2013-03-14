@@ -10,7 +10,7 @@
     <f:metadata>
         <f:viewParam name="id" value="#{organisationBean.id}"/>
         <f:event type="preRenderView" listener="#{organisationBean.retrieve}"/>
-        <f:event type="preRenderView" listener="#{projectBean.paginate}"/>
+        <f:event type="preRenderView" listener="#{projectBean.paginate(1000)}"/>
     </f:metadata>
 
     <ui:param name="pageTitle" value="View Organisation"/>

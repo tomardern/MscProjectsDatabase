@@ -9,7 +9,7 @@
 
     <f:metadata>
         <f:viewParam name="page" value="#{projectBean.page}"/>
-        <f:event type="preRenderView" listener="#{projectBean.paginate}"/>
+        <f:event type="preRenderView" listener="#{projectBean.paginate(5)}"/>
     </f:metadata>
 
     <ui:param name="pageTitle" value="Msc Projects DB" />
@@ -26,6 +26,7 @@
                     <h:link class="button" outcome="/project/search" value="Advanced Search" />
                 </h3>
 
+               
                 <h:dataTable id="projectBeanPageItems" styleClass="data-table"  rowClasses="even, odd" columnClasses="deadline, title"  value="#{projectBean.pageItems}" var="_item">
                     <h:column>
                         <f:facet name="header">
