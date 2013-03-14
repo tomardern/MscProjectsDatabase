@@ -22,7 +22,9 @@
             <h2>We have students ready to take on cool and interesting projects </h2>
 
             <div class="projects">
-                <h3 class="i-project"><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects <h:link outcome="/project/search" value="Advanced Search" /> </h3>
+                <h3 class="i-project"><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects
+                    <h:link class="button" outcome="/project/search" value="Advanced Search" />
+                </h3>
 
                 <h:dataTable id="projectBeanPageItems" styleClass="data-table"  rowClasses="even, odd" columnClasses="deadline, title"  value="#{projectBean.pageItems}" var="_item">
                     <h:column>

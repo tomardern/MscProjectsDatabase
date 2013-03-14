@@ -44,9 +44,8 @@ public class Project implements Serializable
    @NotNull
    private String description;
 
-   @Temporal(TemporalType.DATE)
    @NotNull
-   private Date deadline;
+   private String deadline;
 
    @Temporal(TemporalType.DATE)
    private Date added;
@@ -145,12 +144,12 @@ public class Project implements Serializable
       this.description = description;
    }
 
-   public Date getDeadline()
+   public String getDeadline()
    {
       return this.deadline;
    }
 
-   public void setDeadline(final Date deadline)
+   public void setDeadline(final String deadline)
    {
       this.deadline = deadline;
    }

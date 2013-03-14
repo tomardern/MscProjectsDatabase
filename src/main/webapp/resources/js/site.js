@@ -16,7 +16,9 @@ $(document).ready(function(){
        }
    });
     
-   $(".date").val("22-Feb-2015");
+   $(".date").attr("type","date");
+    
+
     
     
     

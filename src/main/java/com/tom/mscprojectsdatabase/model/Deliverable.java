@@ -31,9 +31,8 @@ public class Deliverable implements Serializable
    @NotNull
    private String name;
 
-   @Temporal(TemporalType.DATE)
    @NotNull
-   private Date deadline;
+   private String deadline;
 
    @ManyToOne
    private Project project;
@@ -100,12 +99,12 @@ public class Deliverable implements Serializable
       this.name = name;
    }
 
-   public Date getDeadline()
+   public String getDeadline()
    {
       return this.deadline;
    }
 
-   public void setDeadline(final Date deadline)
+   public void setDeadline(final String deadline)
    {
       this.deadline = deadline;
    }

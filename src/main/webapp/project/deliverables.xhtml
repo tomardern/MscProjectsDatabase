@@ -64,13 +64,9 @@
                     <f:facet name="header">
                         <h:outputText value="Deadline"/>
                     </f:facet>
-                    <h:outputText id="itemDeadline" value="#{_item.deadline}">
-                        <f:convertDateTime type="date"/>
-                    </h:outputText>
+                    <h:outputText id="itemDeadline" value="#{_item.deadline}" />
                     <f:facet name="footer">
-                        <h:inputText styleClass="date" id="deliverableBeanAddDeadline" value="#{deliverableBean.add.deadline}">
-                            <f:convertDateTime type="date"/>
-                        </h:inputText>
+                        <h:inputText styleClass="date" id="deliverableBeanAddDeadline" value="#{deliverableBean.add.deadline}" />
                     </f:facet>
                 </h:column>
 

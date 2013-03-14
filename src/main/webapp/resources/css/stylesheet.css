@@ -384,17 +384,11 @@ Homepage
 /* ----------------------------
 Projects Side
 ----------------------------*/
-.home .projects h3 a {
-    float: right;
-    font-size: 14px;
-    line-height: 26px;
-    border: 1px solid #ACACAC;
-    padding: 0px 10px 1px 30px;
-    border-radius: 4px;
-    color: #575757;
-    font-weight: bold;
-    display: block;
+ .home .projects h3 a {
     background: #F5F5F5 url("../img/search.png") no-repeat 10px 50%;
+    color: #505050;
+    border-color: #A7A7A7;
+    padding-left: 32px;
 }
 .home .projects h3 a:hover {
     background-color: #E7E7E7;

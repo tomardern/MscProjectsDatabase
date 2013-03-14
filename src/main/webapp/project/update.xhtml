@@ -37,9 +37,7 @@
                             <h:message for="projectBeanProjectDescription" styleClass="error"/>
 
                             <h:outputLabel for="projectBeanProjectDeadline" value="Deadline:"/>
-                            <h:inputText styleClass="date" id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}" requiredMessage="Deadline is required">
-                                <f:convertDateTime type="date"/>
-                            </h:inputText>
+                            <h:inputText styleClass="date" id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}" requiredMessage="Deadline is required" />
                             <h:message for="projectBeanProjectDeadline" styleClass="error"/>
                             </h:panelGrid>
 				

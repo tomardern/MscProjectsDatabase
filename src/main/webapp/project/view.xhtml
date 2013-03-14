@@ -41,9 +41,7 @@
             <div class="deadline">
                 <strong>Deadline: </strong>
                 <span>
-                    <h:outputText id="projectBeanProjectDeadline" value="#{projectBean.project.deadline}">
-                        <f:convertDateTime type="date"/>
-                    </h:outputText>
+                    <h:outputText id="projectBeanProjectDeadline" value="#{projectBean.project.deadline}" />
                 </span>
             </div>
 
@@ -80,9 +78,7 @@
             <h:dataTable id="projectBeanProjectDeliverables" styleClass="data-table"  rowClasses="odd , even" columnClasses="details, posted" value="#{forgeview:asList(projectBean.project.deliverables)}" var="_item">
                 <h:column>
                     <f:param name="id" value="#{_item.id}"/>
-                    <h:outputText id="itemDeadline" value="#{_item.deadline}">
-                        <f:convertDateTime type="date"/>
-                    </h:outputText>
+                    <h:outputText id="itemDeadline" value="#{_item.deadline}" />
                 </h:column>
                 <h:column>
                     <h:outputText id="itemTitle" value="#{_item.name}"/>
