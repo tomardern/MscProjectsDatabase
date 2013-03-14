@@ -21,7 +21,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
- *
+ * OrganisationBean
  * @author TOM
  */
 @Named
@@ -49,7 +49,7 @@ public class OrganisationBean implements Serializable {
 
     /**
      * Returns the unique ID of this organisation
-     * @return
+     * @return ID
      */
     public Long getId() {
         return this.id;
@@ -66,7 +66,7 @@ public class OrganisationBean implements Serializable {
 
     /**
      * Gets the organisation we are about to create/update
-     * @return
+     * @return Organisation
      */
     public Organisation getOrganisation() {
         return this.organisation;
@@ -96,7 +96,7 @@ public class OrganisationBean implements Serializable {
     /**
      * Start the login procedure
      * Currently, this just a placeholder, for a when full login is developed
-     * @return
+     * @return Outcome for the Organisation panel
      */
     public String startLogin() {
         Organisation orgID = this.getUserOrganisation();
@@ -106,7 +106,7 @@ public class OrganisationBean implements Serializable {
     /**
      * Find an organisation given an ID
      * @param id
-     * @return
+     * @return Organisation
      */
     public Organisation findById(Long id) {
         return this.entityManager.find(Organisation.class, id);
@@ -115,7 +115,7 @@ public class OrganisationBean implements Serializable {
 
     /**
      * Update/Create and persist the organisation
-     * @return
+     * @return Outcome for the organisation's panel
      */
     public String update() {
         this.conversation.end();
@@ -140,7 +140,7 @@ public class OrganisationBean implements Serializable {
 
     /**
      * Get all the organisations within the system
-     * @return
+     * @return List of organisations
      */
     public List<Organisation> getAll() {
 
@@ -153,7 +153,7 @@ public class OrganisationBean implements Serializable {
 
      /**
      * Converter for organisation, converts from string to object as required.
-     * @return
+     * @return Converter
      */
     public Converter getConverter() {
 
@@ -183,7 +183,7 @@ public class OrganisationBean implements Serializable {
 
     /**
      * Get the User's Organisation. Currently used for login stub
-     * @return
+     * @return Organisation
      */
     public Organisation getUserOrganisation() {
         return userOrganisation;

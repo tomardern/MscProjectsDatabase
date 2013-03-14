@@ -22,7 +22,7 @@ public class DeliverableBean implements Serializable {
 
     /**
      * Get the add deliverable. Used as a placeholder when creating new deliverables
-     * @return
+     * @return Deliverable to add
      */
     public Deliverable getAdd() {
         return this.add;
@@ -30,7 +30,7 @@ public class DeliverableBean implements Serializable {
 
     /**
      * Get the most recently added deliverable
-     * @return
+     * @return Last added Deliverable
      */
     public Deliverable getAdded() {
         Deliverable added = this.add;

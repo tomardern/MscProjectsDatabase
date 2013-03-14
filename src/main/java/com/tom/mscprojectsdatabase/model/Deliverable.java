@@ -58,7 +58,7 @@ public class Deliverable implements Serializable
 
      /**
      * Returns the name set for the deliverable
-     * @return
+     * @return Name
      */
     public String getName()
    {
@@ -76,7 +76,7 @@ public class Deliverable implements Serializable
 
     /**
      * Gets the deadline
-     * @return
+     * @return Deadline
      */
     public String getDeadline()
    {
@@ -94,7 +94,7 @@ public class Deliverable implements Serializable
 
     /**
      * Gets the project in which this deliverable is set to 
-     * @return
+     * @return Project
      */
     public Project getProject()
    {

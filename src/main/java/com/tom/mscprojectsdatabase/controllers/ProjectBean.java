@@ -26,7 +26,7 @@ import javax.persistence.criteria.Root;
 
 
 /**
- *
+ * ProjectBean
  * @author TOM
  */
 @Named
@@ -53,7 +53,7 @@ public class ProjectBean implements Serializable {
     
     /**
      * Returns the project ID
-     * @return
+     * @return ID
      */
     public Long getId() {
         return this.id;
@@ -70,7 +70,7 @@ public class ProjectBean implements Serializable {
 
     /**
      * Gets this project for forms
-     * @return
+     * @return Project
      */
     public Project getProject() {
         return this.project;
@@ -79,7 +79,7 @@ public class ProjectBean implements Serializable {
 
     /**
      * Starts the conversation and redirects user to the create page
-     * @return
+     * @return Outcome to create page
      */
     public String create() {
 
@@ -101,7 +101,7 @@ public class ProjectBean implements Serializable {
     /**
      * On compeltion of the walkthough, redirect the user to the panel with 
      * Querystrings required
-     * @return
+     * @return Outcome for finish (Organisation's panel)
      */
     public String finish() {
         return "/organisation/panel?faces-redirect=true&registration=complete&id=" + this.project.getOrganisation().getId();
@@ -149,7 +149,7 @@ public class ProjectBean implements Serializable {
     /**
      * Find a project by a given ID
      * @param id
-     * @return
+     * @return Project
      */
     public Project findById(Long id) {
 
@@ -159,7 +159,7 @@ public class ProjectBean implements Serializable {
 
     /**
      * Update/Create the project and persist
-     * @return
+     * @return Outcome of action (Deliverable for walkthrough or organisation if update)
      */
     public String update() {
       
@@ -199,7 +199,7 @@ public class ProjectBean implements Serializable {
     
     /**
      * Get the example project as used for search pages
-     * @return
+     * @return Project
      */
     public Project getExample() {
         return this.example;
@@ -282,7 +282,7 @@ public class ProjectBean implements Serializable {
 
     /**
      * Return the list of projects
-     * @return
+     * @return List of projects
      */
     public List<Project> getPageItems() {
         return this.pageItems;
@@ -290,7 +290,7 @@ public class ProjectBean implements Serializable {
 
     /**
      * Return the total number of projects within the system.
-     * @return
+     * @return Total number of project
      */
     public long getCount() {
         return this.count;
@@ -299,7 +299,7 @@ public class ProjectBean implements Serializable {
 
     /**
      * Get the organisation ID as set by the querystring
-     * @return
+     * @return Organisation ID
      */
     public Long getOrgid() {
         return orgid;

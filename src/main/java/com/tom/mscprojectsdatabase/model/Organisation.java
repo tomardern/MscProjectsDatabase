@@ -69,81 +69,32 @@ public class Organisation implements Serializable {
     private Set<Project> projects = new HashSet<Project>();
 
     /**
-     *
-     * @return
+     * Gets the ID of the organisation
+     * @return ID
      */
     public Long getId() {
         return this.id;
     }
 
     /**
-     *
+     * Sets the ID of the organisation
      * @param id
      */
     public void setId(final Long id) {
         this.id = id;
     }
 
+ 
     /**
-     *
-     * @return
-     */
-    public int getVersion() {
-        return this.version;
-    }
-
-    /**
-     *
-     * @param version
-     */
-    public void setVersion(final int version) {
-        this.version = version;
-    }
-
-    /**
-     *
-     * @param that
-     * @return
-     */
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        if (id != null) {
-            return id.equals(((Organisation) that).id);
-        }
-        return super.equals(that);
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        if (id != null) {
-            return id.hashCode();
-        }
-        return super.hashCode();
-    }
-
-    /**
-     *
-     * @return
+     * The name of the organisation
+     * @return Name of user 
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     *
+     * Sets the name of the organisation
      * @param name
      */
     public void setName(final String name) {
@@ -151,15 +102,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the username
+     * @return Username
      */
     public String getUsername() {
         return this.username;
     }
 
     /**
-     *
+     * Sets the username
      * @param username
      */
     public void setUsername(final String username) {
@@ -167,15 +118,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the password
+     * @return Password String
      */
     public String getPassword() {
         return this.password;
     }
 
     /**
-     *
+     * Sets the password
      * @param password
      */
     public void setPassword(final String password) {
@@ -183,15 +134,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the email
+     * @return Email
      */
     public String getEmail() {
         return this.email;
     }
 
     /**
-     *
+     * Sets the user's email address
      * @param email
      */
     public void setEmail(final String email) {
@@ -199,15 +150,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the users telephone number
+     * @return Telephone as string
      */
     public String getTelephone() {
         return this.telephone;
     }
 
     /**
-     *
+     * Sets the users telephone number
      * @param telephone
      */
     public void setTelephone(final String telephone) {
@@ -215,15 +166,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets their fax details
+     * @return Fax (as strng)
      */
     public String getFax() {
         return this.fax;
     }
 
     /**
-     *
+     * Sets their fax details
      * @param fax
      */
     public void setFax(final String fax) {
@@ -231,15 +182,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the organisation's name
+     * @return Organisation's name
      */
     public String getOrgname() {
         return this.orgname;
     }
 
     /**
-     *
+     * Sets the organisation's Name
      * @param orgname
      */
     public void setOrgname(final String orgname) {
@@ -247,15 +198,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the description
+     * @return Description
      */
     public String getDrescription() {
         return this.drescription;
     }
 
     /**
-     *
+     * Sets the description
      * @param drescription
      */
     public void setDrescription(final String drescription) {
@@ -263,15 +214,15 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Gets the address
+     * @return Address
      */
     public String getAddress() {
         return this.address;
     }
 
     /**
-     *
+     * Sets the address
      * @param address
      */
     public void setAddress(final String address) {
@@ -279,7 +230,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Gets the website
      * @return
      */
     public String getWebsite() {
@@ -287,7 +238,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Sets the website
      * @param website
      */
     public void setWebsite(final String website) {
@@ -295,7 +246,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Gets the verification status
      * @return
      */
     public boolean getVerified() {
@@ -303,7 +254,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Sets the verification status
      * @param verified
      */
     public void setVerified(final boolean verified) {
@@ -311,7 +262,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Gets the added date
      * @return
      */
     public Date getAdded() {
@@ -319,7 +270,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Sets the added date
      * @param added
      */
     public void setAdded(final Date added) {
@@ -327,8 +278,8 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * ToString method
+     * @return the organiation's name
      */
     @Override
     public String toString() {
@@ -336,7 +287,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Get the associated projects
      * @return
      */
     public Set<Project> getProjects() {
@@ -344,7 +295,7 @@ public class Organisation implements Serializable {
     }
 
     /**
-     *
+     * Sets the associated project
      * @param projects
      */
     public void setProjects(final Set<Project> projects) {
