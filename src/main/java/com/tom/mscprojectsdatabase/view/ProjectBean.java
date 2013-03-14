@@ -27,6 +27,7 @@ import javax.persistence.criteria.Root;
 import com.tom.mscprojectsdatabase.model.Project;
 import com.tom.mscprojectsdatabase.model.Organisation;
 import com.tom.mscprojectsdatabase.model.Project_;
+import java.util.Date;
 import javax.ejb.EJB;
 
 /**
@@ -146,7 +147,9 @@ public class ProjectBean implements Serializable {
                 
             if (this.id == null) {
                             
-                
+                //Set the date
+                Date date = new Date();
+                this.project.setAdded(date);
                 
                 if (this.getOrgid() != null) {
                     this.project.setOrganisation(organisationBean.findById(this.getOrgid()));

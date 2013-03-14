@@ -25,6 +25,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.tom.mscprojectsdatabase.model.Organisation;
+import java.util.Date;
 
 /**
  * Backing bean for Organisation entities.
@@ -121,6 +122,10 @@ public class OrganisationBean implements Serializable
       {
          if (this.id == null)
          {
+            Date date = new Date();
+            this.organisation.setAdded(date); 
+             
+             
             this.entityManager.persist(this.organisation);
             return "created";
          }
