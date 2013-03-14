@@ -52,39 +52,7 @@ public class Deliverable implements Serializable
       this.version = version;
    }
 
-   @Override
-   public boolean equals(Object that)
-   {
-      if (this == that)
-      {
-         return true;
-      }
-      if (that == null)
-      {
-         return false;
-      }
-      if (getClass() != that.getClass())
-      {
-         return false;
-      }
-      if (id != null)
-      {
-         return id.equals(((Deliverable) that).id);
-      }
-      return super.equals(that);
-   }
-
-   @Override
-   public int hashCode()
-   {
-      if (id != null)
-      {
-         return id.hashCode();
-      }
-      return super.hashCode();
-   }
-
-   public String getName()
+      public String getName()
    {
       return this.name;
    }
@@ -102,15 +70,6 @@ public class Deliverable implements Serializable
    public void setDeadline(final String deadline)
    {
       this.deadline = deadline;
-   }
-
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
-      return result;
    }
 
    public Project getProject()

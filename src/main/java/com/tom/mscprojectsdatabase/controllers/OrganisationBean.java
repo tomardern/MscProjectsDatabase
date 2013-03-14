@@ -130,7 +130,7 @@ public class OrganisationBean implements Serializable {
     }
 
 
-    public Converter getConverter() {
+     public Converter getConverter() {
 
         final OrganisationBean ejbProxy = this.sessionContext.getBusinessObject(OrganisationBean.class);
 
@@ -153,7 +153,7 @@ public class OrganisationBean implements Serializable {
                 return String.valueOf(((Organisation) value).getId());
             }
         };
-    }
+    } 
 
     /**
      * @return the userOrganisation
