@@ -1,10 +1,14 @@
 package com.tom.mscprojectsdatabase.controllers;
 
+import com.tom.mscprojectsdatabase.model.Organisation;
+import com.tom.mscprojectsdatabase.model.Project;
+import com.tom.mscprojectsdatabase.model.Project_;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
@@ -23,12 +27,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import com.tom.mscprojectsdatabase.model.Project;
-import com.tom.mscprojectsdatabase.model.Organisation;
-import com.tom.mscprojectsdatabase.model.Project_;
-import java.util.Date;
-import javax.ejb.EJB;
 
 /**
  * Backing bean for Project entities. <p> This class provides CRUD functionality
@@ -139,16 +137,16 @@ public class ProjectBean implements Serializable {
         //this.conversation.end();
 
         try {
-            
-           //Any updates to the project are not approved.
-           this.project.setApproved(false);
-                
+
+            //Any updates to the project are not approved.
+            this.project.setApproved(false);
+
             if (this.id == null) {
-                            
+
                 //Set the date
                 Date date = new Date();
                 this.project.setAdded(date);
-                
+
                 if (this.getOrgid() != null) {
                     this.project.setOrganisation(organisationBean.findById(this.getOrgid()));
                 }
@@ -160,7 +158,7 @@ public class ProjectBean implements Serializable {
                 if (this.getOrgid() == null) {
                     return "deliverables?faces-redirect=true&id=" + this.project.getId();
                 } else {
-                   return "/organisation/panel?faces-redirect=true&result=projupdated&id=" + this.getOrgid();           
+                    return "/organisation/panel?faces-redirect=true&result=projupdated&id=" + this.getOrgid();
                 }
             }
         } catch (Exception e) {
@@ -235,7 +233,7 @@ public class ProjectBean implements Serializable {
                 criteria.select(root).where(getSearchPredicates(root)).orderBy(builder.desc(root.get(Project_.id))));
 
         query.setFirstResult(this.page * resultSize).setMaxResults(resultSize);
-        
+
 
 
         this.pageItems = query.getResultList();
@@ -262,17 +260,17 @@ public class ProjectBean implements Serializable {
             predicatesList.add(builder.like(root.<String>get("notes"), '%' + notes + '%'));
         }
         Organisation organisation = this.example.getOrganisation();
-        
-        
-        
-        
+
+
+
+
         if (organisation != null) {
             predicatesList.add(builder.equal(root.get("organisation"), organisation));
         }
-     
-        
-        
-        
+
+
+
+
         return predicatesList.toArray(new Predicate[predicatesList.size()]);
     }
 

@@ -1,19 +1,14 @@
 package com.tom.mscprojectsdatabase.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import com.tom.mscprojectsdatabase.model.Project;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Deliverable implements Serializable

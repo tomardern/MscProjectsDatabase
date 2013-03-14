@@ -18,253 +18,199 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-
 //http://stackoverflow.com/questions/3404853/multiple-unique-constraints-in-jpa
-
-
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames="username"))
-public class Organisation implements Serializable
-{
+@Table(uniqueConstraints =
+@UniqueConstraint(columnNames = "username"))
+public class Organisation implements Serializable {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id = null;
-   @Version
-   @Column(name = "version")
-   private int version = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id = null;
+    @Version
+    @Column(name = "version")
+    private int version = 0;
+    @Column
+    @NotNull
+    private String name;
+    @Column(unique = true)
+    @NotNull
+    private String username;
+    @Column
+    @NotNull
+    private String password;
+    @Column
+    @NotNull
+    private String email;
+    @Column
+    @NotNull
+    private String telephone;
+    @Column
+    private String fax;
+    @Column
+    @NotNull
+    private String orgname;
+    @Column
+    private String drescription;
+    @Column
+    private String address;
+    @Column
+    private String website;
+    @Column
+    private boolean verified;
+    @Temporal(TemporalType.DATE)
+    private Date added;
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
+    private Set<Project> projects = new HashSet<Project>();
 
-   @Column
-   @NotNull
-   private String name;
+    public Long getId() {
+        return this.id;
+    }
 
-   @Column(unique = true)
-   @NotNull
-   private String username;
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-   @Column
-   @NotNull
-   private String password;
+    public int getVersion() {
+        return this.version;
+    }
 
-   @Column
-   @NotNull
-   private String email;
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-   @Column
-   @NotNull
-   private String telephone;
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        if (id != null) {
+            return id.equals(((Organisation) that).id);
+        }
+        return super.equals(that);
+    }
 
-   @Column
-   private String fax;
+    @Override
+    public int hashCode() {
+        if (id != null) {
+            return id.hashCode();
+        }
+        return super.hashCode();
+    }
 
-   @Column
-   @NotNull
-   private String orgname;
+    public String getName() {
+        return this.name;
+    }
 
-   @Column
-   private String drescription;
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-   @Column
-   private String address;
+    public String getUsername() {
+        return this.username;
+    }
 
-   @Column
-   private String website;
+    public void setUsername(final String username) {
+        this.username = username;
+    }
 
-   @Column
-   private boolean verified;
+    public String getPassword() {
+        return this.password;
+    }
 
-   @Temporal(TemporalType.DATE)
-   private Date added;
+    public void setPassword(final String password) {
+        this.password = password;
+    }
 
-   @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
-   private Set<Project> projects = new HashSet<Project>();
+    public String getEmail() {
+        return this.email;
+    }
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    public void setEmail(final String email) {
+        this.email = email;
+    }
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+    public String getTelephone() {
+        return this.telephone;
+    }
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+    public void setTelephone(final String telephone) {
+        this.telephone = telephone;
+    }
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+    public String getFax() {
+        return this.fax;
+    }
 
-   @Override
-   public boolean equals(Object that)
-   {
-      if (this == that)
-      {
-         return true;
-      }
-      if (that == null)
-      {
-         return false;
-      }
-      if (getClass() != that.getClass())
-      {
-         return false;
-      }
-      if (id != null)
-      {
-         return id.equals(((Organisation) that).id);
-      }
-      return super.equals(that);
-   }
+    public void setFax(final String fax) {
+        this.fax = fax;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      if (id != null)
-      {
-         return id.hashCode();
-      }
-      return super.hashCode();
-   }
+    public String getOrgname() {
+        return this.orgname;
+    }
 
-   public String getName()
-   {
-      return this.name;
-   }
+    public void setOrgname(final String orgname) {
+        this.orgname = orgname;
+    }
 
-   public void setName(final String name)
-   {
-      this.name = name;
-   }
+    public String getDrescription() {
+        return this.drescription;
+    }
 
-   public String getUsername()
-   {
-      return this.username;
-   }
+    public void setDrescription(final String drescription) {
+        this.drescription = drescription;
+    }
 
-   public void setUsername(final String username)
-   {
-      this.username = username;
-   }
+    public String getAddress() {
+        return this.address;
+    }
 
-   public String getPassword()
-   {
-      return this.password;
-   }
+    public void setAddress(final String address) {
+        this.address = address;
+    }
 
-   public void setPassword(final String password)
-   {
-      this.password = password;
-   }
+    public String getWebsite() {
+        return this.website;
+    }
 
-   public String getEmail()
-   {
-      return this.email;
-   }
+    public void setWebsite(final String website) {
+        this.website = website;
+    }
 
-   public void setEmail(final String email)
-   {
-      this.email = email;
-   }
+    public boolean getVerified() {
+        return this.verified;
+    }
 
-   public String getTelephone()
-   {
-      return this.telephone;
-   }
+    public void setVerified(final boolean verified) {
+        this.verified = verified;
+    }
 
-   public void setTelephone(final String telephone)
-   {
-      this.telephone = telephone;
-   }
+    public Date getAdded() {
+        return this.added;
+    }
 
-   public String getFax()
-   {
-      return this.fax;
-   }
+    public void setAdded(final Date added) {
+        this.added = added;
+    }
 
-   public void setFax(final String fax)
-   {
-      this.fax = fax;
-   }
+    @Override
+    public String toString() {
+        return orgname;
+    }
 
-   public String getOrgname()
-   {
-      return this.orgname;
-   }
+    public Set<Project> getProjects() {
+        return this.projects;
+    }
 
-   public void setOrgname(final String orgname)
-   {
-      this.orgname = orgname;
-   }
-
-   public String getDrescription()
-   {
-      return this.drescription;
-   }
-
-   public void setDrescription(final String drescription)
-   {
-      this.drescription = drescription;
-   }
-
-   public String getAddress()
-   {
-      return this.address;
-   }
-
-   public void setAddress(final String address)
-   {
-      this.address = address;
-   }
-
-   public String getWebsite()
-   {
-      return this.website;
-   }
-
-   public void setWebsite(final String website)
-   {
-      this.website = website;
-   }
-
-   public boolean getVerified()
-   {
-      return this.verified;
-   }
-
-   public void setVerified(final boolean verified)
-   {
-      this.verified = verified;
-   }
-
-   public Date getAdded()
-   {
-      return this.added;
-   }
-
-   public void setAdded(final Date added)
-   {
-      this.added = added;
-   }
-
-   @Override
-   public String toString()
-   {
-      return orgname;
-   }
-
-   public Set<Project> getProjects()
-   {
-      return this.projects;
-   }
-
-   public void setProjects(final Set<Project> projects)
-   {
-      this.projects = projects;
-   }
+    public void setProjects(final Set<Project> projects) {
+        this.projects = projects;
+    }
 }

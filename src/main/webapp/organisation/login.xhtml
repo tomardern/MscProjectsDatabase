@@ -14,7 +14,7 @@
     </f:metadata>
 
     <ui:param name="pageTitle" value="Login"/>
-    
+
     <ui:define name="breadcrumb" >
         <h:outputText styleClass="message global" value="Login incorrect. Please try again or register a organisation"  rendered="#{param.login == 'invalid'}" />   
         <h:message for="projectBeanExampleOrganisation" styleClass="error message global" />
@@ -37,7 +37,7 @@
                         <f:selectItem/>
                         <f:selectItems value="#{organisationBean.all}"/>
                     </h:selectOneMenu>
-  
+
 
                     <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"  />
                     <h:inputSecret  id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}" requiredMessage="Password Required" />
@@ -45,15 +45,15 @@
                 <h:commandLink action="#{organisationBean.startLogin}" styleClass="button submit-idea"  value="Login &raquo;"/>
             </div>
 
-              <div class="register-form">
+            <div class="register-form">
                 <h3 class="i-neworganisation">New Organisation</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec lectus a orci ornare viverra.</p>
-                    <h:link class="button submit-idea" outcome="/organisation/create" value="Create Organisation &raquo;"/>     
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec lectus a orci ornare viverra.</p>
+                <h:link class="button submit-idea" outcome="/organisation/create" value="Create Organisation &raquo;"/>     
             </div>          
-            
-            
-            
-            
+
+
+
+
         </h:form>
     </ui:define>
 

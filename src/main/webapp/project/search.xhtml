@@ -38,7 +38,7 @@
                         <f:selectItem/>
                         <f:selectItems value="#{organisationBean.all}"/>
                     </h:selectOneMenu>
-                   
+
 
                     <h:commandLink value="Search" action="#{projectBean.search}" styleClass="button"/>
                 </div>
@@ -53,8 +53,8 @@
                             <h4><h:outputText  id="itemName" value="#{_item.name}"/></h4>
                             <span>
                                 <h:outputText id="itemapproved" value="(Awaiting approval) - " class="awaiting" rendered="#{!_item.approved}" />
-                                
-                                
+
+
                                 <h:outputText id="itemOrganisation" value="#{_item.organisation.name}" /></span>
                         </h:link>
                     </h:column>

@@ -1,9 +1,10 @@
 package com.tom.mscprojectsdatabase.controllers;
 
+import com.tom.mscprojectsdatabase.model.Organisation;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
@@ -24,338 +25,253 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.tom.mscprojectsdatabase.model.Organisation;
-import java.util.Date;
-
 /**
- * Backing bean for Organisation entities.
- * <p>
- * This class provides CRUD functionality for all Organisation entities. It focuses
- * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
- * state management, <tt>PersistenceContext</tt> for persistence,
- * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
- * custom base class.
+ * Backing bean for Organisation entities. <p> This class provides CRUD
+ * functionality for all Organisation entities. It focuses purely on Java EE 6
+ * standards (e.g. <tt>&#64;ConversationScoped</tt> for state management,
+ * <tt>PersistenceContext</tt> for persistence, <tt>CriteriaBuilder</tt> for
+ * searches) rather than introducing a CRUD framework or custom base class.
  */
-
 @Named
 @Stateful
 @ConversationScoped
-public class OrganisationBean implements Serializable
-{
+public class OrganisationBean implements Serializable {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-   /*
-    * Support creating and retrieving Organisation entities
-    */
+    /*
+     * Support creating and retrieving Organisation entities
+     */
+    private Organisation userOrganisation;
+    private Long id;
 
-   
-   private Organisation userOrganisation;
-   
-   
-   
-   private Long id;
+    public Long getId() {
+        return this.id;
+    }
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    private Organisation organisation;
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    public Organisation getOrganisation() {
+        return this.organisation;
+    }
+    @Inject
+    private Conversation conversation;
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
 
-   private Organisation organisation;
+    public String create() {
 
-   public Organisation getOrganisation()
-   {
-      return this.organisation;
-   }
+        this.conversation.begin();
+        return "create?faces-redirect=true";
+    }
 
-   @Inject
-   private Conversation conversation;
+    public void retrieve() {
 
-   @PersistenceContext(type = PersistenceContextType.EXTENDED)
-   private EntityManager entityManager;
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
 
-   public String create()
-   {
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+        }
 
-      this.conversation.begin();
-      return "create?faces-redirect=true";
-   }
+        if (this.id == null) {
+            this.organisation = this.example;
+        } else {
+            this.organisation = findById(getId());
+        }
+    }
 
-   public void retrieve()
-   {
+    public String startLogin() {
+        Organisation orgID = this.getUserOrganisation();
+        return "panel?faces-redirect=true&id=" + orgID.getId();
+    }
 
-      if (FacesContext.getCurrentInstance().isPostback())
-      {
-         return;
-      }
+    public Organisation findById(Long id) {
+        return this.entityManager.find(Organisation.class, id);
+    }
 
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-      }
+    /*
+     * Support updating and deleting Organisation entities
+     */
+    public String update() {
+        this.conversation.end();
 
-      if (this.id == null)
-      {
-         this.organisation = this.example;
-      }
-      else
-      {
-         this.organisation = findById(getId());
-      }
-   }
+        try {
+            if (this.id == null) {
+                Date date = new Date();
+                this.organisation.setAdded(date);
+                this.entityManager.persist(this.organisation);
+                return "created";
+            } else {
+                this.entityManager.merge(this.organisation);
+                return "panel?faces-redirect=true&id=" + this.organisation.getId() + "&result=updated";
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   
-   
-   public String startLogin(){
-       
-       
-       Organisation orgID = this.getUserOrganisation();
-       
-       
-       return "panel?faces-redirect=true&id=" + orgID.getId();
-       
-   }
-   
-   
-   public Organisation findById(Long id)
-   {
+    public String newProject() {
+        return "/project/create";
+    }
 
-      return this.entityManager.find(Organisation.class, id);
-   }
 
-   /*
-    * Support updating and deleting Organisation entities
-    */
 
-   public String update()
-   {
-      this.conversation.end();
+    /*
+     * Support searching Organisation entities with pagination
+     */
+    private int page;
+    private long count;
+    private List<Organisation> pageItems;
+    private Organisation example = new Organisation();
 
-      try
-      {
-         if (this.id == null)
-         {
-            Date date = new Date();
-            this.organisation.setAdded(date); 
-             
-             
-            this.entityManager.persist(this.organisation);
-            return "created";
-         }
-         else
-         {
-            this.entityManager.merge(this.organisation);
-            return "panel?faces-redirect=true&id=" + this.organisation.getId()+"&result=updated";
-         }
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
-   
-   public String newProject(){
-       return "/project/create";
-   }
+    public int getPage() {
+        return this.page;
+    }
 
-   public String delete()
-   {
-      this.conversation.end();
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-      try
-      {
-         this.entityManager.remove(findById(getId()));
-         this.entityManager.flush();
-         return "search?faces-redirect=true";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public int getPageSize() {
+        return 10;
+    }
 
-   /*
-    * Support searching Organisation entities with pagination
-    */
+    public Organisation getExample() {
+        return this.example;
+    }
 
-   private int page;
-   private long count;
-   private List<Organisation> pageItems;
+    public void setExample(Organisation example) {
+        this.example = example;
+    }
 
-   private Organisation example = new Organisation();
+    public void search() {
+        this.page = 0;
+    }
 
-   public int getPage()
-   {
-      return this.page;
-   }
+    public void paginate() {
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-   public int getPageSize()
-   {
-      return 10;
-   }
+        // Populate this.count
 
-   public Organisation getExample()
-   {
-      return this.example;
-   }
+        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+        Root<Organisation> root = countCriteria.from(Organisation.class);
+        countCriteria = countCriteria.select(builder.count(root)).where(
+                getSearchPredicates(root));
+        this.count = this.entityManager.createQuery(countCriteria)
+                .getSingleResult();
 
-   public void setExample(Organisation example)
-   {
-      this.example = example;
-   }
+        // Populate this.pageItems
 
-   public void search()
-   {
-      this.page = 0;
-   }
+        CriteriaQuery<Organisation> criteria = builder.createQuery(Organisation.class);
+        root = criteria.from(Organisation.class);
+        TypedQuery<Organisation> query = this.entityManager.createQuery(criteria
+                .select(root).where(getSearchPredicates(root)));
+        query.setFirstResult(this.page * getPageSize()).setMaxResults(
+                getPageSize());
+        this.pageItems = query.getResultList();
+    }
 
-   public void paginate()
-   {
+    private Predicate[] getSearchPredicates(Root<Organisation> root) {
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      // Populate this.count
+        String name = this.example.getName();
+        if (name != null && !"".equals(name)) {
+            predicatesList.add(builder.like(root.<String>get("name"), '%' + name + '%'));
+        }
+        String username = this.example.getUsername();
+        if (username != null && !"".equals(username)) {
+            predicatesList.add(builder.like(root.<String>get("username"), '%' + username + '%'));
+        }
+        String password = this.example.getPassword();
+        if (password != null && !"".equals(password)) {
+            predicatesList.add(builder.like(root.<String>get("password"), '%' + password + '%'));
+        }
+        String email = this.example.getEmail();
+        if (email != null && !"".equals(email)) {
+            predicatesList.add(builder.like(root.<String>get("email"), '%' + email + '%'));
+        }
+        String telephone = this.example.getTelephone();
+        if (telephone != null && !"".equals(telephone)) {
+            predicatesList.add(builder.like(root.<String>get("telephone"), '%' + telephone + '%'));
+        }
 
-      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<Organisation> root = countCriteria.from(Organisation.class);
-      countCriteria = countCriteria.select(builder.count(root)).where(
-            getSearchPredicates(root));
-      this.count = this.entityManager.createQuery(countCriteria)
-            .getSingleResult();
+        return predicatesList.toArray(new Predicate[predicatesList.size()]);
+    }
 
-      // Populate this.pageItems
+    public List<Organisation> getPageItems() {
+        return this.pageItems;
+    }
 
-      CriteriaQuery<Organisation> criteria = builder.createQuery(Organisation.class);
-      root = criteria.from(Organisation.class);
-      TypedQuery<Organisation> query = this.entityManager.createQuery(criteria
-            .select(root).where(getSearchPredicates(root)));
-      query.setFirstResult(this.page * getPageSize()).setMaxResults(
-            getPageSize());
-      this.pageItems = query.getResultList();
-   }
+    public long getCount() {
+        return this.count;
+    }
 
-   private Predicate[] getSearchPredicates(Root<Organisation> root)
-   {
+    /*
+     * Support listing and POSTing back Organisation entities (e.g. from inside an
+     * HtmlSelectOneMenu)
+     */
+    public List<Organisation> getAll() {
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+        CriteriaQuery<Organisation> criteria = this.entityManager
+                .getCriteriaBuilder().createQuery(Organisation.class);
+        return this.entityManager.createQuery(
+                criteria.select(criteria.from(Organisation.class))).getResultList();
+    }
+    @Resource
+    private SessionContext sessionContext;
 
-      String name = this.example.getName();
-      if (name != null && !"".equals(name))
-      {
-         predicatesList.add(builder.like(root.<String> get("name"), '%' + name + '%'));
-      }
-      String username = this.example.getUsername();
-      if (username != null && !"".equals(username))
-      {
-         predicatesList.add(builder.like(root.<String> get("username"), '%' + username + '%'));
-      }
-      String password = this.example.getPassword();
-      if (password != null && !"".equals(password))
-      {
-         predicatesList.add(builder.like(root.<String> get("password"), '%' + password + '%'));
-      }
-      String email = this.example.getEmail();
-      if (email != null && !"".equals(email))
-      {
-         predicatesList.add(builder.like(root.<String> get("email"), '%' + email + '%'));
-      }
-      String telephone = this.example.getTelephone();
-      if (telephone != null && !"".equals(telephone))
-      {
-         predicatesList.add(builder.like(root.<String> get("telephone"), '%' + telephone + '%'));
-      }
+    public Converter getConverter() {
 
-      return predicatesList.toArray(new Predicate[predicatesList.size()]);
-   }
+        final OrganisationBean ejbProxy = this.sessionContext.getBusinessObject(OrganisationBean.class);
 
-   public List<Organisation> getPageItems()
-   {
-      return this.pageItems;
-   }
+        return new Converter() {
+            @Override
+            public Object getAsObject(FacesContext context,
+                    UIComponent component, String value) {
 
-   public long getCount()
-   {
-      return this.count;
-   }
-
-   /*
-    * Support listing and POSTing back Organisation entities (e.g. from inside an
-    * HtmlSelectOneMenu)
-    */
-
-   public List<Organisation> getAll()
-   {
-
-      CriteriaQuery<Organisation> criteria = this.entityManager
-            .getCriteriaBuilder().createQuery(Organisation.class);
-      return this.entityManager.createQuery(
-            criteria.select(criteria.from(Organisation.class))).getResultList();
-   }
-
-   @Resource
-   private SessionContext sessionContext;
-
-   public Converter getConverter()
-   {
-
-      final OrganisationBean ejbProxy = this.sessionContext.getBusinessObject(OrganisationBean.class);
-
-      return new Converter()
-      {
-
-         @Override
-         public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
-         {
-
-            return ejbProxy.findById(Long.valueOf(value));
-         }
-
-         @Override
-         public String getAsString(FacesContext context,
-               UIComponent component, Object value)
-         {
-
-            if (value == null)
-            {
-               return "";
+                return ejbProxy.findById(Long.valueOf(value));
             }
 
-            return String.valueOf(((Organisation) value).getId());
-         }
-      };
-   }
+            @Override
+            public String getAsString(FacesContext context,
+                    UIComponent component, Object value) {
 
-   /*
-    * Support adding children to bidirectional, one-to-many tables
-    */
+                if (value == null) {
+                    return "";
+                }
 
-   private Organisation add = new Organisation();
+                return String.valueOf(((Organisation) value).getId());
+            }
+        };
+    }
 
-   public Organisation getAdd()
-   {
-      return this.add;
-   }
+    
+    
+    
+    
+    /*
+     * Support adding children to bidirectional, one-to-many tables
+     */
+    private Organisation add = new Organisation();
 
-   public Organisation getAdded()
-   {
-      Organisation added = this.add;
-      this.add = new Organisation();
-      return added;
-   }
+    public Organisation getAdd() {
+        return this.add;
+    }
+
+    public Organisation getAdded() {
+        Organisation added = this.add;
+        this.add = new Organisation();
+        return added;
+    }
 
     /**
      * @return the userOrganisation

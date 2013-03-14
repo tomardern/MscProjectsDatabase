@@ -63,16 +63,16 @@
                 <h:inputText styleClass="date" id="projectBeanProjectDeadline" required="true" value="#{projectBean.project.deadline}" requiredMessage="Deadline is required" />
                 <h:message for="projectBeanProjectDeadline" styleClass="error"/>
 
-           
-                    <c:choose>
-                        <c:when test="#{param.org_id == null}">
-                            <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
-                            <h:message for="projectBeanProjectOrganisation" styleClass="error"/>
-                        </c:when>
-                        <c:otherwise>
 
-                        </c:otherwise>
-                    </c:choose>
+                <c:choose>
+                    <c:when test="#{param.org_id == null}">
+                        <h:inputHidden converter="#{organisationBean.converter}" id="projectBeanProjectOrganisation" value="#{projectBean.project.organisation}" />
+                        <h:message for="projectBeanProjectOrganisation" styleClass="error"/>
+                    </c:when>
+                    <c:otherwise>
+
+                    </c:otherwise>
+                </c:choose>
 
 
             </h:panelGrid>

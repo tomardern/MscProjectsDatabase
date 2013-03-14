@@ -1,9 +1,10 @@
 package com.tom.mscprojectsdatabase.controllers;
 
+import com.tom.mscprojectsdatabase.model.Deliverable;
+import com.tom.mscprojectsdatabase.model.Project;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
@@ -24,295 +25,235 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.tom.mscprojectsdatabase.model.Deliverable;
-import com.tom.mscprojectsdatabase.model.Project;
-
 /**
- * Backing bean for Deliverable entities.
- * <p>
- * This class provides CRUD functionality for all Deliverable entities. It focuses
- * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
- * state management, <tt>PersistenceContext</tt> for persistence,
- * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
- * custom base class.
+ * Backing bean for Deliverable entities. <p> This class provides CRUD
+ * functionality for all Deliverable entities. It focuses purely on Java EE 6
+ * standards (e.g. <tt>&#64;ConversationScoped</tt> for state management,
+ * <tt>PersistenceContext</tt> for persistence, <tt>CriteriaBuilder</tt> for
+ * searches) rather than introducing a CRUD framework or custom base class.
  */
-
 @Named
 @Stateful
 @ConversationScoped
-public class DeliverableBean implements Serializable
-{
+public class DeliverableBean implements Serializable {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-   /*
-    * Support creating and retrieving Deliverable entities
-    */
+    /*
+     * Support creating and retrieving Deliverable entities
+     */
+    private Long id;
 
-   private Long id;
+    public Long getId() {
+        return this.id;
+    }
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    private Deliverable deliverable;
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    public Deliverable getDeliverable() {
+        return this.deliverable;
+    }
+    @Inject
+    private Conversation conversation;
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
 
-   private Deliverable deliverable;
+    public String create() {
 
-   public Deliverable getDeliverable()
-   {
-      return this.deliverable;
-   }
+        this.conversation.begin();
+        return "create?faces-redirect=true";
+    }
 
-   @Inject
-   private Conversation conversation;
+    public void retrieve() {
 
-   @PersistenceContext(type = PersistenceContextType.EXTENDED)
-   private EntityManager entityManager;
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
 
-   public String create()
-   {
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+        }
 
-      this.conversation.begin();
-      return "create?faces-redirect=true";
-   }
+        if (this.id == null) {
+            this.deliverable = this.example;
+        } else {
+            this.deliverable = findById(getId());
+        }
+    }
 
-   public void retrieve()
-   {
+    public Deliverable findById(Long id) {
 
-      if (FacesContext.getCurrentInstance().isPostback())
-      {
-         return;
-      }
+        return this.entityManager.find(Deliverable.class, id);
+    }
 
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-      }
+    /*
+     * Support updating and deleting Deliverable entities
+     */
+    public String update() {
+        this.conversation.end();
 
-      if (this.id == null)
-      {
-         this.deliverable = this.example;
-      }
-      else
-      {
-         this.deliverable = findById(getId());
-      }
-   }
+        try {
+            if (this.id == null) {
+                this.entityManager.persist(this.deliverable);
+                return "search?faces-redirect=true&";
+            } else {
+                this.entityManager.merge(this.deliverable);
+                return "view?faces-redirect=true&id=" + this.deliverable.getId();
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   public Deliverable findById(Long id)
-   {
+    public String delete() {
+        this.conversation.end();
 
-      return this.entityManager.find(Deliverable.class, id);
-   }
+        try {
+            this.entityManager.remove(findById(getId()));
+            this.entityManager.flush();
+            return "search?faces-redirect=true";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   /*
-    * Support updating and deleting Deliverable entities
-    */
+    /*
+     * Support searching Deliverable entities with pagination
+     */
+    private int page;
+    private long count;
+    private List<Deliverable> pageItems;
+    private Deliverable example = new Deliverable();
 
-   public String update()
-   {
-      this.conversation.end();
+    public int getPage() {
+        return this.page;
+    }
 
-      try
-      {
-         if (this.id == null)
-         {
-            this.entityManager.persist(this.deliverable);
-            return "search?faces-redirect=true&";
-         }
-         else
-         {
-            this.entityManager.merge(this.deliverable);
-            return "view?faces-redirect=true&id=" + this.deliverable.getId();
-         }
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-   public String delete()
-   {
-      this.conversation.end();
+    public int getPageSize() {
+        return 10;
+    }
 
-      try
-      {
-         this.entityManager.remove(findById(getId()));
-         this.entityManager.flush();
-         return "search?faces-redirect=true";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public Deliverable getExample() {
+        return this.example;
+    }
 
-   /*
-    * Support searching Deliverable entities with pagination
-    */
+    public void setExample(Deliverable example) {
+        this.example = example;
+    }
 
-   private int page;
-   private long count;
-   private List<Deliverable> pageItems;
+    public void search() {
+        this.page = 0;
+    }
 
-   private Deliverable example = new Deliverable();
+    public void paginate() {
 
-   public int getPage()
-   {
-      return this.page;
-   }
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+        // Populate this.count
 
-   public int getPageSize()
-   {
-      return 10;
-   }
+        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+        Root<Deliverable> root = countCriteria.from(Deliverable.class);
+        countCriteria = countCriteria.select(builder.count(root)).where(
+                getSearchPredicates(root));
+        this.count = this.entityManager.createQuery(countCriteria)
+                .getSingleResult();
 
-   public Deliverable getExample()
-   {
-      return this.example;
-   }
+        // Populate this.pageItems
 
-   public void setExample(Deliverable example)
-   {
-      this.example = example;
-   }
+        CriteriaQuery<Deliverable> criteria = builder.createQuery(Deliverable.class);
+        root = criteria.from(Deliverable.class);
+        TypedQuery<Deliverable> query = this.entityManager.createQuery(criteria
+                .select(root).where(getSearchPredicates(root)));
+        query.setFirstResult(this.page * getPageSize()).setMaxResults(
+                getPageSize());
+        this.pageItems = query.getResultList();
+    }
 
-   public void search()
-   {
-      this.page = 0;
-   }
+    private Predicate[] getSearchPredicates(Root<Deliverable> root) {
 
-   public void paginate()
-   {
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        String name = this.example.getName();
+        if (name != null && !"".equals(name)) {
+            predicatesList.add(builder.like(root.<String>get("name"), '%' + name + '%'));
+        }
+        Project project = this.example.getProject();
+        if (project != null) {
+            predicatesList.add(builder.equal(root.get("project"), project));
+        }
 
-      // Populate this.count
+        return predicatesList.toArray(new Predicate[predicatesList.size()]);
+    }
 
-      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<Deliverable> root = countCriteria.from(Deliverable.class);
-      countCriteria = countCriteria.select(builder.count(root)).where(
-            getSearchPredicates(root));
-      this.count = this.entityManager.createQuery(countCriteria)
-            .getSingleResult();
+    public List<Deliverable> getPageItems() {
+        return this.pageItems;
+    }
 
-      // Populate this.pageItems
+    public long getCount() {
+        return this.count;
+    }
 
-      CriteriaQuery<Deliverable> criteria = builder.createQuery(Deliverable.class);
-      root = criteria.from(Deliverable.class);
-      TypedQuery<Deliverable> query = this.entityManager.createQuery(criteria
-            .select(root).where(getSearchPredicates(root)));
-      query.setFirstResult(this.page * getPageSize()).setMaxResults(
-            getPageSize());
-      this.pageItems = query.getResultList();
-   }
+    /*
+     * Support listing and POSTing back Deliverable entities (e.g. from inside an
+     * HtmlSelectOneMenu)
+     */
+    public List<Deliverable> getAll() {
 
-   private Predicate[] getSearchPredicates(Root<Deliverable> root)
-   {
+        CriteriaQuery<Deliverable> criteria = this.entityManager
+                .getCriteriaBuilder().createQuery(Deliverable.class);
+        return this.entityManager.createQuery(
+                criteria.select(criteria.from(Deliverable.class))).getResultList();
+    }
+    @Resource
+    private SessionContext sessionContext;
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+    public Converter getConverter() {
 
-      String name = this.example.getName();
-      if (name != null && !"".equals(name))
-      {
-         predicatesList.add(builder.like(root.<String> get("name"), '%' + name + '%'));
-      }
-      Project project = this.example.getProject();
-      if (project != null)
-      {
-         predicatesList.add(builder.equal(root.get("project"), project));
-      }
+        final DeliverableBean ejbProxy = this.sessionContext.getBusinessObject(DeliverableBean.class);
 
-      return predicatesList.toArray(new Predicate[predicatesList.size()]);
-   }
+        return new Converter() {
+            @Override
+            public Object getAsObject(FacesContext context,
+                    UIComponent component, String value) {
 
-   public List<Deliverable> getPageItems()
-   {
-      return this.pageItems;
-   }
-
-   public long getCount()
-   {
-      return this.count;
-   }
-
-   /*
-    * Support listing and POSTing back Deliverable entities (e.g. from inside an
-    * HtmlSelectOneMenu)
-    */
-
-   public List<Deliverable> getAll()
-   {
-
-      CriteriaQuery<Deliverable> criteria = this.entityManager
-            .getCriteriaBuilder().createQuery(Deliverable.class);
-      return this.entityManager.createQuery(
-            criteria.select(criteria.from(Deliverable.class))).getResultList();
-   }
-
-   @Resource
-   private SessionContext sessionContext;
-
-   public Converter getConverter()
-   {
-
-      final DeliverableBean ejbProxy = this.sessionContext.getBusinessObject(DeliverableBean.class);
-
-      return new Converter()
-      {
-
-         @Override
-         public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
-         {
-
-            return ejbProxy.findById(Long.valueOf(value));
-         }
-
-         @Override
-         public String getAsString(FacesContext context,
-               UIComponent component, Object value)
-         {
-
-            if (value == null)
-            {
-               return "";
+                return ejbProxy.findById(Long.valueOf(value));
             }
 
-            return String.valueOf(((Deliverable) value).getId());
-         }
-      };
-   }
+            @Override
+            public String getAsString(FacesContext context,
+                    UIComponent component, Object value) {
 
-   /*
-    * Support adding children to bidirectional, one-to-many tables
-    */
+                if (value == null) {
+                    return "";
+                }
 
-   private Deliverable add = new Deliverable();
+                return String.valueOf(((Deliverable) value).getId());
+            }
+        };
+    }
 
-   public Deliverable getAdd()
-   {
-      return this.add;
-   }
+    /*
+     * Support adding children to bidirectional, one-to-many tables
+     */
+    private Deliverable add = new Deliverable();
 
-   public Deliverable getAdded()
-   {
-      Deliverable added = this.add;
-      this.add = new Deliverable();
-      return added;
-   }
+    public Deliverable getAdd() {
+        return this.add;
+    }
+
+    public Deliverable getAdded() {
+        Deliverable added = this.add;
+        this.add = new Deliverable();
+        return added;
+    }
 }

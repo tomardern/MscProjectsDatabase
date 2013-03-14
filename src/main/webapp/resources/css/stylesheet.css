@@ -74,8 +74,8 @@ td { vertical-align: top; }
 .clearfix { *zoom: 1; clear:both; }
 
 ul, li {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 h1,h2,h3,h4,h5,p {margin: 0px;padding:0px;font-weight: normal;}
 
@@ -119,8 +119,8 @@ Buttons
 }
 
 .button.delete {
-   background: #F52D2D;
-   border-color: #BE0D0D;
+    background: #F52D2D;
+    border-color: #BE0D0D;
 }
 .button.delete:hover {
     background: #CA1D1D;
@@ -208,8 +208,8 @@ h3.i-neworganisation {background-position: 0px -265px}
 
 /* Login Boxs ---- */
 .header .login {
-   width: 260px;
-   float: right;
+    width: 260px;
+    float: right;
 }
 
 /* ----------------------------
@@ -225,7 +225,7 @@ Breadcrumb
     border: 1px solid #DFDFDF;
     padding: 2px 5px;
     font-size: 13px;
-     color: #D3D3D3;
+    color: #D3D3D3;
 }
 
 /* Current/Active (.current)s ---- */
@@ -394,11 +394,11 @@ Create Deliverables
 .deliverables .deadlines,
 .deliverables .input input,
 .deliverables .input {
-   width: 100px;
+    width: 100px;
 }
 .deliverables .inputs input { width: 135px;}
 .deliverables .input-details input {width: 580px;}
-                               
+
 
 
 
@@ -410,9 +410,9 @@ Homepage
     padding-top: 10px;
 }
 .home  h2 {
-   text-align: center;
-   font-size: 38px;
-   margin-bottom: 50px;
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 50px;
 }
 .home .projects {
     width: 399px;
@@ -430,7 +430,7 @@ Homepage
 /* ----------------------------
 Projects Side
 ----------------------------*/
- .home .projects h3 a {
+.home .projects h3 a {
     background: #F5F5F5 url("../img/search.png") no-repeat 10px 50%;
     color: #505050;
     border-color: #A7A7A7;
@@ -443,8 +443,8 @@ Projects Side
 .home .projects .data-table .projectname {display: block; font-size:16px;}
 .home .projects .data-table .orgname {display:block; font-size: 13px; color: #727272;}
 .home .projects .posted {line-height: 40px;
-font-size: 11px;
-text-align: right;}
+                         font-size: 11px;
+                         text-align: right;}
 
 .home .projects .data-table a:hover .projectname {
     color: #5100B8;
@@ -568,18 +568,18 @@ Organisation Info Side
     padding-left: 20px;
     background: #F7F7F7;
     padding: 20px 10px 20px;
- }
- 
- .project-organisation h4 {
-     margin-bottom: 15px;
+}
+
+.project-organisation h4 {
+    margin-bottom: 15px;
     font-size: 18px;
- }
- .project-organisation p {
+}
+.project-organisation p {
     font-size: 14px;
     line-height: 22px;
     margin-bottom: 30px; 
- }
- .project-organisation a {}
+}
+.project-organisation a {}
 
 
 /* ----------------------------
@@ -682,15 +682,15 @@ Search Results
     width: 599px;
     border-left: 1px solid #D1D1D1;
     padding-left: 10px;
- }
- 
+}
+
 .results span span {
     font-size: 12px;
 }
 
 .results .posted {line-height: 40px;
-font-size: 11px;
-text-align: right;}
+                  font-size: 11px;
+                  text-align: right;}
 
 .results td a {
     cursor: pointer;

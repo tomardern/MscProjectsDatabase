@@ -23,15 +23,13 @@
                 </div>
 
                 <div class="login">
-                   
+
                     <h:form>
                         <h:link class="button login-button" outcome="/organisation/login?login=invalid" value="Login" />  
                         <h:inputText styleClass="username" id="organisationBeanOrganisationUsername" required="true"  />
                         <h:inputSecret styleClass="password"  id="organisationBeanOrganisationPassword"  />
                     </h:form>
-                    
-                    
-                    
+
                 </div>
 
             </div>
@@ -39,45 +37,17 @@
             <div class="content">
 
                 <ui:insert name="breadcrumb">
-                    
+
                     <!-- Breadcrumb here -->
                 </ui:insert>
 
 
 
-                <h1>
-                    <ui:insert name="header" ></ui:insert>
-                </h1>
-
-               
-                    <ui:insert name="main" >Default Body</ui:insert>
+                <h1><ui:insert name="header" ></ui:insert></h1>
                 
+                <ui:insert name="main" >Default Body</ui:insert>
             </div>
         </div>
-
-
-
-
-           <!-- <div id="navigation">
-                <h:link id="homeLink" outcome="/index.xhtml">
-                    <img src="#{resource['forge-logo.png']}" alt="Forge... get hammered" border="0" />
-                </h:link>
-                <ul>
-                    <li>
-                        <h:link outcome="/deliverable/search" value="Deliverable"/>
-                    </li>
-                    <li>
-                        <h:link outcome="/organisation/search" value="Organisation"/>
-                    </li>
-                    <li>
-                        <h:link outcome="/project/search" value="Project"/>
-                    </li>
-                </ul>
-            </div> -->
-
-      
-        
-        
 
 
     </h:body>
