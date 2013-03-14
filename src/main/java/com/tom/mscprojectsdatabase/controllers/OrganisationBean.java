@@ -90,9 +90,7 @@ public class OrganisationBean implements Serializable {
         return this.entityManager.find(Organisation.class, id);
     }
 
-    /*
-     * Support updating and deleting Organisation entities
-     */
+
     public String update() {
         this.conversation.end();
 
@@ -117,10 +115,7 @@ public class OrganisationBean implements Serializable {
     }
 
 
-    /*
-     * Support listing and POSTing back Organisation entities (e.g. from inside an
-     * HtmlSelectOneMenu)
-     */
+
     public List<Organisation> getAll() {
 
         CriteriaQuery<Organisation> criteria = this.entityManager
@@ -155,16 +150,12 @@ public class OrganisationBean implements Serializable {
         };
     } 
 
-    /**
-     * @return the userOrganisation
-     */
+
     public Organisation getUserOrganisation() {
         return userOrganisation;
     }
 
-    /**
-     * @param userOrganisation the userOrganisation to set
-     */
+
     public void setUserOrganisation(Organisation userOrganisation) {
         this.userOrganisation = userOrganisation;
     }

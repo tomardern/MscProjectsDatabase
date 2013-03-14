@@ -34,12 +34,9 @@ public class ProjectBean implements Serializable {
     private OrganisationBean organisationBean;
     private static final long serialVersionUID = 1L;
 
-    /*
-     * Support creating and retrieving Project entities
-     */
+
     private Long orgid;
     private Long id;
-
     private int page;
     private long count;
     private List<Project> pageItems;
@@ -172,7 +169,6 @@ public class ProjectBean implements Serializable {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
         // Populate this.count
-
         CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
         Root<Project> root = countCriteria.from(Project.class);
         countCriteria = countCriteria.select(builder.count(root)).where(
@@ -181,15 +177,12 @@ public class ProjectBean implements Serializable {
                 .getSingleResult();
 
         // Populate this.pageItems
-
         CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
         root = criteria.from(Project.class);
         TypedQuery<Project> query = this.entityManager.createQuery(
                 criteria.select(root).where(getSearchPredicates(root)).orderBy(builder.desc(root.get(Project_.id))));
 
         query.setFirstResult(this.page * resultSize).setMaxResults(resultSize);
-
-
 
         this.pageItems = query.getResultList();
     }
@@ -216,15 +209,9 @@ public class ProjectBean implements Serializable {
         }
         Organisation organisation = this.example.getOrganisation();
 
-
-
-
         if (organisation != null) {
             predicatesList.add(builder.equal(root.get("organisation"), organisation));
         }
-
-
-
 
         return predicatesList.toArray(new Predicate[predicatesList.size()]);
     }
@@ -238,19 +225,11 @@ public class ProjectBean implements Serializable {
     }
 
 
-
-
- 
-    /**
-     * @return the orgid
-     */
     public Long getOrgid() {
         return orgid;
     }
 
-    /**
-     * @param orgid the orgid to set
-     */
+
     public void setOrgid(Long orgid) {
         this.orgid = orgid;
     }
