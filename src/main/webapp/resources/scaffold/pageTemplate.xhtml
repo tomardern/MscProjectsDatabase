@@ -25,7 +25,7 @@
                 <div class="login">
                    
                     <h:form>
-                        <h:link class="button login-button" outcome="/organisation/login" value="Login" />  
+                        <h:link class="button login-button" outcome="/organisation/login?login=invalid" value="Login" />  
                         <h:inputText styleClass="username" id="organisationBeanOrganisationUsername" required="true"  />
                         <h:inputSecret styleClass="password"  id="organisationBeanOrganisationPassword"  />
                     </h:form>
@@ -39,6 +39,7 @@
             <div class="content">
 
                 <ui:insert name="breadcrumb">
+                    
                     <!-- Breadcrumb here -->
                 </ui:insert>
 

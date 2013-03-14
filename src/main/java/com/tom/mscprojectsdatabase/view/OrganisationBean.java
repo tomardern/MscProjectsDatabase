@@ -49,6 +49,11 @@ public class OrganisationBean implements Serializable
     * Support creating and retrieving Organisation entities
     */
 
+   
+   private Organisation userOrganisation;
+   
+   
+   
    private Long id;
 
    public Long getId()
@@ -104,6 +109,19 @@ public class OrganisationBean implements Serializable
       }
    }
 
+   
+   
+   public String startLogin(){
+       
+       
+       Organisation orgID = this.getUserOrganisation();
+       
+       
+       return "panel?faces-redirect=true&id=" + orgID.getId();
+       
+   }
+   
+   
    public Organisation findById(Long id)
    {
 
@@ -338,4 +356,18 @@ public class OrganisationBean implements Serializable
       this.add = new Organisation();
       return added;
    }
+
+    /**
+     * @return the userOrganisation
+     */
+    public Organisation getUserOrganisation() {
+        return userOrganisation;
+    }
+
+    /**
+     * @param userOrganisation the userOrganisation to set
+     */
+    public void setUserOrganisation(Organisation userOrganisation) {
+        this.userOrganisation = userOrganisation;
+    }
 }

@@ -204,6 +204,7 @@ h3.i-project {background-position: 0px -89px;}
 h3.i-deliverable {background-position: 0px -117px;}
 h3.i-search {background-position: 0px -148px;}
 h3.i-idea {background-position: 0px -178px;}
+h3.i-neworganisation {background-position: 0px -265px}
 
 /* Login Boxs ---- */
 .header .login {
@@ -364,6 +365,11 @@ body .message.warning {
     background: #FFEFC5;
     border-color: #BE8201;
     color: #B86E00;
+}
+.message.global {
+    text-align: center;
+    padding: 5px 3px;
+    margin-bottom: 20px;
 }
 
 
@@ -688,20 +694,25 @@ text-align: right;}
 Login Choices
 -----------------------------------------------------*/
 .login-choice .login-form {
-    width: 400px;
-    margin-right: 20px;
+    width: 330px;
+    margin-right: 115px;
     float: left;
+    border: 1px solid #E7E7E7;
+    padding: 10px;
 }
 .login-choice .register-form {
-    width: 400px;
+    width: 330px;
     float: left;
+    border: 1px solid #E7E7E7;
+    padding: 10px;
 }
 
 .login-choice .login-form label {
     width: 100px
 }
+.login-choice .login-form select,
 .login-choice .login-form input {
-    width: 265px
+    width: 200px
 }
 
 .login-choice .login-form a {
@@ -710,7 +721,7 @@ Login Choices
 }
 
 .login-choice .register-form p {
-    margin: 10px 10px 60px;
+    margin: 10px 10px 40px;
 }
 .login-choice .register-form a {
     float: right;

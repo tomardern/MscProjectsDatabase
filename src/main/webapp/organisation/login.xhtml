@@ -14,32 +14,39 @@
     </f:metadata>
 
     <ui:param name="pageTitle" value="Login"/>
+    
+    <ui:define name="breadcrumb" >
+        <h:outputText styleClass="message global" value="Login incorrect. Please try again or register a organisation"  rendered="#{param.login == 'invalid'}" />   
+        <h:message for="projectBeanExampleOrganisation" styleClass="error message global" />
+        <h:message for="organisationBeanOrganisationPassword" styleClass="error message global" />
+    </ui:define>  
 
     <ui:define name="header">Login</ui:define>
 
 
     <ui:define name="main">
-        <h:form styleClass="auto login-choice" id="create">
+        <h:form styleClass="auto login-choice" id="login">
             <h:messages globalOnly="true" styleClass="error"/>
 
             <div class="login-form">
                 <h3 class="i-user">Registered Organisation</h3>
-                <h:panelGrid columnClasses="label,component,messages" columns="3">
+                <h:panelGrid columnClasses="label,component,messages" columns="2">
 
-                    <h:outputLabel for="organisationBeanOrganisationUsername" value="Username:"/>
-                    <h:inputText id="organisationBeanOrganisationUsername" required="true" value="#{organisationBean.organisation.username}"  requiredMessage="Organisation Name Required" />
-                    <h:message for="organisationBeanOrganisationUsername" styleClass="error" />
-
+                    <h:outputLabel for="projectBeanExampleOrganisation" value="Organisation:"/>
+                    <h:selectOneMenu converter="#{organisationBean.converter}" id="projectBeanExampleOrganisation" value="#{organisationBean.userOrganisation}">
+                        <f:selectItem/>
+                        <f:selectItems value="#{organisationBean.all}"/>
+                    </h:selectOneMenu>
+                     <h:message for="projectBeanExampleOrganisation" styleClass="error" />
 
                     <h:outputLabel for="organisationBeanOrganisationPassword" value="Password:"  />
                     <h:inputSecret  id="organisationBeanOrganisationPassword" required="true" value="#{organisationBean.organisation.password}" requiredMessage="Password Required" />
-                    <h:message for="organisationBeanOrganisationPassword" styleClass="error"/>
                 </h:panelGrid>
-                <h:link class="button submit-idea" outcome="/organisation/login?mode=registration" value="Login &raquo;"/>    
+                <h:commandLink action="#{organisationBean.startLogin}" styleClass="button submit-idea"  value="Login &raquo;"/>
             </div>
 
               <div class="register-form">
-                <h3 class="i-user">New Organisation</h3>
+                <h3 class="i-neworganisation">New Organisation</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec lectus a orci ornare viverra.</p>
                     <h:link class="button submit-idea" outcome="/organisation/create" value="Create Organisation &raquo;"/>     
             </div>          
