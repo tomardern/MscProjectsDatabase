@@ -20,7 +20,8 @@ $(document).ready(function(){
     $(".date").attr("type","date").val(new Date().toJSON().substring(0,10));
     
 
-    
+    //Remove stuff we don't need
+   $(".project-table .project").filter(":not(.organisation_" + window.organisation_id + ")").parents("tr").remove();
     
     
     

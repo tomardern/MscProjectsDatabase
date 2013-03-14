@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -41,7 +39,7 @@ public class ProjectBean implements Serializable {
      */
     private Long orgid;
     private Long id;
-    private Project add = new Project();
+
     private int page;
     private long count;
     private List<Project> pageItems;
