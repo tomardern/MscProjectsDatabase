@@ -455,6 +455,16 @@ Organisations Side
     background: #0E8A0E;
 }
 
+.project-table .title,
+#projectBeanPageItems .title {
+    width: 80px;
+}
+.project-table .awaiting {
+    color: red;
+}
+
+
+
 /* --------------------------------------------------
 View Project
 -----------------------------------------------------*/

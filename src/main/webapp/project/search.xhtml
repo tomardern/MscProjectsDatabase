@@ -46,17 +46,20 @@
 
             <div class="results">
                 <h3 class="i-project"><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects Found</h3>
-                <h:dataTable id="projectBeanPageItems" rowClasses="even, odd" columnClasses="deadline, title"  styleClass="data-table" value="#{projectBean.pageItems}" var="_item">
+                <h:dataTable id="projectBeanPageItems" rowClasses="even, odd" columnClasses="deadline, title"  styleClass="data-table project-table" value="#{projectBean.pageItems}" var="_item">
                     <h:column>
                         <h:link outcome="/project/view">
                             <f:param name="id" value="#{_item.id}"/>
                             <h4><h:outputText  id="itemName" value="#{_item.name}"/></h4>
-                            <span><h:outputText id="itemOrganisation" value="#{_item.organisation.name}" /></span>
-
+                            <span>
+                                <h:outputText id="itemapproved" value="(Awaiting approval) - " class="awaiting" rendered="#{!_item.approved}" />
+                                
+                                
+                                <h:outputText id="itemOrganisation" value="#{_item.organisation.name}" /></span>
                         </h:link>
                     </h:column>
 
-                    <h:column class="posted">
+                    <h:column>
                         <h:outputText styleClass="posted" id="itemDeadline" value="#{_item.deadline}" />
                     </h:column>
                 </h:dataTable>
