@@ -85,9 +85,7 @@ public class ProjectBean implements Serializable {
     }
 
     public String finish() {
-
         return "/organisation/panel?faces-redirect=true&registration=complete&id=" + this.project.getOrganisation().getId();
-
     }
 
     public void retrieve() {
