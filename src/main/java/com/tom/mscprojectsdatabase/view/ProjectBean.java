@@ -136,26 +136,17 @@ public class ProjectBean implements Serializable {
     /*
      * Support updating and deleting Project entities
      */
-    public String createProject() {
-        //this.conversation.end();
-
-        try {
-            this.entityManager.persist(this.project);
-            return "created";
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-            return null;
-        }
-    }
-
-    /*
-     * Support updating and deleting Project entities
-     */
     public String update() {
         //this.conversation.end();
 
         try {
+            
+           //Any updates to the project are not approved.
+           this.project.setApproved(false);
+                
             if (this.id == null) {
+                            
+                
                 
                 if (this.getOrgid() != null) {
                     this.project.setOrganisation(organisationBean.findById(this.getOrgid()));

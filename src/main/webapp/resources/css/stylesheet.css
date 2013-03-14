@@ -309,6 +309,7 @@ Error messages
     text-align: center;
 }
 
+/* Message Types */
 .message .info,
 .content .messages .info,
 .global_messages .info {
@@ -317,6 +318,7 @@ Error messages
     background: #DBF2FF;
 }
 
+.message.warning,
 .message.good {
     background: #F2FDEA;
     color: #0DB806;
@@ -324,6 +326,11 @@ Error messages
     text-align: center;
     padding: 5px 3px;
     margin-bottom: 20px;
+}
+body .message.warning {
+    background: #FFEFC5;
+    border-color: #BE8201;
+    color: #B86E00;
 }
 
 

@@ -16,7 +16,8 @@ $(document).ready(function(){
        }
    });
     
-   $(".date").attr("type","date");
+   //HTML5 Date selector and today's date by default http://stackoverflow.com/questions/6982692/html5-input-type-date-default-value-to-today
+   $(".date").attr("type","date").val(new Date().toJSON().substring(0,10));
     
 
     
