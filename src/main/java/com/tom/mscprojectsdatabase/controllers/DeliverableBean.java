@@ -7,6 +7,10 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 
 
+/**
+ * DeliverableBean Class
+ * @author TOM
+ */
 @Named
 @Stateful
 @ConversationScoped
@@ -16,10 +20,18 @@ public class DeliverableBean implements Serializable {
 
     private Deliverable add = new Deliverable();
 
+    /**
+     * Get the add deliverable. Used as a placeholder when creating new deliverables
+     * @return
+     */
     public Deliverable getAdd() {
         return this.add;
     }
 
+    /**
+     * Get the most recently added deliverable
+     * @return
+     */
     public Deliverable getAdded() {
         Deliverable added = this.add;
         this.add = new Deliverable();

@@ -25,6 +25,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 
+/**
+ *
+ * @author TOM
+ */
 @Named
 @Stateful
 @ConversationScoped
@@ -34,51 +38,79 @@ public class ProjectBean implements Serializable {
     private OrganisationBean organisationBean;
     private static final long serialVersionUID = 1L;
 
-
     private Long orgid;
     private Long id;
     private int page;
     private long count;
     private List<Project> pageItems;
     private Project example = new Project();
-
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     private Project project = new Project();
 
-    public Project getProject() {
-        return this.project;
-    }
     @Inject
     private Conversation conversation;
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
+    
+    /**
+     * Returns the project ID
+     * @return
+     */
+    public Long getId() {
+        return this.id;
+    }
 
+    /**
+     * Sets the project ID
+     * @param id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    /**
+     * Gets this project for forms
+     * @return
+     */
+    public Project getProject() {
+        return this.project;
+    }
+
+
+    /**
+     * Starts the conversation and redirects user to the create page
+     * @return
+     */
     public String create() {
 
         this.conversation.begin();
         return "create?faces-redirect=true";
     }
 
+    /**
+     * Sets the example when starting a create though the general walkthrough
+     */
     public void startCreate() {
         if (this.conversation.isTransient()) {
             this.conversation.begin();
         }
 
         this.project = this.example;
-
     }
 
+    /**
+     * On compeltion of the walkthough, redirect the user to the panel with 
+     * Querystrings required
+     * @return
+     */
     public String finish() {
         return "/organisation/panel?faces-redirect=true&registration=complete&id=" + this.project.getOrganisation().getId();
     }
 
+    /**
+     * Retrieves the requested project, either by creating a new one or by using
+     * the ID as set by the querystring
+     */
     public void retrieve() {
 
         if (FacesContext.getCurrentInstance().isPostback()) {
@@ -96,6 +128,9 @@ public class ProjectBean implements Serializable {
         }
     }
 
+    /**
+     * Retrieve the list of deliverables for this project, then update as necessary
+     */
     public void retrieveDelierable() {
         if (this.conversation.isTransient()) {
             this.conversation.begin();
@@ -111,15 +146,23 @@ public class ProjectBean implements Serializable {
 
     }
 
+    /**
+     * Find a project by a given ID
+     * @param id
+     * @return
+     */
     public Project findById(Long id) {
 
         return this.entityManager.find(Project.class, id);
     }
 
 
+    /**
+     * Update/Create the project and persist
+     * @return
+     */
     public String update() {
       
-
         try {
 
             //Any updates to the project are not approved.
@@ -131,6 +174,7 @@ public class ProjectBean implements Serializable {
                 Date date = new Date();
                 this.project.setAdded(date);
 
+                //If the organisation ID hasn't been set by a querystring
                 if (this.getOrgid() != null) {
                     this.project.setOrganisation(organisationBean.findById(this.getOrgid()));
                 }
@@ -139,6 +183,7 @@ public class ProjectBean implements Serializable {
                 return "deliverables?faces-redirect=true&id=" + this.project.getId();
             } else {
                 this.entityManager.merge(this.project);
+                //If the organisation ID doesn't exist, we are in the walkthough
                 if (this.getOrgid() == null) {
                     return "deliverables?faces-redirect=true&id=" + this.project.getId();
                 } else {
@@ -152,18 +197,33 @@ public class ProjectBean implements Serializable {
     }
 
     
+    /**
+     * Get the example project as used for search pages
+     * @return
+     */
     public Project getExample() {
         return this.example;
     }
 
+    /**
+     * Set the example project for search pages
+     * @param example
+     */
     public void setExample(Project example) {
         this.example = example;
     }
 
+    /**
+     * Carry out the search and reset the page
+     */
     public void search() {
         this.page = 0;
     }
 
+    /**
+     * Paginate and return all the results for the resultSize requested
+     * @param resultSize
+     */
     public void paginate(int resultSize) {
 
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
@@ -186,7 +246,11 @@ public class ProjectBean implements Serializable {
 
         this.pageItems = query.getResultList();
     }
-
+    
+    /**
+     * Predicate the search function (Left from Forge Build)
+     * @param resultSize
+     */
     private Predicate[] getSearchPredicates(Root<Project> root) {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         List<Predicate> predicatesList = new ArrayList<Predicate>();
@@ -216,20 +280,36 @@ public class ProjectBean implements Serializable {
         return predicatesList.toArray(new Predicate[predicatesList.size()]);
     }
 
+    /**
+     * Return the list of projects
+     * @return
+     */
     public List<Project> getPageItems() {
         return this.pageItems;
     }
 
+    /**
+     * Return the total number of projects within the system.
+     * @return
+     */
     public long getCount() {
         return this.count;
     }
 
 
+    /**
+     * Get the organisation ID as set by the querystring
+     * @return
+     */
     public Long getOrgid() {
         return orgid;
     }
 
 
+    /**
+     * Set the organisation ID (Generally set via the querystring)
+     * @param orgid
+     */
     public void setOrgid(Long orgid) {
         this.orgid = orgid;
     }

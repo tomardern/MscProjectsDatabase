@@ -10,6 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Deliverable Entity
+ * @author TOM
+ */
 @Entity
 public class Deliverable implements Serializable
 {
@@ -32,52 +36,76 @@ public class Deliverable implements Serializable
    @ManyToOne
    private Project project;
 
-   public Long getId()
+    /**
+     * Returns the deliverable ID
+     * @return
+     */
+    public Long getId()
    {
       return this.id;
    }
 
-   public void setId(final Long id)
+    /**
+     * Sets the deliverable ID
+     * @param id
+     */
+    public void setId(final Long id)
    {
       this.id = id;
    }
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+  
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
-
-      public String getName()
+     /**
+     * Returns the name set for the deliverable
+     * @return
+     */
+    public String getName()
    {
       return this.name;
    }
 
-   public void setName(final String name)
+    /**
+     * Sets the name of this deliverable
+     * @param name
+     */
+    public void setName(final String name)
    {
       this.name = name;
    }
 
-   public String getDeadline()
+    /**
+     * Gets the deadline
+     * @return
+     */
+    public String getDeadline()
    {
       return this.deadline;
    }
 
-   public void setDeadline(final String deadline)
+    /**
+     * Sets the deadline
+     * @param deadline
+     */
+    public void setDeadline(final String deadline)
    {
       this.deadline = deadline;
    }
 
-   public Project getProject()
+    /**
+     * Gets the project in which this deliverable is set to 
+     * @return
+     */
+    public Project getProject()
    {
       return this.project;
    }
 
-   public void setProject(final Project project)
+    /**
+     * Sets the project for this deliverable
+     * @param project
+     */
+    public void setProject(final Project project)
    {
       this.project = project;
    }

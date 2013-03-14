@@ -11,7 +11,13 @@ import java.util.List;
 public final class ViewUtils
 {
 
-   public static <T> List<T> asList(Collection<T> collection)
+    /**
+     * Converts a collection into a list
+     * @param <T>
+     * @param collection
+     * @return
+     */
+    public static <T> List<T> asList(Collection<T> collection)
    {
 
       if (collection == null)

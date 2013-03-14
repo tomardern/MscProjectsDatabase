@@ -20,6 +20,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaQuery;
 
+/**
+ *
+ * @author TOM
+ */
 @Named
 @Stateful
 @ConversationScoped
@@ -39,31 +43,39 @@ public class OrganisationBean implements Serializable {
     @Resource
     private SessionContext sessionContext;
        
+    private Organisation organisation;
     
-    
-    
-    
+        
 
+    /**
+     * Returns the unique ID of this organisation
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     * Sets the unique ID of this organisation
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
-    private Organisation organisation;
+    
 
+    /**
+     * Gets the organisation we are about to create/update
+     * @return
+     */
     public Organisation getOrganisation() {
         return this.organisation;
     }
 
-
-    public String create() {
-
-        this.conversation.begin();
-        return "create?faces-redirect=true";
-    }
-
+    /**
+     * Retrieves the organisation, either the example or one found by Id
+     * Id can be set by the view parameter ?id=
+     */
     public void retrieve() {
 
         if (FacesContext.getCurrentInstance().isPostback()) {
@@ -81,16 +93,30 @@ public class OrganisationBean implements Serializable {
         }
     }
 
+    /**
+     * Start the login procedure
+     * Currently, this just a placeholder, for a when full login is developed
+     * @return
+     */
     public String startLogin() {
         Organisation orgID = this.getUserOrganisation();
         return "panel?faces-redirect=true&id=" + orgID.getId();
     }
 
+    /**
+     * Find an organisation given an ID
+     * @param id
+     * @return
+     */
     public Organisation findById(Long id) {
         return this.entityManager.find(Organisation.class, id);
     }
 
 
+    /**
+     * Update/Create and persist the organisation
+     * @return
+     */
     public String update() {
         this.conversation.end();
 
@@ -110,12 +136,12 @@ public class OrganisationBean implements Serializable {
         }
     }
 
-    public String newProject() {
-        return "/project/create";
-    }
 
 
-
+    /**
+     * Get all the organisations within the system
+     * @return
+     */
     public List<Organisation> getAll() {
 
         CriteriaQuery<Organisation> criteria = this.entityManager
@@ -125,7 +151,11 @@ public class OrganisationBean implements Serializable {
     }
 
 
-     public Converter getConverter() {
+     /**
+     * Converter for organisation, converts from string to object as required.
+     * @return
+     */
+    public Converter getConverter() {
 
         final OrganisationBean ejbProxy = this.sessionContext.getBusinessObject(OrganisationBean.class);
 
@@ -151,11 +181,19 @@ public class OrganisationBean implements Serializable {
     } 
 
 
+    /**
+     * Get the User's Organisation. Currently used for login stub
+     * @return
+     */
     public Organisation getUserOrganisation() {
         return userOrganisation;
     }
 
 
+    /**
+     * Sets the User's organisation. Currently used for login stub
+     * @param userOrganisation
+     */
     public void setUserOrganisation(Organisation userOrganisation) {
         this.userOrganisation = userOrganisation;
     }
