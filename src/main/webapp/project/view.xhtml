@@ -19,6 +19,7 @@
     </ui:define>
 
     <ui:define name="breadcrumb">
+        <h:outputText styleClass="message warning" value="This project has not been approved yet."   rendered="#{!projectBean.project.approved}" />  
         <div class="breadcrumb-buttons project">
             <h:link outcome="/project/search" value="&laquo; Back to Search" styleClass="button back" />
             <h:link outcome="/projects/search" value="Interested/Nominate" styleClass="button nominate"  rendered="#{projectBean.project.approved}"/>
@@ -27,9 +28,6 @@
 
 
 
-    <ui:define name="breadcrumb" >
-        <h:outputText styleClass="message warning" value="This project has not been approved yet."   rendered="#{!projectBean.project.approved}" />    
-    </ui:define> 
 
     <ui:define name="footer"/>
 

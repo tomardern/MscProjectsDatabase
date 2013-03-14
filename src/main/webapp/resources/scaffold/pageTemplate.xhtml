@@ -23,7 +23,15 @@
                 </div>
 
                 <div class="login">
-                    Login/Control Here
+                   
+                    <h:form>
+                        <h:link class="button login-button" outcome="/organisation/login" value="Login" />  
+                        <h:inputText styleClass="username" id="organisationBeanOrganisationUsername" required="true"  />
+                        <h:inputSecret styleClass="password"  id="organisationBeanOrganisationPassword"  />
+                    </h:form>
+                    
+                    
+                    
                 </div>
 
             </div>
