@@ -264,10 +264,15 @@ public class ProjectBean implements Serializable {
             predicatesList.add(builder.like(root.<String>get("notes"), '%' + notes + '%'));
         }
         Organisation organisation = this.example.getOrganisation();
+        
+        
+        
+        
         if (organisation != null) {
             predicatesList.add(builder.equal(root.get("organisation"), organisation));
         }
      
+        
         
         
         return predicatesList.toArray(new Predicate[predicatesList.size()]);
