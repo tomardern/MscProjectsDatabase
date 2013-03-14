@@ -65,31 +65,6 @@ public class Project implements Serializable {
         this.version = version;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        if (id != null) {
-            return id.equals(((Project) that).id);
-        }
-        return super.equals(that);
-    }
-
-    @Override
-    public int hashCode() {
-        if (id != null) {
-            return id.hashCode();
-        }
-        return super.hashCode();
-    }
-
     public String getName() {
         return this.name;
     }
@@ -144,25 +119,6 @@ public class Project implements Serializable {
 
     public void setNotes(final String notes) {
         this.notes = notes;
-    }
-
-    @Override
-    public String toString() {
-        String result = getClass().getSimpleName() + " ";
-        if (name != null && !name.trim().isEmpty()) {
-            result += "name: " + name;
-        }
-        if (question != null && !question.trim().isEmpty()) {
-            result += ", question: " + question;
-        }
-        if (description != null && !description.trim().isEmpty()) {
-            result += ", description: " + description;
-        }
-        result += ", approved: " + approved;
-        if (notes != null && !notes.trim().isEmpty()) {
-            result += ", notes: " + notes;
-        }
-        return result;
     }
 
     public Set<Deliverable> getDeliverables() {

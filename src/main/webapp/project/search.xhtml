@@ -7,7 +7,6 @@
                 template="/resources/templates/standard.xhtml">
 
     <f:metadata>
-        <f:viewParam name="page" value="#{projectBean.page}"/>
         <f:event type="preRenderView" listener="#{projectBean.paginate(10000)}"/>
     </f:metadata>
 
