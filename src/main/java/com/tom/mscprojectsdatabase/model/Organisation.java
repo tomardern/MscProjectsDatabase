@@ -1,24 +1,29 @@
 package com.tom.mscprojectsdatabase.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Set;
-import java.util.HashSet;
-import com.tom.mscprojectsdatabase.model.Project;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
+
+//http://stackoverflow.com/questions/3404853/multiple-unique-constraints-in-jpa
+
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="username"))
 public class Organisation implements Serializable
 {
 
@@ -34,7 +39,7 @@ public class Organisation implements Serializable
    @NotNull
    private String name;
 
-   @Column
+   @Column(unique = true)
    @NotNull
    private String username;
 

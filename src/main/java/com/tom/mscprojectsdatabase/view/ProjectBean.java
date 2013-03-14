@@ -268,7 +268,9 @@ public class ProjectBean implements Serializable {
         if (organisation != null) {
             predicatesList.add(builder.equal(root.get("organisation"), organisation));
         }
-
+     
+        
+        
         return predicatesList.toArray(new Predicate[predicatesList.size()]);
     }
 

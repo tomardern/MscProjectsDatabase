@@ -536,15 +536,15 @@ Deadlines & Deliverables
 }
 
 
-.data-table.deliverables .details {
+#projectBeanProjectDeliverables .details {
     width: 85px;
 }
-.data-table.deliverables .deadlines span {
-    line-height: 16px;
-    font-size: 12px;
+#projectBeanProjectDeliverables .details span {
+    font-size: 13px;
+    line-height: 24px;
 }
 
-.data-table.deliverables .posted span {
+#projectBeanProjectDeliverables .posted span {
     font-size: 16px;
 }
 
@@ -594,8 +594,6 @@ Search Area
 .search {
     float: left;
     width: 200px;
-    padding-right: 10px;
-    border-right: 1px solid #D1D1D1;
     margin-right: 10px;
 }
 
@@ -614,7 +612,8 @@ Search Area
     display: block;
     text-align: center;
 }
-
+#search .search input[type='checkbox'] {width: 25px; float: left;}
+#search .search .small {margin-bottom: 20px;}
 
 
 
@@ -624,6 +623,8 @@ Search Results
 .results {
     float: left;
     width: 599px;
+    border-left: 1px solid #D1D1D1;
+    padding-left: 10px;
  }
  
 .results span span {

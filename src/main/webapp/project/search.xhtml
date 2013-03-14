@@ -23,7 +23,7 @@
             <f:validateBean disabled="true">
                 <div class="search">
 
-                    <h3 class="i-search">Search Filters</h3>
+                    <h3 class="i-search">Filters</h3>
                     <h:outputLabel for="projectBeanExampleName" value="Name:"/>
                     <h:inputText id="projectBeanExampleName" value="#{projectBean.example.name}"/>
 
@@ -38,29 +38,32 @@
                         <f:selectItem/>
                         <f:selectItems value="#{organisationBean.all}"/>
                     </h:selectOneMenu>
-
+                   
 
                     <h:commandLink value="Search" action="#{projectBean.search}" styleClass="button"/>
                 </div>
             </f:validateBean>
 
-            <h:dataTable id="projectBeanPageItems" rowClasses="even, odd" columnClasses="deadline, title"  styleClass="data-table results" value="#{projectBean.pageItems}" var="_item">
-                <h:column>
-                    <h:link outcome="/project/view">
-                        <f:param name="id" value="#{_item.id}"/>
-                        <h4><h:outputText  id="itemName" value="#{_item.name}"/></h4>
-                        <span><h:outputText id="itemOrganisation" value="#{_item.organisation.name}" /></span>
-                        
-                    </h:link>
-                </h:column>
-                
+            <div class="results">
+                <h3 class="i-project"><h:outputText id="total" value="#{projectBean.getCount()}" /> Projects Found</h3>
+                <h:dataTable id="projectBeanPageItems" rowClasses="even, odd" columnClasses="deadline, title"  styleClass="data-table" value="#{projectBean.pageItems}" var="_item">
+                    <h:column>
+                        <h:link outcome="/project/view">
+                            <f:param name="id" value="#{_item.id}"/>
+                            <h4><h:outputText  id="itemName" value="#{_item.name}"/></h4>
+                            <span><h:outputText id="itemOrganisation" value="#{_item.organisation.name}" /></span>
+
+                        </h:link>
+                    </h:column>
+
                     <h:column class="posted">
                         <h:outputText styleClass="posted" id="itemDeadline" value="#{_item.deadline}" />
                     </h:column>
-            </h:dataTable>
-            
-            
-            
+                </h:dataTable>
+            </div>
+
+
+
 
         </h:form>
 
