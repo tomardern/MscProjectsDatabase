@@ -43,10 +43,6 @@
                 </span>
             </div>
 
-            <!--    <strong>Keywords:</strong>
-               <span><h:outputText id="projectBeanProjectKeywords" value="#projectBean.project.keywords}"/></span> -->
-
-
 
 
             <p><h:outputText id="projectBeanProjectDescription" value="#{projectBean.project.description}"/></p>
@@ -57,14 +53,9 @@
         <div class="project-organisation">
 
             <h4><h:outputText value="#{projectBean.project.organisation.orgname}"/></h4>
-            <!-- <a><h:outputText value="#{projectBean.project.organisation.website}" /></a> -->
 
             <p><h:outputText value="#{projectBean.project.organisation.drescription}"/></p>
-
-            <h5><h:link outcome="/organisation/view" styleClass="other-projects">
-                    <f:param name="id" value="#{projectBean.project.organisation.id}"/>
-                    <h:outputText id="itemAddress" value="More Organiation's Projects"/>
-                </h:link></h5>         
+    
 
 
         </div>
