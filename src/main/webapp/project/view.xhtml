@@ -22,7 +22,13 @@
         <h:outputText styleClass="message warning" value="This project has not been approved yet."   rendered="#{!projectBean.project.approved}" />  
         <div class="breadcrumb-buttons project">
             <h:link outcome="/project/search" value="&laquo; Back to Search" styleClass="button back" />
-            <h:link outcome="/projects/search" value="Interested/Nominate" styleClass="button nominate"  rendered="#{projectBean.project.approved}"/>
+            <h:panelGroup layout="block" rendered="#{projectBean.project.approved}">
+                <a href="mailto:info@example.com?subject=I'm interesed in ##{projectBean.project.id} - #{projectBean.project.name}" class="button nominate">
+                    I'm interested
+                </a>                
+                 </h:panelGroup>
+            
+
         </div>
     </ui:define> 
 
